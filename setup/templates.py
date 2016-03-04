@@ -71,7 +71,7 @@ class Rockstar(Template):
         if snap:
             fp.write('FILENAME="snapdir_<snap>/snapshot_<snap>.<block>"\n')
         else:
-            fp.write('FILENAME="lightcone/lightcone_<snap>/snapshot_Lightcone_<snap>.<block>"\n')
+            fp.write('FILENAME="lightcone/lightcone<snap>/snapshot_Lightcone_<snap>.<block>"\n')
         fp.write('NUM_BLOCKS = %d\n' % nb)
         fp.write('FORCE_RES = %f\n' % soft)
         fp.write('NUM_SNAPS = %d\n' % ns)
