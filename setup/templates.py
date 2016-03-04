@@ -45,7 +45,7 @@ class Template(object):
     def readJobTemplateFile(self):
 
         templatefile = os.path.join('systems', self.sysname,'%s.%s' % 
-                                    (self.__class__.__name__, self.sysparams['sched']))
+                                    (self.__class__.__name__, self.sysparams['Sched']))
         
         with open(templatefile, 'r') as fp:
             jobtemp = fp.readlines()
@@ -86,13 +86,13 @@ class Rockstar(Template):
         fp.write('#halo finding\n')
         fp.write('STRICT_SO_MASSES = 1\n')
         fp.write('TEMPORAL_HALO_FINDING = 0\n')
-        fp.write('MASS_DEFINITION = "%sb"\n' % mfdef)
+        fp.write('MASS_DEFINITION = "%s"\n' % mfdef)
         fp.write('GADGET_SKIP_NON_HALO_PARTICLES = 1\n')
         fp.write('BOUND_PROPS = 1\n')
         if not snap:
-            fp.write("LIGHTCONE = 1")
-            fp.write("LIGHTCONE_ORIGIN = (0, 0, 0)")
-            fp.write("LIGHTCONE_ALT_ORIGIN = (0, 0, 0)")
+            fp.write("LIGHTCONE = 1\n")
+            fp.write("LIGHTCONE_ORIGIN = (0, 0, 0)\n")
+            fp.write("LIGHTCONE_ALT_ORIGIN = (0, 0, 0)\n")
             
         fp.write('W0 = %0.20g\n' % w0)
         fp.write('WA = %0.20g\n' % wa)
@@ -114,23 +114,25 @@ class Rockstar(Template):
     def write_jobscript(self, opath, boxl):
         
         pars = {}
-        pars['simname'] = self.cosmoparams['Simname']
-        pars['boxl'] = boxl
-        pars['opath'] = opath
-        pars['ncores'] = self.cosmoparams['ncores_rock']
-        pars['simnum'] = self.simnum
-        pars['repo'] = self.sysparams['repo']
-        pars['config'] = 'rockstar_Lb{0}'.format(boxl)
-        pars['email'] = self.sysparams['email']
-        pars['execpath'] = os.path.join(self.sysparams['execpath'],self.__class__.__name__)
+        pars['SimName'] = self.cosmoparams['SimName']
+        pars['BoxL'] = boxl
+        pars['OPath'] = opath
+        pars['NCores'] = self.cosmoparams['ncores_rock']
+        pars['NNodes'] = (pars['NCores'] + self.sysparams['CoresPerNode'] - 1 )/self.sysparams['CoresPerNode']
+        pars['SimNum'] = self.simnum
+        pars['Repo'] = self.sysparams['Repo']
+        pars['Config'] = 'rockstar_Lb{0}.cfg'.format(boxl)
+        pars['Email'] = self.sysparams['Email']
+        pars['ExecDir'] = os.path.join(self.sysparams['ExecDir'],self.__class__.__name__)
         
-        jobscript = self.jobtemp.format(pars)
-        jobbase = os.path.join(self.sysparams['jobbase'], 
-                               '{0}-{1}'.format(pars['simname']),
+        jobscript = self.jobtemp.format(**pars)
+        jobbase = os.path.join(self.sysparams['JobBase'], 
+                               '{0}-{1}'.format(pars['SimName'], pars['SimNum']),
                                'Lb{0}'.format(boxl), self.__class__.__name__)
                                
-        with open('{0}/job.rockstar.{1}'.format(jobbase,self.sysparams['sched']), 'w') as fp:
+        with open('{0}/job.rockstar.{1}'.format(jobbase,self.sysparams['Sched']), 'w') as fp:
             fp.write(jobscript)
+
 
     def setup(self):
         
@@ -145,11 +147,25 @@ class Rockstar(Template):
             soft = self.cosmoparams['Soft'][i]
             nr = 256
             base = os.path.join(self.sysparams['OutputBase'],
-                                 '{0}-{1}'.format(self.cosmoparams['Simname'],
+                                 '{0}-{1}'.format(self.cosmoparams['SimName'],
                                                   self.simnum),
                                  "Lb%s" % bsize, 'output')
+
+            ebase = os.path.join(self.sysparams['JobBase'],
+                                 '{0}-{1}'.format(self.cosmoparams['SimName'],
+                                                  self.simnum),
+                                 "Lb%s" % bsize, self.__class__.__name__)
+            try:
+                os.makedirs(ebase)
+            except:
+                pass
             opath = os.path.join(base, 'halos')
+            try:
+                os.makedirs(opath)
+            except:
+                pass
+
             spath = os.path.join(base, 'lightcone')
 
             self.write_config(opath,spath,ns,nb,soft,nr,bsize)
-            self.write_jobscript(opath, boxl)
+            self.write_jobscript(opath, bsize)

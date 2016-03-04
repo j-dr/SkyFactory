@@ -1,10 +1,11 @@
-JobBase       : '/global/homes/j/jderose/projects/SkyFactory'
+JobBase       : '/global/homes/j/jderose/project/SkyFactory/chinchilla-herd'
 OutputBase    : '/scratch2/scratchdirs/jderose/BCC/Chinchilla/Herd'
-ExecDir       : '/global/homes/j/jderose/projects/SkyFactory/exec'
-email         : 'joe.derose13@gmail.com'
-repo          : 'des'
-sched         : 'sbatch'
+ExecDir       : '/global/homes/j/jderose/project/SkyFactory/exec'
+Email         : 'joe.derose13@gmail.com'
+Repo          : 'des'
+Sched         : 'sbatch'
 TimeLimitHours:  48
 Nio           : 128
 Nodes         : 32
+CoresPerNode  : 24
 TasksPerNode  : 16
