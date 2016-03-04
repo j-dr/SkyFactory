@@ -1,0 +1,26 @@
+Simname : Chinchilla
+OmegaM : 0.286
+OmegaB : 0.047
+OmegaL : 0.714
+ns     : 0.96
+w0     : -1
+wa     : 0.0
+h      : 0.7
+BoxL   :
+- 1050
+- 2600
+- 4000
+Soft   :
+- 0.02
+- 0.035
+- 0.053
+NumBlocks :
+- 512
+- 1024
+- 1024
+NumOctants : 2
+ncores_rock : 256
+
+
+
+

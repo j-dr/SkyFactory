@@ -1,0 +1,10 @@
+JobBase       : '/global/homes/j/jderose/projects/SkyFactory'
+OutputBase    : '/scratch2/scratchdirs/jderose/BCC/Chinchilla/Herd'
+ExecDir       : '/global/homes/j/jderose/projects/SkyFactory/exec'
+email         : 'joe.derose13@gmail.com'
+repo          : 'des'
+sched         : 'sbatch'
+TimeLimitHours:  48
+Nio           : 128
+Nodes         : 32
+TasksPerNode  : 16
