@@ -140,7 +140,7 @@ class Rockstar(Template):
         self.readJobTemplateFile()
         
         for i, bsize in enumerate(self.cosmoparams['BoxL']):
-            ns = '1'
+            ns = 1
             nb = self.cosmoparams['NumBlocks'][i]
             soft = self.cosmoparams['Soft'][i]
             nr = 256
