@@ -1,4 +1,4 @@
-Simname : Chinchilla
+SimName : Chinchilla
 OmegaM : 0.286
 OmegaB : 0.047
 OmegaL : 0.714
@@ -20,7 +20,24 @@ NumBlocks :
 - 1024
 NumOctants : 2
 ncores_rock : 256
+ncores_pixlc : 64
 
+#pixlc parameters
+RMin  :
+  1050  :  0.0
+  2600  :  800.0
+  4000  :  2000.0 
 
+RMax  :
+  1050  :  1500.0
+  2600  :  2300.0
+  4000  :  3750.0
 
+RR0  :
+  1050  :  600.0
+  2600  :  900.0
+  4000  :  1700.0
 
+PixLCNNodes  :  3
+
+#LFileNside  :

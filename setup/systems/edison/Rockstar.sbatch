@@ -1,12 +1,12 @@
 #!/bin/bash
 #SBATCH -p regular
 #SBATCH -t 96:00
-#SBATCH -j {SimName}{SimNum}-rs-Lb{BoxL}
+#SBATCH -J {SimName}{SimNum}-rs-Lb{BoxL}
 #SBATCH -o {SimName}{SimNum}-rs-Lb{BoxL}.%j.oe
 #SBATCH -A {Repo}
 #SBATCH --mail-type=All
 #SBATCH --mail-user  {Email}
-#SBATCH -n {NNodes}
+#SBATCH -N {NNodes}
 #SBATCH --exclusive
 
 exe={ExecDir}/rockstar

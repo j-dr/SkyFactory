@@ -1,5 +1,6 @@
 from __future__ import print_function
 from abc import ABCMeta, abstractmethod
+from glob import glob
 import yaml
 import os
 
@@ -62,7 +63,7 @@ class Rockstar(Template):
 
     def write_config(self,opath,spath,ns,nb,soft,nr,bsize,
                      mfdef='vir', w0=-1.0,wa=0.0,snap=False):
-        fp = open(os.path.join(opath,"rockstar_%s.cfg" % bsize),'w')
+        fp = open(os.path.join(opath,"rockstar_Lb%s.cfg" % bsize),'w')
         fp.write('#rockstar config file\n')
         fp.write('FILE_FORMAT = "LGADGET"\n')
         fp.write('GADGET_LENGTH_CONVERSION = 1\n')
@@ -71,7 +72,7 @@ class Rockstar(Template):
         if snap:
             fp.write('FILENAME="snapdir_<snap>/snapshot_<snap>.<block>"\n')
         else:
-            fp.write('FILENAME="lightcone/lightcone<snap>/snapshot_Lightcone_<snap>.<block>"\n')
+            fp.write('FILENAME="lightcone<snap>/snapshot_Lightcone_<snap>.<block>"\n')
         fp.write('NUM_BLOCKS = %d\n' % nb)
         fp.write('FORCE_RES = %f\n' % soft)
         fp.write('NUM_SNAPS = %d\n' % ns)
@@ -169,3 +170,158 @@ class Rockstar(Template):
 
             self.write_config(opath,spath,ns,nb,soft,nr,bsize)
             self.write_jobscript(opath, bsize)
+
+
+class UnarchiveLightcone(Template):
+
+    def setup(self):
+        
+        self.readSysConfig()
+        self.readCosmoFile()
+        self.readJobTemplateFile()
+        
+        for i, bsize in enumerate(self.cosmoparams['BoxL']):
+
+            base = os.path.join(self.sysparams['OutputBase'],
+                                 '{0}-{1}'.format(self.cosmoparams['SimName'],
+                                                  self.simnum),
+                                 "Lb%s" % bsize, 'output')
+
+            ebase = os.path.join(self.sysparams['JobBase'],
+                                 '{0}-{1}'.format(self.cosmoparams['SimName'],
+                                                  self.simnum),
+                                 "Lb%s" % bsize, self.__class__.__name__)
+            try:
+                os.makedirs(ebase)
+            except:
+                pass
+            opath = os.path.join(base, 'lightcone')
+            try:
+                os.makedirs(opath)
+            except:
+                pass
+
+            self.write_jobscript(opath, bsize)
+    
+
+    def write_jobscript(self, opath, boxl):
+        
+        pars = {}
+        pars['SimName'] = self.cosmoparams['SimName']
+        pars['BoxL'] = boxl
+        pars['OPath'] = opath
+        pars['SimNum'] = self.simnum
+        pars['Email'] = self.sysparams['Email']
+        if self.sysname=='edison':
+            pars['Cluster'] = "esedison"
+
+        elif self.sysname=="cori":
+            pars['Cluster'] = "escori"
+
+        if pars["SimName"] == "Chinchilla":
+            pars['Group'] = "Herd"
+
+        jobscript = self.jobtemp.format(**pars)
+        jobbase = os.path.join(self.sysparams['JobBase'], 
+                               '{0}-{1}'.format(pars['SimName'], pars['SimNum']),
+                               'Lb{0}'.format(boxl), self.__class__.__name__)
+                               
+        with open('{0}/job.unarchive.{1}'.format(jobbase,self.sysparams['Sched']), 'w') as fp:
+            fp.write(jobscript)
+
+
+class PixLC(Template):
+
+    def setup(self):
+        
+        self.readSysConfig()
+        self.readCosmoFile()
+        self.readConfigTemplateFile()
+        self.readJobTemplateFile()
+        
+        for i, bsize in enumerate(self.cosmoparams['BoxL']):
+
+            base = os.path.join(self.sysparams['OutputBase'],
+                                 '{0}-{1}'.format(self.cosmoparams['SimName'],
+                                                  self.simnum),
+                                 "Lb%s" % bsize, 'output')
+
+            ebase = os.path.join(self.sysparams['JobBase'],
+                                 '{0}-{1}'.format(self.cosmoparams['SimName'],
+                                                  self.simnum),
+                                 "Lb%s" % bsize, self.__class__.__name__)
+            try:
+                os.makedirs(ebase)
+            except:
+                pass
+
+            opath = base+'/pixlc'
+            try:
+                os.makedirs(opath)
+            except:
+                pass
+
+            self.write_jobscript(opath, bsize)
+            self.write_config(opath, bsize)
+
+    def write_config(self, opath, boxl):
+
+        for lcnum in ['000', '001']:
+            pars = {}
+            pars['SimName'] = self.cosmoparams['SimName']
+            pars['SimNum'] = self.simnum
+            jobbase = os.path.join(self.sysparams['JobBase'], 
+                                   '{0}-{1}'.format(pars['SimName'], pars['SimNum']),
+                                   'Lb{0}'.format(boxl), self.__class__.__name__)
+            pars['NameFile'] = '{0}/{1}-{2}_Lb{3}_{4}.txt'.format(jobbase, pars['SimName'],
+                                                                  pars['SimNum'], boxl, 
+                                                                  lcnum)
+            pars['RMin'] = self.cosmoparams['RMin'][boxl]
+            pars['RMax'] = self.cosmoparams['RMax'][boxl]
+            pars['LFileNside'] = 1 #self.cosmoparams['LFileNside'][boxl]
+            pars['RR0'] = self.cosmoparams['RR0'][boxl]
+            pars['Prefix'] = '{0}_{1}'.format('snapshot_Lightcone', lcnum)
+            pars['OPath'] = opath
+
+            cfg = self.cfgtemp.format(**pars)
+
+            with open('{0}/pixLC.{1}.cfg'.format(jobbase, lcnum), 'w') as fp:
+                fp.write(cfg)
+
+
+    def write_jobscript(self, opath, boxl):
+        osp = opath.split('/')
+        osp[-1] = 'lightcone/lightcone'
+        lcpath = '/'.join(osp)
+
+        for lcnum in ['000', '001']:
+
+            pars = {}
+            pars['BoxL'] = boxl
+            pars['SimName'] = self.cosmoparams['SimName']
+            pars['SimNum'] = self.simnum
+            pars['Repo'] = self.sysparams['Repo']
+            pars['NCores'] = self.cosmoparams['ncores_pixlc']
+            pars['NNodes'] = (pars['NCores'] + self.sysparams['CoresPerNode'] - 1 )/self.sysparams['CoresPerNode']
+            jobbase = os.path.join(self.sysparams['JobBase'], 
+                                   '{0}-{1}'.format(pars['SimName'], pars['SimNum']),
+                                   'Lb{0}'.format(boxl), self.__class__.__name__)
+            pars['NameFile{0}'.format(lcnum)] = '{0}/{1}-{2}_Lb{3}_{4}.txt'.format(jobbase, pars['SimName'],
+                                                                                   pars['SimNum'], boxl, 
+                                                                                   lcnum)
+            pars['OPath'] = opath
+            pars['Email'] = self.sysparams['Email']
+
+            
+            jobscript = self.jobtemp.format(**pars)
+
+            #write the lightcone files to be read by pixlc
+            lcfiles = glob('{0}{1}/snapshot_Lightcone*'.format(osp, lcnum))
+
+            with open(pars['NameFile{0}'.format(lcnum)], 'w') as fp:
+                fbuff = '/n'.join(lcfiles)
+                fp.write(fbuff)
+
+        with open('{0}/job.pl.{1}'.format(jobbase, self.sysparams['Sched']), 'w') as fp:
+            fp.write(jobscript)
+
