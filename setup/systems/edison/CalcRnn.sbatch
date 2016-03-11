@@ -10,8 +10,6 @@
 #SBATCH --exclusive
 
 cd {OPath}
+ls {LPath} > {NameFile}
 
-for lcnum in '000' '001'
-do
-    srun -n {NCores} pixLC.py pixLC.$lcnum.cfg
-done
+srun -n {NCores} {ExecDir}/calcrnn calcrnn.cfg
