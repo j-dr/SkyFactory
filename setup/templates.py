@@ -338,22 +338,21 @@ class Addgals(Template):
 
     def write_config(self, opath, boxl):
         pars = {}
-        pars['SimType'] = self.cosmoparams['SimType']
+        bopath = '/'.join(opath.split('/')[:-1])
+        bsbase = bopath.split('Lb')
         pars['SimName'] = self.cosmoparams['SimName']
         pars['SimNum'] = self.simnum
+        pars['Halos'] = "'{0}'+boxsize'+'{1}/{2}'".format(bsbase[0]+'Lb',bsbase[1], 'halos/out_0.parents')
+        pars['HaloRnn'] = "'{0}'+boxsize'+'{1}/{2}'".format(bsbase[0]+'Lb',bsbase[1], 'rnn/rnn_out_0.parents')
+        pars['LCDir'] = "'{0}'+boxsize'+'{1}/{2}/'".format(bsbase[0]+'Lb',bsbase[1], 'pixlc')
+        pars['SDir'] = os.path.join(self.sysparams['ExecDir'],self.__class__.__name__)
         jobbase = os.path.join(self.sysparams['JobBase'], 
                                '{0}-{1}'.format(pars['SimName'], pars['SimNum']),
                                'Lb{0}'.format(boxl), self.__class__.__name__)
-        pars['NameFile'] = '{0}/{1}-{2}_Lb{3}.txt'.format(jobbase, pars['SimName'],
-                                                              pars['SimNum'], boxl)
-
-        pars['NCores'] = self.cosmoparams['ncores_rnn']
-        pars['NRnn'] = self.cosmoparams['NRnn'][boxl]
         pars['OPath'] = opath
-        pars['BBoxFile'] = '{0}/bboxindex.txt'
         cfg = self.cfgtemp.format(**pars)
 
-        with open('{0}/calcrnn.cfg'.format(jobbase), 'w') as fp:
+        with open('{0}/setup_addgals.idl'.format(jobbase), 'w') as fp:
             fp.write(cfg)
 
 
