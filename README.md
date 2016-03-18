@@ -25,4 +25,6 @@ Set up and run large suites of mock sky simulations.
           """
   ```
 3. Make sure to import the class from 2 in `templates/__init__.py`
+4. Make sure to write and put your job submission script in `systems/{all systems}/MyTask.{Sched}` 
+  where `{Sched}` is the corresponding parameter in the `{system}.yaml` file.
 4. Make sure to add task to `setup_sky.py` script
