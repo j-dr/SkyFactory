@@ -11,7 +11,4 @@
 
 cd {OPath}
 
-for lcnum in '000' '001'
-do
-    srun -n {NCores} pixLC.py pixLC.$lcnum.cfg
-done
+srun -n {NCores} pixLC.py pixLC.cfg
