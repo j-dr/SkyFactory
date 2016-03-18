@@ -15,6 +15,7 @@ class Addgals(Template):
         bopath = '/'.join(opath.split('/')[:-1])
         bsbase = bopath.split('Lb{0}'.format(boxl))
         adgcfg = self.cosmoparams['Addgals']
+        coscfg = self.cosmoparams['Cosmology']
 
         sn = '{0}-{1}'.format(self.cosmoparams['SimName'], self.simnum)
         jobbase = os.path.join(self.sysparams['JobBase'],
@@ -23,11 +24,10 @@ class Addgals(Template):
 
         with open('{0}/setup_addgals.idl'.format(jobbase), 'w') as fp:
             pf.write("sim_zmin = {0}".format(adgcfg['SimZmin'][boxl]))
-            pf.write("sim_zmax = {0}".format(self.cosmoparams['SimZmax'][boxl]))                     
-            pf.write("nproc = {0}".format(self.cosmoparams['NZbins'][boxl]))
-            pf.write("omegam = {0}".format(self.cosmoparams['NZbins'][boxl]))
-            pf.write("omegal = {0}".format(self.cosmoparams[
-
+            pf.write("sim_zmax = {0}".format(adgcfg['SimZmax'][boxl]))                     
+            pf.write("nproc = {0}".format(adgcfg['NZbins'][boxl]))
+            pf.write("omegam = {0}".format(coscfg['OmegaM']))
+            pf.write("omegal = {0}".format(coscfg['OmegaL']))
         pars['SimName'] = "'{0}'".format(sn)
         pars['SimNum'] = self.simnum
         pars['Boxl' ] = "'{0}'".format(boxl)
