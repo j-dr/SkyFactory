@@ -5,7 +5,7 @@ import argparse
 import templates
 import os
 
-default_tasks = ['unarchive', 'rockstar', 'pixLC', 'calcrnn', 'addgals', 'calclens']
+default_tasks = ['UnarchiveLightcone', 'Rockstar', 'PixLC', 'CalcRnn', 'Addgals', 'CalcLens']
 
 def main(num, system, tasks=default_tasks):
 
