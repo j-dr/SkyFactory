@@ -44,7 +44,7 @@ class BaseTemplate(object):
     def readJobTemplateFile(self):
 
         templatefile = os.path.join('../systems', self.sysname,'%s.%s' % 
-                                    (self.__class__.__name__, self.sysparams['Sched']))
+                                    ((self.__class__.__name__).lower(), self.sysparams['Sched']))
         
         with open(templatefile, 'r') as fp:
             jobtemp = fp.readlines()

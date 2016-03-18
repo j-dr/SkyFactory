@@ -31,31 +31,43 @@ class CalcRnn(BaseTemplate):
         osp = opath.split('/')
         osp[-1] = 'halos/out_0.parents'
         halopath = '/'.join(osp)
-
         pars = {}
-        pars['SimType'] = self.cosmoparams['SimType']
-        pars['SimName'] = self.cosmoparams['SimName']
+        pars['SimType'] = self.cosmoparams['Simulation']['SimType']
+        pars['SimName'] = self.cosmoparams['Simulation']['SimName']
         pars['SimNum'] = self.simnum
-        jobbase = os.path.join(self.sysparams['JobBase'], 
-                               '{0}-{1}'.format(pars['SimName'], pars['SimNum']),
-                               'Lb{0}'.format(boxl), (self.__class__.__name__).lower())
-        pars['NameFile'] = '{0}/{1}-{2}_Lb{3}.txt'.format(jobbase, pars['SimName'],
-                                                              pars['SimNum'], boxl)
-
-        pars['NCores'] = self.cosmoparams['ncores_rnn']
-        pars['NRnn'] = self.cosmoparams['NRnn'][boxl]
+        pars['NCores'] = self.cosmoparams['CalcRnn']['NCores']
+        pars['NRnn'] = self.cosmoparams['CalcRnn']['NRnn'][boxl]
         pars['OPath'] = opath
         pars['BBoxFile'] = '{0}/bboxindex.txt'.format(opath)
         pars['HFile'] = halopath
-        cfg = self.cfgtemp.format(**pars)
-        hcfg = self.halocfgtemp.format(**pars)
+        pars['NameFile'] = '{0}/{1}-{2}_Lb{3}.txt'.format(jobbase, pars['SimName'],
+                                                              pars['SimNum'], boxl)
+        jobbase = os.path.join(self.sysparams['JobBase'], 
+                               '{0}-{1}'.format(pars['SimName'], pars['SimNum']),
+                               'Lb{0}'.format(boxl), (self.__class__.__name__).lower())
+        
+        with open('{0}/calcrnn_halos.cfg'.format(jobbase), 'w') as fp:
+            fp.write("OutputPath              {0}".format(opath))
+            fp.write("NumTasksIOInParallel    {0}".format(pars['NCores']))
+            fp.write("SimulationType          {0}".format(pars['SimType']))
+            fp.write("SnapshotFileList        {0}".format(pars['NameFile']))
+            fp.write("BBoxOutputFile          {0}".format(pars['SimType']))
+            fp.write("HaloFile                {0}".format(pars['HFile']))
+            fp.write("HaloFileFormat          SKELETON")
+            fp.write("HaloChunkSizeMB         500")
+            fp.write("DomainBuffSize          20.0")
+            fp.write("NRnn                    {0}".format(pars['NRnn']))
+            fp.write("NDiv                    8")
 
         with open('{0}/calcrnn_parts.cfg'.format(jobbase), 'w') as fp:
-            fp.write(cfg)
-
-        with open('{0}/calcrnn_halos.cfg'.format(jobbase), 'w') as fp:
-            fp.write(hcfg)
-
+            fp.write("OutputPath              {0}".format(opath))
+            fp.write("NumTasksIOInParallel    {0}".format(pars['NCores']))
+            fp.write("SimulationType          {0}".format(pars['SimType']))
+            fp.write("SnapshotFileList        {0}".format(pars['NameFile']))
+            fp.write("BBoxOutputFile          {0}".format(pars['SimType']))
+            fp.write("DomainBuffSize          20.0")
+            fp.write("NRnn                    {0}".format(pars['NRnn']))
+            fp.write("NDiv                    8")
 
 
     def write_jobscript(self, opath, boxl):
@@ -65,10 +77,10 @@ class CalcRnn(BaseTemplate):
         pars = {}
         pars['BoxL'] = boxl
 
-        pars['SimName'] = self.cosmoparams['SimName']
+        pars['SimName'] = self.cosmoparams['Simulation']['SimName']
         pars['SimNum'] = self.simnum
         pars['Repo'] = self.sysparams['Repo']
-        pars['NCores'] = self.cosmoparams['ncores_rnn']
+        pars['NCores'] = self.cosmoparams['CalcRnn']['NCores']
         pars['NNodes'] = (pars['NCores'] + self.sysparams['CoresPerNode'] - 1 )/self.sysparams['CoresPerNode']
         jobbase = os.path.join(self.sysparams['JobBase'], 
                                '{0}-{1}'.format(pars['SimName'], pars['SimNum']),
