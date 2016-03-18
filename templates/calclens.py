@@ -46,17 +46,80 @@ SHTOrder                    13
 ComvSmoothingScale          0.010      #in Mpc/h
 
 #for doing galaxy grid search
-GalsFileList                {galCatList}
+GalsFileList                {GalCatList}
 GalOutputName               gal_images
 NumGalOutputFiles           128 # will split image gals into this many files per plane
 
 """
 
 class Calclens(BaseTemplate):
-    def write_config(self, opath, boxl):
-        pass
-
+    def write_config(self, opath, boxl):        
+        pars = {}
+        
+        # run times
+        wt = self.sysparams['TimeLimitHours']*3600 # convert to seconds
+        pars['WallTimeSeconds'] = wt
+        pars['WallTimeRestart'] = 2.0*3600.0 # two hours, hard coded
+        
+        # cosmology
+        pars['OmegaM'] = self.cosmopars['OmegaM']
+        
+        # lens plane config - rmax and number
+        plane_width = 25.0
+        last_box = self.cosmopars['Simulation']['BoxL'][-1]
+        pars['RMax'] = self.cosmopars['PixLC']['RMax'][last_box]        
+        num_planes = pars['RMax']/plane_width
+        assert num_planes*plane_width == pars['RMax']
+        pars['NumPlanes'] = num_planes
+        
+        # lens plane paths
+        pars['LensPlanePath'] = 'FIXME'
+        pars['LensPlaneName'] = 'FIXME'
+        
+        # outputs
+        pars['OutputPath'] = opath
+        pars['healpix_weights'] = os.path.join(self.sysparams['ExecDir'],
+                                               self.__class__.__name__,
+                                               'healpix_weights')
+        # galaxies
+        pars['GalCatList'] = 'FIXME'
+                
+        # write to correct spot on disk
+        jobbase = os.path.join(self.jobbase,self.__class__.__name__.lower())
+        config = _base_config.format(**pars)
+        with open('{0}/raytrace.cfg'.format(jobbase)) as fp:
+            fp.write(jobscript)
+        
     def write_jobscript(self, opath, boxl):
-        pass
+        pars = {}
+        pars['SimName'] = self.cosmoparams['SimName']
+        pars['SimNum'] = self.simnum
+        pars['Repo'] = self.sysparams['Repo']
+        pars['TimeLimitHours'] = self.sysparams['TimeLimitHours']
+        pars['NCores'] = self.cosmoparams['Calclens']['NCores']
+        pars['NNodes'] = (pars['NCores'] + self.sysparams['CoresPerNode'] - 1 )/self.sysparams['CoresPerNode']
+        pars['ExecDir'] = os.path.join(self.sysparams['ExecDir'],
+                                       self.__class__.__name__)
+        pars['OPath'] = opath
+        pars['Email'] = self.sysparams['Email']
+        
+        pars['Restart'] = ''
+        
+        jobbase = os.path.join(self.jobbase,self.__class__.__name__.lower())
+
+        jobscript = self.jobtemp.format(**pars)        
+        with open('{0}/job.{1}.{2}'.format(jobbase,
+                                           self.__class__.__name__.lower(),
+                                           self.sysparams['Sched']), 'w') as fp:
+            fp.write(jobscript)
+
+        pars['Restart'] = '1'
+        jobscript = self.jobtemp.format(**pars)        
+        with open('{0}/job.{1}.restart.{2}'.format(jobbase,
+                                                   self.__class__.__name__.lower(),
+                                                   self.sysparams['Sched']), 'w') as fp:
+            fp.write(jobscript)
+
+
     
     
