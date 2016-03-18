@@ -41,7 +41,7 @@ class Addgals(Template):
             pf.write("paramfile = '{0}'".format(adgcfg['ParamFile']))
 
 
-        sdir = "'{0}'".format(os.path.join(self.sysparams['ExecDir'],self.__class__.__name__))
+        sdir = "'{0}'".format(os.path.join(self.sysparams['ExecDir'],(self.__class__.__name__).lower()))
 
         shutil.copyfile("{0}/scripts/make_buzzard_flock.pro".format(pars['SDir'][1:-1]),
                         "{0}/make_buzzard_flock.pro".format(jobbase))
@@ -59,14 +59,14 @@ class Addgals(Template):
         pars['SimName'] = self.cosmoparams['SimName']
         pars['SimNum'] = self.simnum
         pars['Repo'] = self.sysparams['Repo']
-        pars['NCores'] = self.cosmoparams['ncores_rnn']
+        pars['NCores'] = self.cosmoparams['Addgals']['NCores']
         pars['NNodes'] = (pars['NCores'] + self.sysparams['CoresPerNode'] - 1 )/self.sysparams['CoresPerNode']
         jobbase = os.path.join(self.sysparams['JobBase'],
                                '{0}-{1}'.format(pars['SimName'], pars['SimNum']),
-                               'Lb{0}'.format(boxl), self.__class__.__name__)
+                               'Lb{0}'.format(boxl), (self.__class__.__name__).lower())
         pars['Email'] = self.sysparams['Email']
 
         jobscript = self.jobtemp.format(**pars)
 
-        with open('{0}/job.adg.{1}'.format(jobbase, self.sysparams['Sched']), 'w') as fp:
+        with open('{0}/job.{1}.{2}'.format(jobbase, (self.__class__.__name__).lower(), self.sysparams['Sched']), 'w') as fp:
             fp.write(jobscript)
