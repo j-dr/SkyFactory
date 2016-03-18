@@ -30,7 +30,6 @@ class BaseTemplate(object):
             self.outname = kwargs['outname']
 
 
-
     def readSysConfig(self):
         
         sysfile = os.path.join('systems', self.sysname,'%s.yaml' % self.sysname)
@@ -50,7 +49,10 @@ class BaseTemplate(object):
             jobtemp = fp.readlines()
 
         self.jobtemp = "".join(jobtemp)
-                                    
+
+    def getJobScriptName(self):
+        
+        return "{0}/{1}/job.{1}.{2}".format(self.jobbase, (self.__class__.__name__).lower(), self.sysparams['Sched'])
 
     def setup(self):
         
