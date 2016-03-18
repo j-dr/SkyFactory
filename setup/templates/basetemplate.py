@@ -39,18 +39,9 @@ class BaseTemplate(object):
         cosmofile = os.path.join('%s.yaml' % self.cosmo)
         self.cosmoparams = read_yaml(cosmofile)
 
-    def readConfigTemplateFile(self):
-
-        templatefile = os.path.join('config', '%s.cfg' % self.__class__.__name__)
-        
-        with open(templatefile, 'r') as fp:
-            cfgtemp = fp.readlines()
-        
-        self.cfgtemp = "".join(cfgtemp)
-
     def readJobTemplateFile(self):
 
-        templatefile = os.path.join('systems', self.sysname,'%s.%s' % 
+        templatefile = os.path.join('../systems', self.sysname,'%s.%s' % 
                                     (self.__class__.__name__, self.sysparams['Sched']))
         
         with open(templatefile, 'r') as fp:
