@@ -29,6 +29,8 @@ class BaseTemplate(object):
         else:
             self.outname = kwargs['outname']
 
+
+
     def readSysConfig(self):
         
         sysfile = os.path.join('systems', self.sysname,'%s.yaml' % self.sysname)
@@ -56,6 +58,8 @@ class BaseTemplate(object):
         self.readCosmoFile()
         self.readConfigTemplateFile()
         self.readJobTemplateFile()
+
+        self.jobbase = os.path.join(self.sysparams['JobBase'],'{0}-{1}'.format(self.cosmopars['SimName'],self.simnum))
         
         for i, bsize in enumerate(self.cosmoparams['BoxL']):
 
@@ -67,7 +71,7 @@ class BaseTemplate(object):
             ebase = os.path.join(self.sysparams['JobBase'],
                                  '{0}-{1}'.format(self.cosmoparams['SimName'],
                                                   self.simnum),
-                                 "Lb%s" % bsize, self.__class__.__name__)
+                                 "Lb%s" % bsize, (self.__class__.__name__).lower())
             try:
                 os.makedirs(ebase)
             except:
