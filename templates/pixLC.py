@@ -18,7 +18,7 @@ class PixLC(BaseTemplate):
             pars['SimNum'] = self.simnum
             jobbase = os.path.join(self.sysparams['JobBase'], 
                                    '{0}-{1}'.format(pars['SimName'], pars['SimNum']),
-                                   'Lb{0}'.format(boxl), self.__class__.__name__)
+                                   'Lb{0}'.format(boxl), (self.__class__.__name__).lower())
             pars['NameFile'] = '{0}/{1}-{2}_Lb{3}_{4}.txt'.format(jobbase, pars['SimName'],
                                                                   pars['SimNum'], boxl, 
                                                                   lcnum)
@@ -51,7 +51,7 @@ class PixLC(BaseTemplate):
             pars['NNodes'] = (pars['NCores'] + self.sysparams['CoresPerNode'] - 1 )/self.sysparams['CoresPerNode']
             jobbase = os.path.join(self.sysparams['JobBase'], 
                                    '{0}-{1}'.format(pars['SimName'], pars['SimNum']),
-                                   'Lb{0}'.format(boxl), self.__class__.__name__)
+                                   'Lb{0}'.format(boxl), (self.__class__.__name__).lower())
             pars['NameFile{0}'.format(lcnum)] = '{0}/{1}-{2}_Lb{3}_{4}.txt'.format(jobbase, pars['SimName'],
                                                                                    pars['SimNum'], boxl, 
                                                                                    lcnum)
@@ -68,5 +68,5 @@ class PixLC(BaseTemplate):
                 fbuff = '\n'.join(lcfiles)
                 fp.write(fbuff)
 
-        with open('{0}/job.pl.{1}'.format(jobbase, self.sysparams['Sched']), 'w') as fp:
+        with open('{0}/job.pixlc.{1}'.format(jobbase, self.sysparams['Sched']), 'w') as fp:
             fp.write(jobscript)

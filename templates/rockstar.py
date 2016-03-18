@@ -84,12 +84,12 @@ class Rockstar(BaseTemplate):
         pars['Repo'] = self.sysparams['Repo']
         pars['Config'] = 'rockstar_Lb{0}.cfg'.format(boxl)
         pars['Email'] = self.sysparams['Email']
-        pars['ExecDir'] = os.path.join(self.sysparams['ExecDir'],self.__class__.__name__)
+        pars['ExecDir'] = os.path.join(self.sysparams['ExecDir'],(self.__class__.__name__).lower())
         
         jobscript = self.jobtemp.format(**pars)
         jobbase = os.path.join(self.sysparams['JobBase'], 
                                '{0}-{1}'.format(pars['SimName'], pars['SimNum']),
-                               'Lb{0}'.format(boxl), self.__class__.__name__)
+                               'Lb{0}'.format(boxl), (self.__class__.__name__).lower())
                                
         with open('{0}/job.rockstar.{1}'.format(jobbase,self.sysparams['Sched']), 'w') as fp:
             fp.write(jobscript)
