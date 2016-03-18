@@ -12,4 +12,5 @@
 cd {OPath}
 ls {LPath} > {NameFile}
 
-srun -n {NCores} {ExecDir}/calcrnn calcrnn.cfg
+srun -n {NCores} {ExecDir}/calcrnn calcrnn_parts.cfg
+srun -n {NCores} {ExecDir}/calcrnn calcrnn_halos.cfg

@@ -50,3 +50,22 @@ NRnn :
   1050  :  483
   2600  :  100
   4000  :  20
+
+#Addgals
+ParamFile : /global/homes/j/jderose/project/l-addgals/src/scripts/Buzzard_params.txt
+SimZmin   :
+  1050    :  0.0
+  2600    :  0.32
+  4000    :  0.87
+SimZmax   :
+  1050    :  0.36
+  2600    :  0.93
+  4000    :  2.04
+NZbins    :
+  1050    :  8
+  2600    :  20
+  4000    :  18
+BCGMassLim:
+  1050    :  3e12 
+  2600    :  3e12
+  4000    :  2.4e13
