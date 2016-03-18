@@ -39,7 +39,7 @@ class UnarchiveLightcone(Template):
         jobscript = self.jobtemp.format(**pars)
         jobbase = os.path.join(self.sysparams['JobBase'],
                                '{0}-{1}'.format(pars['SimName'], pars['SimNum']),
-                               'Lb{0}'.format(boxl), self.__class__.__name__)
+                               'Lb{0}'.format(boxl), (self.__class__.__name__))
 
-        with open('{0}/job.unarchive.{1}'.format(jobbase,self.sysparams['Sched']), 'w') as fp:
+        with open('{0}/job.unarchivelightcone.{1}'.format(jobbase,self.sysparams['Sched']), 'w') as fp:
             fp.write(jobscript)

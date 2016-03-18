@@ -12,7 +12,7 @@ class CalcRnn(BaseTemplate):
 
     def readConfigTemplateFile(self):
 
-        templatefile = os.path.join('config', '%s.cfg' % self.__class__.__name__)
+        templatefile = os.path.join('config', '%s.cfg' % (self.__class__.__name__).lower())
         
         with open(templatefile, 'r') as fp:
             halocfgtemp = fp.readlines()
@@ -38,7 +38,7 @@ class CalcRnn(BaseTemplate):
         pars['SimNum'] = self.simnum
         jobbase = os.path.join(self.sysparams['JobBase'], 
                                '{0}-{1}'.format(pars['SimName'], pars['SimNum']),
-                               'Lb{0}'.format(boxl), self.__class__.__name__)
+                               'Lb{0}'.format(boxl), (self.__class__.__name__).lower())
         pars['NameFile'] = '{0}/{1}-{2}_Lb{3}.txt'.format(jobbase, pars['SimName'],
                                                               pars['SimNum'], boxl)
 
@@ -72,10 +72,10 @@ class CalcRnn(BaseTemplate):
         pars['NNodes'] = (pars['NCores'] + self.sysparams['CoresPerNode'] - 1 )/self.sysparams['CoresPerNode']
         jobbase = os.path.join(self.sysparams['JobBase'], 
                                '{0}-{1}'.format(pars['SimName'], pars['SimNum']),
-                               'Lb{0}'.format(boxl), self.__class__.__name__)
+                               'Lb{0}'.format(boxl), (self.__class__.__name__).lower())
         pars['NameFile'] = '{0}/{1}-{2}_Lb{3}.txt'.format(jobbase, pars['SimName'],
                                                           pars['SimNum'], boxl)
-        pars['ExecDir'] = os.path.join(self.sysparams['ExecDir'],self.__class__.__name__)
+        pars['ExecDir'] = os.path.join(self.sysparams['ExecDir'],(self.__class__.__name__).lower())
         pars['OPath'] = opath
         pars['Email'] = self.sysparams['Email']
         pars['LPath'] = '{0}/*'.format(lcpath)
@@ -85,5 +85,5 @@ class CalcRnn(BaseTemplate):
         #write the lightcone files to be read by pixlc
 
 
-        with open('{0}/job.rnn.{1}'.format(jobbase, self.sysparams['Sched']), 'w') as fp:
+        with open('{0}/job.calcrnn.{1}'.format(jobbase, self.sysparams['Sched']), 'w') as fp:
             fp.write(jobscript)
