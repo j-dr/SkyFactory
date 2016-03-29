@@ -5,7 +5,7 @@ import argparse
 import templates
 import os
 
-default_tasks = ['UnarchiveLightcone', 'Rockstar', 'PixLC', 'CalcRnn', 'Addgals', 'CalcLens']
+default_tasks = ['UnarchiveLightcone', 'Rockstar', 'PixLC', 'CalcRnn', 'Addgals', 'Calclens']
 
 def main(num, system, cosmofile, tasks=default_tasks):
 
@@ -13,9 +13,9 @@ def main(num, system, cosmofile, tasks=default_tasks):
 
     #setup the individual jobs
     for i, task in enumerate(tasks):
-
+        print("Setting up {0}".format(task))
         task = getattr(templates, task)
-        task = getattr(task, task)
+        #task = getattr(taskmod, task)
         t = task(num, system, cosmofile)
         t.setup()
         
@@ -33,37 +33,41 @@ def main(num, system, cosmofile, tasks=default_tasks):
     pars = {}
     pars['NCores'] = cosmoparams['Simulation']['NCores']
     pars['Repo'] = sysparams['Repo']
-    pars['NNodes'] = cosmoparams['Simulation']['NNodes']
+    pars['NNodes'] = (pars['NCores'] + sysparams['CoresPerNode'] - 1)/sysparams['CoresPerNode']
     pars['SimName'] = cosmoparams['Simulation']['SimName']
     pars['SimNum'] = num
     pars['Email'] = sysparams['Email']
     
-    gsubtemp = read_yaml('systems', self.sysname, 'all.sh')
+    with open(os.path.join('systems', system, 'all.sh'), 'r') as fp:
+        gsubtemp = fp.readlines()
+
+    gsubtemp = ''.join(gsubtemp)
+
     jobheader = gsubtemp.format(**pars)
     if 'ReformatAddgals' in tasks:
         aidx = tasks.index('ReformatAddgals')
     else:
         aidx = len(tasks)
 
-    with open("{0}/job.all.sh".format(jobbase, boxl), "w") as fp:
+    with open("{0}/job.all.sh".format(jobbase), "w") as fp:
         fp.write(jobheader)
-
+        fp.write("\n")
         #all tasks up to addgals reformatting must be done once
         #per box.
-        for i, boxl in enumerate(cosmoparams['Simulation']['BoxL']):        
-            for i, task in enumerate(tasks[:cidx]):
-                fp.write("cd {0}/{1}".format(boxl, task))
-                fp.write("------------- {0}.{1} -------------".format(task, boxl))
-                fp.write("sh job.{0}.sh".format(task.lower()))
-                fp.write("cd ../..")
+        for i, task in enumerate(tasks[:aidx]):
+            for i, boxl in enumerate(cosmoparams['Simulation']['BoxL']):        
+                fp.write("cd Lb{0}/{1}\n".format(boxl, task))
+                fp.write('echo "------------- {0}.{1} -------------"\n'.format(task, boxl))
+                fp.write("sh job.{0}.sh\n".format(task.lower()))
+                fp.write("cd ../..\n")
                 fp.write("\n")
 
         #everything afterwards is done once per suite
-        for task in tasks[cidx:]:
-            fp.write("cd {0}".format(task))
-            fp.write("------------- {0} -------------".format(task))
-            fp.write("sh job.{0}.sh".format(task.lower()))
-            fp.write("cd ..")
+        for task in tasks[aidx:]:
+            fp.write("cd {0}\n".format(task))
+            fp.write('echo "------------- {0} -------------"\n'.format(task))
+            fp.write("sh job.{0}.sh\n".format(task.lower()))
+            fp.write("cd ..\n")
             fp.write("\n")
 
 
