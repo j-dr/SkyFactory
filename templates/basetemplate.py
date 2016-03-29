@@ -29,6 +29,10 @@ class BaseTemplate(object):
         else:
             self.outname = kwargs['outname']
 
+        if 'allboxes' not in kwargs.keys():
+            self.allboxes = False
+        else:
+            self.allboxes = kwargs["allboxes"]
 
     def readSysConfig(self):
         
@@ -41,7 +45,7 @@ class BaseTemplate(object):
 
     def readJobTemplateFile(self):
 
-        templatefile = os.path.join('../systems', self.sysname,'%s.sh' % 
+        templatefile = os.path.join('systems', self.sysname,'%s.sh' % 
                                     ((self.__class__.__name__).lower()))
         
         with open(templatefile, 'r') as fp:
@@ -53,6 +57,15 @@ class BaseTemplate(object):
         
         return "{0}/{1}/job.{1}.sh".format(self.jobbase, (self.__class__.__name__).lower())
 
+    def getOutputBaseDir(self):
+        return os.path.join(self.sysparams['OutputBase'],
+                            '{0}-{1}'.format(self.cosmoparams['Simulation']['SimName'],
+                                             self.simnum))
+
+    def getJobBaseDir(self):
+        return  os.path.join(self.sysparams['JobBase'],
+                             '{0}-{1}'.format(self.cosmoparams['Simulation']['SimName'],
+                                              self.simnum))
     @abstractmethod
     def write_jobscript(opath, bsize):
         """
@@ -75,33 +88,47 @@ class BaseTemplate(object):
         
         self.readSysConfig()
         self.readCosmoFile()
-        self.readConfigTemplateFile()
         self.readJobTemplateFile()
 
-        self.jobbase = os.path.join(self.sysparams['JobBase'],'{0}-{1}'.format(self.cosmopars['SimName'],self.simnum))
+        self.jobbase = os.path.join(self.sysparams['JobBase'],'{0}-{1}'.format(self.cosmoparams['Simulation']['SimName'],self.simnum))
+
+        if not self.allboxes:
         
-        for i, bsize in enumerate(self.cosmoparams['BoxL']):
+            for i, bsize in enumerate(self.cosmoparams['Simulation']['BoxL']):
+                
+                obase = os.path.join(self.getOutputBaseDir(),
+                                    "Lb%s" % bsize, 'output', self.outname)
+                
+                ebase = os.path.join(self.getJobBaseDir(),
+                                     "Lb%s" % bsize, (self.__class__.__name__).lower())
+                try:
+                    os.makedirs(ebase)
+                except:
+                    pass
+                
+                try:
+                    os.makedirs(obase)
+                except:
+                    pass
+                
+                self.write_jobscript(obase, bsize)
+                self.write_config(obase, bsize)
 
-            base = os.path.join(self.sysparams['OutputBase'],
-                                 '{0}-{1}'.format(self.cosmoparams['SimName'],
-                                                  self.simnum),
-                                 "Lb%s" % bsize, 'output')
+        else:
+            
+            obase = os.path.join(self.getOutputBaseDir(), self.outname)
+            ebase = os.path.join(self.getJobBaseDir(),
+                                 (self.__class__.__name__).lower())
 
-            ebase = os.path.join(self.sysparams['JobBase'],
-                                 '{0}-{1}'.format(self.cosmoparams['SimName'],
-                                                  self.simnum),
-                                 "Lb%s" % bsize, (self.__class__.__name__).lower())
             try:
                 os.makedirs(ebase)
             except:
                 pass
-
-            opath = base+'/{0}'.format(self.outname)
-
+            
             try:
-                os.makedirs(opath)
+                os.makedirs(obase)
             except:
                 pass
-
-            self.write_jobscript(opath, bsize)
-            self.write_config(opath, bsize)
+            
+            self.write_jobscript(obase, None)
+            self.write_config(obase, None)
