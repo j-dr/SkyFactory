@@ -8,13 +8,10 @@ import os
 
 from .basetemplate import BaseTemplate
 
-class UnarchiveLightcone(Template):
+class UnarchiveLightcone(BaseTemplate):
 
     def __init__(self, simnum, system, cosmo):
-        Template.__init__(self, simnum, system, cosmo, outname='lightcone')
-
-    def readConfigTemplateFile(self):
-        pass
+        BaseTemplate.__init__(self, simnum, system, cosmo, outname='lightcone')
 
     def write_config(self, opath, boxl):
         pass
@@ -22,7 +19,7 @@ class UnarchiveLightcone(Template):
     def write_jobscript(self, opath, boxl):
 
         pars = {}
-        pars['SimName'] = self.cosmoparams['SimName']
+        pars['SimName'] = self.cosmoparams['Simulation']['SimName']
         pars['BoxL'] = boxl
         pars['OPath'] = opath
         pars['SimNum'] = self.simnum
@@ -39,7 +36,7 @@ class UnarchiveLightcone(Template):
         jobscript = self.jobtemp.format(**pars)
         jobbase = os.path.join(self.sysparams['JobBase'],
                                '{0}-{1}'.format(pars['SimName'], pars['SimNum']),
-                               'Lb{0}'.format(boxl), (self.__class__.__name__))
+                               'Lb{0}'.format(boxl), (self.__class__.__name__).lower())
 
-        with open('{0}/job.unarchivelightcone.{1}'.format(jobbase,self.sysparams['Sched']), 'w') as fp:
+        with open('{0}/job.unarchivelightcone.sh'.format(jobbase), 'w') as fp:
             fp.write(jobscript)

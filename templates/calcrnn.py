@@ -40,34 +40,36 @@ class CalcRnn(BaseTemplate):
         pars['OPath'] = opath
         pars['BBoxFile'] = '{0}/bboxindex.txt'.format(opath)
         pars['HFile'] = halopath
-        pars['NameFile'] = '{0}/{1}-{2}_Lb{3}.txt'.format(jobbase, pars['SimName'],
-                                                              pars['SimNum'], boxl)
+
         jobbase = os.path.join(self.sysparams['JobBase'], 
                                '{0}-{1}'.format(pars['SimName'], pars['SimNum']),
                                'Lb{0}'.format(boxl), (self.__class__.__name__).lower())
+
+        pars['NameFile'] = '{0}/{1}-{2}_Lb{3}.txt'.format(jobbase, pars['SimName'],
+                                                              pars['SimNum'], boxl)
         
         with open('{0}/calcrnn_halos.cfg'.format(jobbase), 'w') as fp:
-            fp.write("OutputPath              {0}".format(opath))
-            fp.write("NumTasksIOInParallel    {0}".format(pars['NCores']))
-            fp.write("SimulationType          {0}".format(pars['SimType']))
-            fp.write("SnapshotFileList        {0}".format(pars['NameFile']))
-            fp.write("BBoxOutputFile          {0}".format(pars['SimType']))
-            fp.write("HaloFile                {0}".format(pars['HFile']))
-            fp.write("HaloFileFormat          SKELETON")
-            fp.write("HaloChunkSizeMB         500")
-            fp.write("DomainBuffSize          20.0")
-            fp.write("NRnn                    {0}".format(pars['NRnn']))
-            fp.write("NDiv                    8")
+            fp.write("OutputPath              {0}\n".format(opath))
+            fp.write("NumTasksIOInParallel    {0}\n".format(pars['NCores']))
+            fp.write("SimulationType          {0}\n".format(pars['SimType']))
+            fp.write("SnapshotFileList        {0}\n".format(pars['NameFile']))
+            fp.write("BBoxOutputFile          {0}\n".format(pars['SimType']))
+            fp.write("HaloFile                {0}\n".format(pars['HFile']))
+            fp.write("HaloFileFormat          SKELETON\n")
+            fp.write("HaloChunkSizeMB         500\n")
+            fp.write("DomainBuffSize          20.0\n")
+            fp.write("NRnn                    {0}\n".format(pars['NRnn']))
+            fp.write("NDiv                    8\n")
 
         with open('{0}/calcrnn_parts.cfg'.format(jobbase), 'w') as fp:
-            fp.write("OutputPath              {0}".format(opath))
-            fp.write("NumTasksIOInParallel    {0}".format(pars['NCores']))
-            fp.write("SimulationType          {0}".format(pars['SimType']))
-            fp.write("SnapshotFileList        {0}".format(pars['NameFile']))
-            fp.write("BBoxOutputFile          {0}".format(pars['SimType']))
-            fp.write("DomainBuffSize          20.0")
-            fp.write("NRnn                    {0}".format(pars['NRnn']))
-            fp.write("NDiv                    8")
+            fp.write("OutputPath              {0}\n".format(opath))
+            fp.write("NumTasksIOInParallel    {0}\n".format(pars['NCores']))
+            fp.write("SimulationType          {0}\n".format(pars['SimType']))
+            fp.write("SnapshotFileList        {0}\n".format(pars['NameFile']))
+            fp.write("BBoxOutputFile          {0}\n".format(pars['SimType']))
+            fp.write("DomainBuffSize          20.0\n")
+            fp.write("NRnn                    {0}\n".format(pars['NRnn']))
+            fp.write("NDiv                    8\n")
 
 
     def write_jobscript(self, opath, boxl):
@@ -97,5 +99,5 @@ class CalcRnn(BaseTemplate):
         #write the lightcone files to be read by pixlc
 
 
-        with open('{0}/job.calcrnn.{1}'.format(jobbase, self.sysparams['Sched']), 'w') as fp:
+        with open('{0}/job.calcrnn.sh'.format(jobbase), 'w') as fp:
             fp.write(jobscript)

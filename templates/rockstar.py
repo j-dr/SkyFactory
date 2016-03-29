@@ -11,15 +11,15 @@ from .basetemplate import BaseTemplate
 class Rockstar(BaseTemplate):
 
     def __init__(self, simnum, system, cosmo):
-        super(Rockstar, self).__init__(self, simnum, system, cosmo, outname='halos')
+        super(Rockstar, self).__init__(simnum, system, cosmo, outname='halos')
 
     def write_config(self,opath,bsize,mfdef='vir', w0=-1.0,wa=0.0,snap=False):
         ns = 1
-        nb = self.cosmoparams['NumBlocks'][bsize]
-        soft = self.cosmoparams['Soft'][bsize]
-        nr = self.cosmoparams['ncores_rock']
+        nb = self.cosmoparams['Simulation']['NumBlocks'][bsize]
+        soft = self.cosmoparams['Simulation']['Soft'][bsize]
+        nr = self.cosmoparams['Rockstar']['NCores']
         spath = os.path.join(self.sysparams['OutputBase'],
-                             '{0}-{1}'.format(self.cosmoparams['SimName'],
+                             '{0}-{1}'.format(self.cosmoparams['Simulation']['SimName'],
                                               self.simnum),
                              "Lb%s" % bsize, 'output', 'lightcone')
 
@@ -75,10 +75,10 @@ class Rockstar(BaseTemplate):
     def write_jobscript(self, opath, boxl):
         
         pars = {}
-        pars['SimName'] = self.cosmoparams['SimName']
+        pars['SimName'] = self.cosmoparams['Simulation']['SimName']
         pars['BoxL'] = boxl
         pars['OPath'] = opath
-        pars['NCores'] = self.cosmoparams['ncores_rock']
+        pars['NCores'] = self.cosmoparams['Simulation']['NCores']
         pars['NNodes'] = (pars['NCores'] + self.sysparams['CoresPerNode'] - 1 )/self.sysparams['CoresPerNode']
         pars['SimNum'] = self.simnum
         pars['Repo'] = self.sysparams['Repo']
@@ -91,5 +91,5 @@ class Rockstar(BaseTemplate):
                                '{0}-{1}'.format(pars['SimName'], pars['SimNum']),
                                'Lb{0}'.format(boxl), (self.__class__.__name__).lower())
                                
-        with open('{0}/job.rockstar.{1}'.format(jobbase,self.sysparams['Sched']), 'w') as fp:
+        with open('{0}/job.rockstar.sh'.format(jobbase), 'w') as fp:
             fp.write(jobscript)

@@ -53,6 +53,10 @@ NumGalOutputFiles           128 # will split image gals into this many files per
 """
 
 class Calclens(BaseTemplate):
+
+    def __init__(self, simnum, system, cosmo):
+        super(Calclens, self).__init__(simnum, system, cosmo, allboxes=True)
+    
     def write_config(self, opath, boxl):        
         pars = {}
         
@@ -62,12 +66,12 @@ class Calclens(BaseTemplate):
         pars['WallTimeRestart'] = 2.0*3600.0 # two hours, hard coded
         
         # cosmology
-        pars['OmegaM'] = self.cosmopars['OmegaM']
+        pars['OmegaM'] = self.cosmoparams['Cosmology']['OmegaM']
         
         # lens plane config - rmax and number
         plane_width = 25.0
-        last_box = self.cosmopars['Simulation']['BoxL'][-1]
-        pars['RMax'] = self.cosmopars['PixLC']['RMax'][last_box]        
+        last_box = self.cosmoparams['Simulation']['BoxL'][-1]
+        pars['RMax'] = self.cosmoparams['PixLC']['RMax'][last_box]        
         num_planes = pars['RMax']/plane_width
         assert num_planes*plane_width == pars['RMax']
         pars['NumPlanes'] = num_planes
@@ -79,7 +83,7 @@ class Calclens(BaseTemplate):
         # outputs
         pars['OutputPath'] = opath
         pars['healpix_weights'] = os.path.join(self.sysparams['ExecDir'],
-                                               self.__class__.__name__,
+                                               self.__class__.__name__.lower(),
                                                'healpix_weights')
         # galaxies
         pars['GalCatList'] = 'FIXME'
@@ -87,19 +91,19 @@ class Calclens(BaseTemplate):
         # write to correct spot on disk
         jobbase = os.path.join(self.jobbase,self.__class__.__name__.lower())
         config = _base_config.format(**pars)
-        with open('{0}/raytrace.cfg'.format(jobbase)) as fp:
-            fp.write(jobscript)
+        with open('{0}/raytrace.cfg'.format(jobbase), 'w') as fp:
+            fp.write(config)
         
     def write_jobscript(self, opath, boxl):
         pars = {}
-        pars['SimName'] = self.cosmoparams['SimName']
+        pars['SimName'] = self.cosmoparams['Simulation']['SimName']
         pars['SimNum'] = self.simnum
         pars['Repo'] = self.sysparams['Repo']
         pars['TimeLimitHours'] = self.sysparams['TimeLimitHours']
         pars['NCores'] = self.cosmoparams['Calclens']['NCores']
         pars['NNodes'] = (pars['NCores'] + self.sysparams['CoresPerNode'] - 1 )/self.sysparams['CoresPerNode']
         pars['ExecDir'] = os.path.join(self.sysparams['ExecDir'],
-                                       self.__class__.__name__)
+                                       self.__class__.__name__.lower())
         pars['OPath'] = opath
         pars['Email'] = self.sysparams['Email']
         

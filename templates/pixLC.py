@@ -13,7 +13,7 @@ class PixLC(BaseTemplate):
     def write_config(self, opath, boxl):
 
         pars = {}
-        pars['SimName'] = self.cosmoparams['SimName']
+        pars['SimName'] = self.cosmoparams['Simulation']['SimName']
         pars['SimNum'] = self.simnum
         jobbase = os.path.join(self.sysparams['JobBase'], 
                                '{0}-{1}'.format(pars['SimName'], pars['SimNum']),
@@ -27,13 +27,13 @@ class PixLC(BaseTemplate):
         pars['Prefix'] = '{0}'.format('snapshot_Lightcone')
         pars['OPath'] = opath
         with open('{0}/pixLC.cfg'.format(jobbase), 'w') as fp:
-            fp.write("namefile   : {NameFile}".format(**pars))
-            fp.write("outpath    : {OPath}".foramt(**pars))
-            fp.write("rmin       : {RMin}".format(**pars))
-            fp.write("rmax       : {RMax}".format(**pars))
-            fp.write("lfilenside : {LFileNside}".format(**pars))
-            fp.write("rr0        : {RR0}".format(**pars))
-            fp.write("prefix     : {Prefix}".format(**pars))
+            fp.write("namefile   : {NameFile}\n".format(**pars))
+            fp.write("outpath    : {OPath}\n".format(**pars))
+            fp.write("rmin       : {RMin}\n".format(**pars))
+            fp.write("rmax       : {RMax}\n".format(**pars))
+            fp.write("lfilenside : {LFileNside}\n".format(**pars))
+            fp.write("rr0        : {RR0}\n".format(**pars))
+            fp.write("prefix     : {Prefix}\n".format(**pars))
 
     def write_jobscript(self, opath, boxl):
         osp = opath.split('/')
@@ -63,5 +63,5 @@ class PixLC(BaseTemplate):
             fbuff = '\n'.join(lcfiles)
             fp.write(fbuff)
 
-        with open('{0}/job.pixlc.{1}'.format(jobbase, self.sysparams['Sched']), 'w') as fp:
+        with open('{0}/job.pixlc.sh'.format(jobbase), 'w') as fp:
             fp.write(jobscript)
