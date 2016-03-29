@@ -23,7 +23,7 @@ class BaseTemplate(object):
         
         self.simnum = simnum
         self.sysname = system
-        self.cosmo = cosmo
+        self.cosmofile = cosmo
         if 'outname' not in kwargs.keys():
             self.outname = (self.__class__.__name__).lower()
         else:
@@ -37,13 +37,12 @@ class BaseTemplate(object):
 
     def readCosmoFile(self):
         
-        cosmofile = os.path.join('%s.yaml' % self.cosmo)
-        self.cosmoparams = read_yaml(cosmofile)
+        self.cosmoparams = read_yaml(self.cosmofile)
 
     def readJobTemplateFile(self):
 
-        templatefile = os.path.join('../systems', self.sysname,'%s.%s' % 
-                                    ((self.__class__.__name__).lower(), self.sysparams['Sched']))
+        templatefile = os.path.join('../systems', self.sysname,'%s.sh' % 
+                                    ((self.__class__.__name__).lower()))
         
         with open(templatefile, 'r') as fp:
             jobtemp = fp.readlines()
@@ -52,8 +51,26 @@ class BaseTemplate(object):
 
     def getJobScriptName(self):
         
-        return "{0}/{1}/job.{1}.{2}".format(self.jobbase, (self.__class__.__name__).lower(), self.sysparams['Sched'])
+        return "{0}/{1}/job.{1}.sh".format(self.jobbase, (self.__class__.__name__).lower())
 
+    @abstractmethod
+    def write_jobscript(opath, bsize):
+        """
+        Method which writes a job submission script based
+        on a script template specific to the job. 
+
+        *****MUST RETURN PATH TO JOB SUBMISSION SCRIPT*****
+        """
+        pass
+    
+    @abstractmethod
+    def write_config(opath, bsize):
+        """
+        Method which writes the configuration file based
+        on a config template specific to the task.
+        """
+        pass
+        
     def setup(self):
         
         self.readSysConfig()

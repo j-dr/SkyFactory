@@ -56,7 +56,7 @@ class Addgals(Template):
     def write_jobscript(self, opath, boxl):
         pars = {}
         pars['BoxL'] = boxl
-        pars['SimName'] = self.cosmoparams['SimName']
+        pars['SimName'] = self.cosmoparams['Simulation']['SimName']
         pars['SimNum'] = self.simnum
         pars['Repo'] = self.sysparams['Repo']
         pars['NCores'] = self.cosmoparams['Addgals']['NCores']
@@ -68,5 +68,5 @@ class Addgals(Template):
 
         jobscript = self.jobtemp.format(**pars)
 
-        with open('{0}/job.{1}.{2}'.format(jobbase, (self.__class__.__name__).lower(), self.sysparams['Sched']), 'w') as fp:
+        with open('{0}/job.{1}.sh'.format(jobbase, (self.__class__.__name__).lower()), 'w') as fp:
             fp.write(jobscript)
