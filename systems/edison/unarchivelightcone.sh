@@ -13,5 +13,6 @@ cd {OPath}
 for lcnum in 000 001 002 003 004 005 006 007
 do
     echo "----lightcone$lcnum----"
-    htar -xVf {SimName}-{SimNum}/{Group}/{SimName}-{SimNum}/Lb{BoxL}/lightcone$lcnum.tar lightcone$lcnum
+    htar -xVf {SimName}/{Group}/{SimName}-{SimNum}/Lb{BoxL}/lightcone$lcnum.tar lightcone$lcnum
+    while 
 done
