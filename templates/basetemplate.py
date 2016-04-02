@@ -66,6 +66,10 @@ class BaseTemplate(object):
         return  os.path.join(self.sysparams['JobBase'],
                              '{0}-{1}'.format(self.cosmoparams['Simulation']['SimName'],
                                               self.simnum))
+
+    def getExecDir(self):
+        return os.path.join(self.sysparams['ExecDir'], (self.__class__.__name__).lower())
+                            
     @abstractmethod
     def write_jobscript(opath, bsize):
         """

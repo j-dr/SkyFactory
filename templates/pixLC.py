@@ -43,9 +43,11 @@ class PixLC(BaseTemplate):
         pars['BoxL'] = boxl
         pars['SimName'] = self.cosmoparams['Simulation']['SimName']
         pars['SimNum'] = self.simnum
+        pars['ExecDir'] = self.getExecDir()
         pars['Repo'] = self.sysparams['Repo']
         pars['NCores'] = self.cosmoparams['PixLC']['NCores']
         pars['NNodes'] = (pars['NCores'] + self.sysparams['CoresPerNode'] - 1 )/self.sysparams['CoresPerNode']
+        pars['TimeLimitHours'] = self.sysparams['TimeLimitHours']
         jobbase = os.path.join(self.sysparams['JobBase'], 
                                '{0}-{1}'.format(pars['SimName'], pars['SimNum']),
                                'Lb{0}'.format(boxl), (self.__class__.__name__).lower())

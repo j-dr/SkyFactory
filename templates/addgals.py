@@ -70,6 +70,7 @@ class Addgals(BaseTemplate):
         pars['Repo'] = self.sysparams['Repo']
         pars['NCores'] = self.cosmoparams['Addgals']['NCores']
         pars['NNodes'] = (pars['NCores'] + self.sysparams['CoresPerNode'] - 1 )/self.sysparams['CoresPerNode']
+        pars['TimeLimitHours'] = self.sysparams['TimeLimitHours']
         jobbase = os.path.join(self.sysparams['JobBase'],
                                '{0}-{1}'.format(pars['SimName'], pars['SimNum']),
                                'Lb{0}'.format(boxl), (self.__class__.__name__).lower())

@@ -1,6 +1,7 @@
 JobBase       : '/home/jderose/projects/SkyFactory/chinchilla-herd'
 OutputBase    : '/home/jderose/uscratch/BCC/Chinchilla/Herd/'
 ExecDir       : '/home/jderose/projects/SkyFactory/exec'
+Repo          : 'None'
 Email         : 'joe.derose13@gmail.com'
 TimeLimitHours:  48
 CoresPerNode  : 16

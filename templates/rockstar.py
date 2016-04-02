@@ -80,6 +80,7 @@ class Rockstar(BaseTemplate):
         pars['OPath'] = opath
         pars['NCores'] = self.cosmoparams['Simulation']['NCores']
         pars['NNodes'] = (pars['NCores'] + self.sysparams['CoresPerNode'] - 1 )/self.sysparams['CoresPerNode']
+        pars['TimeLimitHours'] = self.sysparams['TimeLimitHours']
         pars['SimNum'] = self.simnum
         pars['Repo'] = self.sysparams['Repo']
         pars['Config'] = 'rockstar_Lb{0}.cfg'.format(boxl)
