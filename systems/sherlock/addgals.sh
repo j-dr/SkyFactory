@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH -p iric
 #SBATCH --qos iric
-#SBATCH -t 12:00
+#SBATCH -t {TimeLimitHours}:00:00
 #SBATCH -J {SimName}{SimNum}-adg-Lb{BoxL}
 #SBATCH -o {SimName}{SimNum}-adg-Lb{BoxL}.%j.oe
 #SBATCH --mail-type=All
