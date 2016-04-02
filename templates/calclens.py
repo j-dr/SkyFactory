@@ -114,14 +114,14 @@ class Calclens(BaseTemplate):
         jobscript = self.jobtemp.format(**pars)        
         with open('{0}/job.{1}.{2}'.format(jobbase,
                                            self.__class__.__name__.lower(),
-                                           self.sysparams['Sched']), 'w') as fp:
+                                           'sh'), 'w') as fp:
             fp.write(jobscript)
 
         pars['Restart'] = '1'
         jobscript = self.jobtemp.format(**pars)        
         with open('{0}/job.{1}.restart.{2}'.format(jobbase,
                                                    self.__class__.__name__.lower(),
-                                                   self.sysparams['Sched']), 'w') as fp:
+                                                   'sh'), 'w') as fp:
             fp.write(jobscript)
 
 
