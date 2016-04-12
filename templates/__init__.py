@@ -15,3 +15,8 @@ del unarchive
 
 from .calclens import Calclens
 del calclens
+
+from .calclenspostprocess import CalclensPostProcess
+del calclenspostprocess
+
+

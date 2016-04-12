@@ -125,5 +125,7 @@ class Calclens(BaseTemplate):
             fp.write(jobscript)
 
 
-    
-    
+        spath = '{0}/job.{1}.{2}'.format(jobbase,
+                                         self.__class__.__name__.lower(),
+                                         'sh')
+        return spath
