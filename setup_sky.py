@@ -10,7 +10,7 @@ default_tasks = ['UnarchiveLightcone', 'Rockstar', 'PixLC', 'CalcRnn', 'Addgals'
 def main(num, system, cosmofile, tasks=default_tasks):
 
     sscripts = []
-
+    
     #setup the individual jobs
     for i, task in enumerate(tasks):
         print("Setting up {0}".format(task))

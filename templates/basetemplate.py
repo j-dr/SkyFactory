@@ -41,7 +41,7 @@ class BaseTemplate(object):
 
     def readCosmoFile(self):
         
-        self.cosmoparams = read_yaml(self.cosmofile)
+        self.cosmoparams = read_yaml("{0}/{1}.yaml".format(self.sysparams['SFConfigBase'],self.cosmofile))
 
     def readJobTemplateFile(self):
 
