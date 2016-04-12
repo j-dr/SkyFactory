@@ -38,6 +38,7 @@ class Addgals(BaseTemplate):
             fp.write("execdir = '{0}'\n".format(opath))
             fp.write("srcdir = '{0}'\n".format(os.path.join(self.sysparams['ExecDir'],(self.__class__.__name__).lower())))
             fp.write("paramfile = '{0}'\n".format(adgcfg['ParamFile']))
+            fp.write("pardir = '{0}'\n".format(self.sysparams['SFConfigBase']+'/Addgals'))
             fp.write("""make_buzzard_flock, dir=dir, $
                         sim_zmin=sim_zmin, sim_zmax=sim_zmax, $
                         nproc=nproc, $
@@ -46,7 +47,7 @@ class Addgals(BaseTemplate):
                         halofile=halofile, rnn_halofile=rnn_halofile, $
                         simname=simname, boxsize=boxsize, $
                         hfile=hfile, bcg_mass_lim=bcg_mass_lim, paramfile=paramfile, $
-                        catdir=catdir, ddir=ddir, execdir=execdir, srcdir=srcdir""")
+                        catdir=catdir, ddir=ddir, execdir=execdir, srcdir=srcdir, pardir=pardir""")
 
 
         sdir = "'{0}'".format(os.path.join(self.sysparams['ExecDir'],(self.__class__.__name__).lower()))
