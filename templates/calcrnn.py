@@ -90,6 +90,8 @@ class CalcRnn(BaseTemplate):
         pars['NameFile'] = '{0}/{1}-{2}_Lb{3}.txt'.format(jobbase, pars['SimName'],
                                                           pars['SimNum'], boxl)
         pars['ExecDir'] = os.path.join(self.sysparams['ExecDir'],(self.__class__.__name__).lower())
+        pars['SysExecDir'] = self.sysparams['ExecDir']
+        pars['JDir'] = os.path.join(self.getJobBaseDir(),"Lb%s" % boxl)
         pars['OPath'] = opath
         pars['Email'] = self.sysparams['Email']
         pars['LPath'] = '{0}/*'.format(lcpath)

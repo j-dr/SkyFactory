@@ -1,6 +1,9 @@
 from .addgals import Addgals
 del addgals
 
+from .addgalspostprocess import AddgalsPostProcess
+del addgalspostprocess
+
 from .calcrnn import CalcRnn
 del calcrnn
 

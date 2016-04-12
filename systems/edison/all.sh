@@ -1,8 +1,8 @@
 #!/bin/bash
 #SBATCH -p regular
 #SBATCH -t 12:00
-#SBATCH -J {SimName}{SimNum}-plc-Lb{BoxL}
-#SBATCH -o {SimName}{SimNum}-plc-Lb{BoxL}.%j.oe
+#SBATCH -J {SimName}{SimNum}-all
+#SBATCH -o {SimName}{SimNum}-all.%j.oe
 #SBATCH -A {Repo}
 #SBATCH --mail-type=All
 #SBATCH --mail-user  {Email}

@@ -5,7 +5,7 @@ import argparse
 import templates
 import os
 
-default_tasks = ['UnarchiveLightcone', 'Rockstar', 'PixLC', 'CalcRnn', 'Addgals', 'Calclens', 'CalclensPostProcess']
+default_tasks = ['UnarchiveLightcone', 'Rockstar', 'PixLC', 'CalcRnn', 'Addgals', 'AddgalsPostProcess', 'Calclens', 'CalclensPostProcess']
 
 def main(num, system, cosmofile, tasks=default_tasks):
 
@@ -45,8 +45,8 @@ def main(num, system, cosmofile, tasks=default_tasks):
     gsubtemp = ''.join(gsubtemp)
 
     jobheader = gsubtemp.format(**pars)
-    if 'ReformatAddgals' in tasks:
-        aidx = tasks.index('ReformatAddgals')
+    if 'AddgalsPostProcess' in tasks:
+        aidx = tasks.index('AddgalsPostProcess')
     else:
         aidx = len(tasks)
 
@@ -82,5 +82,3 @@ if __name__=="__main__":
     args = parser.parse_args()
 
     main(args.num, args.system, args.cosmofile)
-
-

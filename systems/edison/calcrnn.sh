@@ -9,8 +9,7 @@
 #SBATCH -N {NNodes}
 #SBATCH --exclusive
 
-cd {OPath}
-ls {LPath} > {NameFile}
+{SysExecDir}/pixlc/bin/pixLC-socts {JDir}/pixlc/pixLC.cfg 0 1 > {NameFile}
 
 srun -n {NCores} {ExecDir}/calcrnn calcrnn_parts.cfg
 srun -n {NCores} {ExecDir}/calcrnn calcrnn_halos.cfg
