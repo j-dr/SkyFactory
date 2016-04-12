@@ -19,4 +19,4 @@ perl -e 'sleep 1 while (!(-e "auto-rockstar.cfg"))'
 
 srun -n {NCores} $exe -c auto-rockstar.cfg
 
-$parentexe {BoxL} out_0.list
+$parentexe out_0.list {BoxL} > out_0.parents
