@@ -37,6 +37,7 @@ def main(num, system, cosmofile, tasks=default_tasks):
     pars['SimName'] = cosmoparams['Simulation']['SimName']
     pars['SimNum'] = num
     pars['Email'] = sysparams['Email']
+    pars['TimeLimitHours'] = sysparams['TimeLimitHours']
     
     with open(os.path.join('systems', system, 'all.sh'), 'r') as fp:
         gsubtemp = fp.readlines()

@@ -6,6 +6,8 @@
 #SBATCH -t 2:00:00
 #SBATCH -J {SimName}-{SimNum}-ua-Lb{BoxL}
 #SBATCH -o {SimName}-{SimNum}-ua-Lb{BoxL}.%j.oe
+#SBATCH -N 1
+#SBATCH -n 4
 
 mkdir -p {OPath}
 cd {OPath}
