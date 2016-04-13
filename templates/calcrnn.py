@@ -39,6 +39,7 @@ class CalcRnn(BaseTemplate):
         pars['NRnn'] = self.cosmoparams['CalcRnn']['NRnn'][boxl]
         pars['OPath'] = opath
         pars['BBoxFile'] = '{0}/bboxindex.txt'.format(opath)
+        pars['HaloBBoxFile'] = '{0}/bboxindex_halos.txt'.format(opath)
         pars['HFile'] = halopath
 
         jobbase = os.path.join(self.sysparams['JobBase'], 
@@ -53,11 +54,11 @@ class CalcRnn(BaseTemplate):
             fp.write("NumTasksIOInParallel    {0}\n".format(pars['NCores']))
             fp.write("SimulationType          {0}\n".format(pars['SimType']))
             fp.write("SnapshotFileList        {0}\n".format(pars['NameFile']))
-            fp.write("BBoxOutputFile          {0}\n".format(pars['BBoxFile']))
+            fp.write("BBoxOutputFile          {0}\n".format(pars['HaloBBoxFile']))
             fp.write("HaloFile                {0}\n".format(pars['HFile']))
             fp.write("HaloFileFormat          SKELETON\n")
             fp.write("HaloChunkSizeMB         500\n")
-            fp.write("DomainBuffSize          20.0\n")
+            fp.write("DomainBuffSize          25.0\n")
             fp.write("NRnn                    {0}\n".format(pars['NRnn']))
             fp.write("NDiv                    8\n")
 
@@ -66,8 +67,8 @@ class CalcRnn(BaseTemplate):
             fp.write("NumTasksIOInParallel    {0}\n".format(pars['NCores']))
             fp.write("SimulationType          {0}\n".format(pars['SimType']))
             fp.write("SnapshotFileList        {0}\n".format(pars['NameFile']))
-            fp.write("BBoxOutputFile          {0}\n".format(pars['SimType']))
-            fp.write("DomainBuffSize          20.0\n")
+            fp.write("BBoxOutputFile          {0}\n".format(pars['BBoxFile']))
+            fp.write("DomainBuffSize          25.0\n")
             fp.write("NRnn                    {0}\n".format(pars['NRnn']))
             fp.write("NDiv                    8\n")
 
