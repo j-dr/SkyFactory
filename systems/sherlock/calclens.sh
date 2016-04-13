@@ -9,6 +9,8 @@
 #SBATCH -N {NNodes}
 #SBATCH --exclusive
 
+module load hdf5/1.8.16 intelmpi/4.1.3.048 intel/13sp1.2.144
+
 {GalCatListCMD}
 
 srun -n {NCores} {ExecDir}/raytrace raytrace.cfg {Restart}
