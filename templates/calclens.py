@@ -86,7 +86,7 @@ class Calclens(BaseTemplate):
                                                self.__class__.__name__.lower(),
                                                'healpix_weights')
         # galaxies
-        pars['GalCatList'] = os.path.join(self.getOutputBaseDir(),'calclens','galcatlist.txt')
+        pars['GalCatList'] = os.path.join(self.getJobBaseDir(),'calclens','galcatlist.txt')
                 
         # write to correct spot on disk
         jobbase = os.path.join(self.getJobBaseDir(),self.__class__.__name__.lower())
@@ -107,6 +107,7 @@ class Calclens(BaseTemplate):
         pars['OPath'] = opath
         pars['Email'] = self.sysparams['Email']
         
+        pars['GalCatListCMD'] = 'ls -1 -d %s/lenspts/* > galcatlist.txt' % self.getOutputBaseDir()
         pars['Restart'] = ''
         
         jobbase = os.path.join(self.getJobBaseDir(),self.__class__.__name__.lower())
@@ -117,6 +118,7 @@ class Calclens(BaseTemplate):
                                            'sh'), 'w') as fp:
             fp.write(jobscript)
 
+        pars['GalCatListCMD'] = ''
         pars['Restart'] = '1'
         jobscript = self.jobtemp.format(**pars)        
         with open('{0}/job.{1}.restart.{2}'.format(jobbase,
