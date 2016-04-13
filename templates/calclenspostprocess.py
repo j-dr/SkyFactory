@@ -37,7 +37,7 @@ class CalclensPostProcess(BaseTemplate):
         pars['GalCatList'] = os.path.join(self.getOutputBaseDir(),'calclens','galcatlist.txt')
                 
         # write to correct spot on disk
-        jobbase = os.path.join(self.jobbase,self.__class__.__name__.lower())
+        jobbase = os.path.join(self.getJobBaseDir(),self.__class__.__name__.lower())
         config = _base_config.format(**pars)
         with open('{0}/calclensconcat.yaml'.format(jobbase), 'w') as fp:
             fp.write(config)
@@ -55,7 +55,7 @@ class CalclensPostProcess(BaseTemplate):
         pars['OPath'] = opath
         pars['Email'] = self.sysparams['Email']
         
-        jobbase = os.path.join(self.jobbase,self.__class__.__name__.lower())
+        jobbase = os.path.join(self.getJobBaseDir(),self.__class__.__name__.lower())
 
         jobscript = self.jobtemp.format(**pars)        
         spath = '{0}/job.{1}.{2}'.format(jobbase,

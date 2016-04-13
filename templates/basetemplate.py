@@ -109,7 +109,7 @@ class BaseTemplate(object):
         self.readCosmoFile()
         self.readJobTemplateFile()
 
-        self.jobbase = os.path.join(self.sysparams['JobBase'],'{0}-{1}'.format(self.cosmoparams['Simulation']['SimName'],self.simnum))
+        self.jobbase = self.getJobBaseDir()
 
         if not self.allboxes:
         
