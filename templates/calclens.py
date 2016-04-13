@@ -74,7 +74,7 @@ class Calclens(BaseTemplate):
         pars['RMax'] = self.cosmoparams['PixLC']['RMax'][last_box]        
         num_planes = pars['RMax']/plane_width
         assert num_planes*plane_width == pars['RMax']
-        pars['NumPlanes'] = num_planes
+        pars['NumPlanes'] = int(num_planes)
         
         # lens plane paths
         pars['LensPlanePath'] = os.path.join(self.getOutputBaseDir(),'pixlc')
