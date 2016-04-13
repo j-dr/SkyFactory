@@ -31,7 +31,7 @@ class CalclensPostProcess(BaseTemplate):
         
         # inputs
         pars['InputPath'] = os.path.join(self.getOutputBaseDir(),'calclens')
-        pars['InputPath'] = 'gal_images'
+        pars['InputName'] = 'gal_images'
         
         # galaxies
         pars['GalCatList'] = os.path.join(self.getOutputBaseDir(),'calclens','galcatlist.txt')
