@@ -53,7 +53,7 @@ class CalcRnn(BaseTemplate):
             fp.write("NumTasksIOInParallel    {0}\n".format(pars['NCores']))
             fp.write("SimulationType          {0}\n".format(pars['SimType']))
             fp.write("SnapshotFileList        {0}\n".format(pars['NameFile']))
-            fp.write("BBoxOutputFile          {0}\n".format(pars['SimType']))
+            fp.write("BBoxOutputFile          {0}\n".format(pars['BBoxFile']))
             fp.write("HaloFile                {0}\n".format(pars['HFile']))
             fp.write("HaloFileFormat          SKELETON\n")
             fp.write("HaloChunkSizeMB         500\n")
