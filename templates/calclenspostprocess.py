@@ -34,7 +34,7 @@ class CalclensPostProcess(BaseTemplate):
         pars['InputPath'] = 'gal_images'
         
         # galaxies
-        pars['GalCatList'] = 'FIXME'
+        pars['GalCatList'] = os.path.join(self.getOutputBaseDir(),'calclens','galcatlist.txt')
                 
         # write to correct spot on disk
         jobbase = os.path.join(self.jobbase,self.__class__.__name__.lower())

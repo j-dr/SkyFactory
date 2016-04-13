@@ -11,4 +11,6 @@
 
 cd {OPath}
 
+ls -1 -d $PWD/../lenspts/* > galcatlist.txt
+
 srun -n {NCores} {ExecDir}/raytrace raytrace.cfg {Restart}
