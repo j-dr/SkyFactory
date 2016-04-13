@@ -9,6 +9,4 @@
 #SBATCH -N {NNodes}
 #SBATCH --exclusive
 
-cd {OPath}
-
 srun -n {NCores} python {ExecDir}/scripts/concat.py calclensconcat.yaml

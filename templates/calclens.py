@@ -35,8 +35,8 @@ NumFilesIOInParallel        128 # number of files to output in parallel - must b
 bundleOrder                 5
 rayOrder                    13
 minRa                       0.0
-maxRa                       180.0
-minDec                      0.0
+maxRa                       360.0
+minDec                      -90.0
 maxDec                      90.0
 maxRayMemImbalance          0.75
 
@@ -77,8 +77,8 @@ class Calclens(BaseTemplate):
         pars['NumPlanes'] = num_planes
         
         # lens plane paths
-        pars['LensPlanePath'] = 'FIXME'
-        pars['LensPlaneName'] = 'FIXME'
+        pars['LensPlanePath'] = os.path.join(self.getOutputBaseDir(),'pixlc')
+        pars['LensPlaneName'] = 'snapshot_Lightcone'
         
         # outputs
         pars['OutputPath'] = opath
@@ -86,10 +86,10 @@ class Calclens(BaseTemplate):
                                                self.__class__.__name__.lower(),
                                                'healpix_weights')
         # galaxies
-        pars['GalCatList'] = 'FIXME'
+        pars['GalCatList'] = os.path.join(self.getOutputBaseDir(),'calclens','galcatlist.txt')
                 
         # write to correct spot on disk
-        jobbase = os.path.join(self.jobbase,self.__class__.__name__.lower())
+        jobbase = os.path.join(self.getJobBaseDir(),self.__class__.__name__.lower())
         config = _base_config.format(**pars)
         with open('{0}/raytrace.cfg'.format(jobbase), 'w') as fp:
             fp.write(config)
@@ -109,7 +109,7 @@ class Calclens(BaseTemplate):
         
         pars['Restart'] = ''
         
-        jobbase = os.path.join(self.jobbase,self.__class__.__name__.lower())
+        jobbase = os.path.join(self.getJobBaseDir(),self.__class__.__name__.lower())
 
         jobscript = self.jobtemp.format(**pars)        
         with open('{0}/job.{1}.{2}'.format(jobbase,
