@@ -86,7 +86,7 @@ class Calclens(BaseTemplate):
                                                self.__class__.__name__.lower(),
                                                'healpix_weights')
         # galaxies
-        pars['GalCatList'] = os.path.join(self.getOutputBaseDir(),'calclens','galcatlist.txt')
+        pars['GalCatList'] = os.path.join(self.getJobBaseDir(),'calclens','galcatlist.txt')
                 
         # write to correct spot on disk
         jobbase = os.path.join(self.getJobBaseDir(),self.__class__.__name__.lower())
