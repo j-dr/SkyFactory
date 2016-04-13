@@ -9,8 +9,6 @@
 #SBATCH -N {NNodes}
 #SBATCH --exclusive
 
-cd {OPath}
-
-ls -1 -d $PWD/../lenspts/* > galcatlist.txt
+ls -1 -d {OPath}/../lenspts/* > galcatlist.txt
 
 srun -n {NCores} {ExecDir}/raytrace raytrace.cfg {Restart}
