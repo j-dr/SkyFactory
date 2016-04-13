@@ -51,7 +51,7 @@ class CalclensPostProcess(BaseTemplate):
         pars['NCores'] = self.cosmoparams['Calclens']['NCores']
         pars['NNodes'] = (pars['NCores'] + self.sysparams['CoresPerNode'] - 1 )/self.sysparams['CoresPerNode']
         pars['ExecDir'] = os.path.join(self.sysparams['ExecDir'],
-                                       self.__class__.__name__.lower())
+                                       'calclens')
         pars['OPath'] = opath
         pars['Email'] = self.sysparams['Email']
         
