@@ -26,6 +26,8 @@ class DensMap(BaseTemplate):
             num_to_do = num_planes - 1
         else:
             num_to_do = num_planes
+
+        self.num_cores = num_to_do//2
         
         pars['Nside'] = 2048 #FIXME hard coded!
         pars['LensPlanePath'] = os.path.join(self.getOutputBaseDir(),'pixlc')
@@ -52,7 +54,7 @@ class DensMap(BaseTemplate):
         pars['SimNum'] = self.simnum
         pars['ExecDir'] = self.getExecDir()
         pars['Repo'] = self.sysparams['Repo']
-        pars['NCores'] = self.cosmoparams['PixLC']['NCores']
+        pars['NCores'] = self.num_cores
         pars['NNodes'] = (pars['NCores'] + self.sysparams['CoresPerNode'] - 1 )/self.sysparams['CoresPerNode']
         pars['TimeLimitHours'] = self.sysparams['TimeLimitHours']
         pars['Email'] = self.sysparams['Email']
