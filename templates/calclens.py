@@ -107,7 +107,7 @@ class Calclens(BaseTemplate):
         pars['OPath'] = opath
         pars['Email'] = self.sysparams['Email']
         
-        pars['GalCatListCMD'] = 'ls -1 -d %s/lenspts/* > galcatlist.txt' % self.getOutputBaseDir()
+        pars['GalCatListCMD'] = 'ls -1 -d %s/addgalspostprocess/lens/* > galcatlist.txt' % self.getOutputBaseDir()
         pars['Restart'] = ''
         
         jobbase = os.path.join(self.getJobBaseDir(),self.__class__.__name__.lower())
