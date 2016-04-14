@@ -47,6 +47,7 @@ def main(num, system, cosmofile, tasks=default_tasks):
     jobheader = gsubtemp.format(**pars)
     if 'AddgalsPostProcess' in tasks:
         aidx = tasks.index('AddgalsPostProcess')
+        print(aidx)
     else:
         aidx = len(tasks)
 
