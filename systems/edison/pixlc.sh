@@ -9,5 +9,5 @@
 #SBATCH -N {NNodes}
 #SBATCH --exclusive
 
-srun -n {NCores} {ExecDir}/pixLC/pixLC.py pixLC.cfg
+srun -n {NCores} {ExecDir}/pixLC.py pixLC.cfg
 {ExecDir}/bin/pixLC-symlink pixLC.cfg {ZLow} {ZHigh} {OBase} 
