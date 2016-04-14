@@ -1,6 +1,9 @@
 from .addgals import Addgals
 del addgals
 
+from .densmap import DensMap
+del densmap
+
 from .addgalspostprocess import AddgalsPostProcess
 del addgalspostprocess
 

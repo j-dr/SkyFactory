@@ -9,6 +9,10 @@ import os
 from .basetemplate import BaseTemplate
 
 class DensMap(BaseTemplate):
+
+    def __init__(self, simnum, system, cosmo):
+        super(DensMap, self).__init__(simnum, system, cosmo, allboxes=True)
+    
     def write_config(self, opath, boxl):
         # setup
         pars = {}
@@ -16,7 +20,8 @@ class DensMap(BaseTemplate):
         last_box = self.cosmoparams['Simulation']['BoxL'][-1]
         pars['RMax'] = self.cosmoparams['PixLC']['RMax'][last_box]        
         num_planes = int(pars['RMax']/plane_width)
-        
+        jobbase = os.path.join(self.getJobBaseDir(),
+                               (self.__class__.__name__).lower())        
         if num_planes % 2 == 1:
             num_to_do = num_planes - 1
         else:
@@ -33,7 +38,7 @@ class DensMap(BaseTemplate):
                 pstr2 = '_%d' % (i*2+1)                
                 cmd = "%s/bin/pixLC-viz --verbose %d %s %s %s" % \
                     (self.getExecDir(),
-                     pars['nside'],
+                     pars['Nside'],
                      os.path.join(opath,'densmap%d.fits' % i),
                      os.path.join(pars['LensPlanePath'],pars['LensPlaneName']+pstr1),
                      os.path.join(pars['LensPlanePath'],pars['LensPlaneName']+pstr1))
@@ -50,7 +55,7 @@ class DensMap(BaseTemplate):
         pars['TimeLimitHours'] = self.sysparams['TimeLimitHours']
         pars['Email'] = self.sysparams['Email']
 
-        jobbase = os.path.join(self.sysparams['JobBase'],
+        jobbase = os.path.join(self.getJobBaseDir(),
                                (self.__class__.__name__).lower())        
         jobscript = self.jobtemp.format(**pars)
         
