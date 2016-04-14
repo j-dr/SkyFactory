@@ -31,7 +31,7 @@ class DensMap(BaseTemplate):
             for i in xrange(num_to_do//2):
                 pstr1 = '_%d' % (i*2)
                 pstr2 = '_%d' % (i*2+1)                
-                cmd = "%s/pixLC/bin/pixLC-viz --verbose %d %s %s %s" % \
+                cmd = "%s/bin/pixLC-viz --verbose %d %s %s %s" % \
                     (self.getExecDir(),
                      pars['nside'],
                      os.path.join(opath,'densmap%d.fits' % i),
