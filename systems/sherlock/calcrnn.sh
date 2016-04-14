@@ -15,3 +15,5 @@ module load py-numpy
 
 srun -n {NCores} {ExecDir}/calcrnn calcrnn_parts.cfg {NCores}
 srun -n {NCores} {ExecDir}/calcrnn calcrnn_halos.cfg {NCores}
+
+ln -s {OPath}/* {LCPath}/

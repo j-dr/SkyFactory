@@ -29,7 +29,7 @@ class CalcRnn(BaseTemplate):
     def write_config(self, opath, boxl):
 
         osp = opath.split('/')
-        osp[-1] = 'halos/out_0.parents'
+        osp[-1] = 'halos/cut_out_0.parents.reformat'
         halopath = '/'.join(osp)
         pars = {}
         pars['SimType'] = self.cosmoparams['Simulation']['SimType']
@@ -95,7 +95,7 @@ class CalcRnn(BaseTemplate):
         pars['JDir'] = os.path.join(self.getJobBaseDir(),"Lb%s" % boxl)
         pars['OPath'] = opath
         pars['Email'] = self.sysparams['Email']
-        pars['LPath'] = '{0}/*'.format(lcpath)
+        pars['LCPath'] = '{0}/'.format(lcpath)
         
         jobscript = self.jobtemp.format(**pars)
         

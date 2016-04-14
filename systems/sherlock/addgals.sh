@@ -14,4 +14,4 @@ idl setup_addgals.idl
 
 sh submit_jobs.sh | cake add_multiple l-addgals.db
 
-srun -n {NCores} cake run l-addgals.db --mpi 
+srun -n {NCores} cake run l-addgals.db --mpi --spawn-master

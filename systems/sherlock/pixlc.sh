@@ -10,4 +10,5 @@
 #SBATCH --exclusive
 
 srun -n {NCores} {ExecDir}/pixLC.py pixLC.cfg
-{ExecDir}/bin/pixLC-symlink pixLC.cfg {ZLow} {ZHigh} {OBase} 
+{ExecDir}/bin/pixLC-symlink pixLC.cfg {ZLow} {ZHigh} {OBase}
+{ExecDir}/bin/pixLC-halocut pixLC.cfg {HaloDir}/out_0.list.reformat {HaloDir}/out_0.parents.reformat
