@@ -82,4 +82,4 @@ if __name__=="__main__":
 
     args = parser.parse_args()
 
-    main(args.num, args.system, args.cosmofile)
+    main(args.num, args.system, args.cosmofile, tasks=['PixLC'])

@@ -8,6 +8,7 @@ import os
 
 from .basetemplate import BaseTemplate
 
+
 class PixLC(BaseTemplate):
 
     def write_config(self, opath, boxl):
@@ -48,6 +49,9 @@ class PixLC(BaseTemplate):
         pars['NCores'] = self.cosmoparams['PixLC']['NCores']
         pars['NNodes'] = (pars['NCores'] + self.sysparams['CoresPerNode'] - 1 )/self.sysparams['CoresPerNode']
         pars['TimeLimitHours'] = self.sysparams['TimeLimitHours']
+        pars['ZLow'] = self.cosmoparams['Addgals']['SimZmin'][boxl]
+        pars['ZHigh'] = self.cosmoparams['Addgals']['SimZmax'][boxl]
+        pars['OBase'] = self.getOutputBaseDir()+'/pixlc'
         jobbase = os.path.join(self.sysparams['JobBase'], 
                                '{0}-{1}'.format(pars['SimName'], pars['SimNum']),
                                'Lb{0}'.format(boxl), (self.__class__.__name__).lower())
