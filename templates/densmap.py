@@ -32,6 +32,8 @@ class DensMap(BaseTemplate):
         pars['LensPlaneName'] = 'snapshot_Lightcone'
         
         # write jobs to a file
+        jobbase = os.path.join(self.getJobBaseDir(),
+                               (self.__class__.__name__).lower())  
         with open('{0}/densmap.cmds'.format(jobbase), 'w') as fp:
             for i in xrange(num_to_do//2):
                 pstr1 = '_%d' % (i*2)
