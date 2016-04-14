@@ -30,6 +30,11 @@ Set up and run large suites of mock sky simulations.
           outputs got to data_output_path
           """
   ```
+  If you need to run the task only once, instead of for all N-body boxes, add the following to code above
+  ```python
+      def __init__(self, simnum, system, cosmo):
+          super(DensMap, self).__init__(simnum, system, cosmo, allboxes=True)
+  ```
 3. Make sure to import the class from 2 in `templates/__init__.py`
 4. Make sure to write and put your job submission script in `systems/{all systems}/MyTask.{Sched}` 
   where `{Sched}` is the corresponding parameter in the `{system}.yaml` file.
