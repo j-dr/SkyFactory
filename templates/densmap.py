@@ -45,7 +45,7 @@ class DensMap(BaseTemplate):
                      pars['Nside'],
                      os.path.join(opath,'densmap%d.fits' % i),
                      os.path.join(pars['LensPlanePath'],pars['LensPlaneName']+pstr1),
-                     os.path.join(pars['LensPlanePath'],pars['LensPlaneName']+pstr1))
+                     os.path.join(pars['LensPlanePath'],pars['LensPlaneName']+pstr2))
                 fp.write(cmd)
 
     def write_jobscript(self, opath, boxl):
