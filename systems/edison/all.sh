@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -l
 #SBATCH -p regular
 #SBATCH -t 12:00
 #SBATCH -J {SimName}{SimNum}-all
