@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -l
 #SBATCH -p regular
 #SBATCH -t 96:00
 #SBATCH -J {SimName}{SimNum}-rs-Lb{BoxL}
