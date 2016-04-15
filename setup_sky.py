@@ -58,7 +58,7 @@ def main(num, system, cosmofile, tasks=default_tasks):
         #per box.
         for i, task in enumerate(tasks[:aidx]):
             for i, boxl in enumerate(cosmoparams['Simulation']['BoxL']):        
-                fp.write("cd Lb{0}/{1}\n".format(boxl, task))
+                fp.write("cd Lb{0}/{1}\n".format(boxl, task.lower()))
                 fp.write('echo "------------- {0}.{1} -------------"\n'.format(task, boxl))
                 fp.write("sh job.{0}.sh\n".format(task.lower()))
                 fp.write("cd ../..\n")
@@ -66,7 +66,7 @@ def main(num, system, cosmofile, tasks=default_tasks):
 
         #everything afterwards is done once per suite
         for task in tasks[aidx:]:
-            fp.write("cd {0}\n".format(task))
+            fp.write("cd {0}\n".format(task.lower()))
             fp.write('echo "------------- {0} -------------"\n'.format(task))
             fp.write("sh job.{0}.sh\n".format(task.lower()))
             fp.write("cd ..\n")
