@@ -148,6 +148,7 @@ class BaseTemplate(object):
                 os.makedirs(obase)
             except:
                 pass
-            
-            self.write_jobscript(obase, None)
+
             self.write_config(obase, None)
+            self.write_jobscript(obase, None)
+
