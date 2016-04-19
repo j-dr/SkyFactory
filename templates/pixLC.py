@@ -42,7 +42,7 @@ class PixLC(BaseTemplate):
         lcpath = '/'.join(osp)
         pars = {}
         pars['BoxL'] = boxl
-        pars['HaloDir'] = "{0}/Lb{1}/halos/".format(self.getOutputBaseDir(), boxl)
+        pars['HaloDir'] = "{0}/Lb{1}/output/halos/".format(self.getOutputBaseDir(), boxl)
         pars['SimName'] = self.cosmoparams['Simulation']['SimName']
         pars['SimNum'] = self.simnum
         pars['ExecDir'] = self.getExecDir()
