@@ -19,7 +19,7 @@ class AddgalsPostProcess(BaseTemplate):
         pars['BasePath'] = self.getOutputBaseDir()
         pars['OutPath'] = "{0}/{1}/".format(pars['BasePath'], self.__class__.__name__.lower())
         for boxl in self.cosmoparams['Simulation']['BoxL']:
-            halopaths.append("{0}/Lb{1}/rockstar/out_0.parents".format(pars['BasePath'], boxl))
+            halopaths.append("{0}/Lb{1}/output/halos/cut_reform_out_0.parents".format(pars['BasePath'], boxl))
 
         pars['Prefix'] = self.cosmoparams['Simulation']['SimName']
         pars['Suffix'] = "-{0}".format(self.simnum)
