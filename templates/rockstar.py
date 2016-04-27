@@ -54,6 +54,8 @@ class Rockstar(BaseTemplate):
             fp.write("LIGHTCONE = 1\n")
             fp.write("LIGHTCONE_ORIGIN = (0, 0, 0)\n")
             fp.write("LIGHTCONE_ALT_ORIGIN = (0, 0, 0)\n")
+            fp.write('SNAPSHOT_NAMES = "snaps.txt"')
+            fp.write('LIGHTCONE_ALT_SNAPS = "snaps2.txt"')
             
         fp.write('W0 = %0.20g\n' % w0)
         fp.write('WA = %0.20g\n' % wa)
@@ -68,7 +70,12 @@ class Rockstar(BaseTemplate):
         
         fp = open(os.path.join(opath,"snaps.txt"),'w')
         for i in xrange(ns):
-            fp.write("%s\n" % i)
+            fp.write("00%s\n" % i)
+
+        fp = open(os.path.join(opath,"snaps2.txt"),'w')
+        for i in xrange(ns):
+            fp.write("00%s\n" % i+1)
+            
         fp.close()
 
     
