@@ -30,7 +30,7 @@ class Addgals(BaseTemplate):
             fp.write("omegal = {0}\n".format(coscfg['OmegaL']))
             fp.write("boxsize = {0}\n".format(boxl))
             fp.write("bcg_mass_lim = {0}\n".format(adgcfg['BCGMassLim'][boxl]))
-            fp.write("simname = {0}\n".format(simcfg['SimName']))
+            fp.write("simname = '{0}'\n".format(simcfg['SimName']))
             fp.write("halofile = '{0}/{1}'\n".format(bopath, 'halos/cut_reform_out_0.parents'))
             fp.write("rnn_halofile = '{0}/{1}'\n".format(bopath, 'calcrnn/rnn_cut_reform_out_0.parents'))
             fp.write("dir = '{0}'\n".format(opath))
