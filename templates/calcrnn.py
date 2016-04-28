@@ -29,7 +29,7 @@ class CalcRnn(BaseTemplate):
     def write_config(self, opath, boxl):
 
         osp = opath.split('/')
-        osp[-1] = 'halos/cut_out_0.parents.reformat'
+        osp[-1] = 'halos/cut_out_0.parents.reformated'
         halopath = '/'.join(osp)
         pars = {}
         pars['SimType'] = self.cosmoparams['Simulation']['SimType']
@@ -101,6 +101,8 @@ class CalcRnn(BaseTemplate):
                                'Lb{0}'.format(boxl), (self.__class__.__name__).lower())
         pars['NameFile'] = '{0}/{1}-{2}_Lb{3}.txt'.format(jobbase, pars['SimName'],
                                                           pars['SimNum'], boxl)
+        pars['HaloNameFile'] = '{0}/{1}-{2}_Lb{3}_halos.txt'.format(jobbase, pars['SimName'],
+                                                                    pars['SimNum'], boxl)
         pars['ExecDir'] = os.path.join(self.sysparams['ExecDir'],(self.__class__.__name__).lower())
         pars['SysExecDir'] = self.sysparams['ExecDir']
         pars['JDir'] = os.path.join(self.getJobBaseDir(),"Lb%s" % boxl)

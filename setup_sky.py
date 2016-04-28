@@ -7,7 +7,7 @@ import os
 
 default_tasks = ['UnarchiveLightcone', 'Rockstar', 'PixLC', 'CalcRnn', 'Addgals', 'AddgalsPostProcess', 'DensMap', 'Calclens', 'CalclensPostProcess']
 
-def main(num, system, cosmofile, tasks=default_tasks):
+def main(cosmofile, num, system, tasks=default_tasks, only_all_sub=False):
 
     sscripts = []
     
@@ -17,7 +17,10 @@ def main(num, system, cosmofile, tasks=default_tasks):
         task = getattr(templates, task)
         #task = getattr(taskmod, task)
         t = task(num, system, cosmofile)
-        t.setup()
+        if not only_all_sub:
+            t.setup()
+        else:
+            t.setup(nowrite=True)
         
         sscripts.append(t.getJobScriptName())
 
@@ -79,7 +82,9 @@ if __name__=="__main__":
     parser.add_argument("cosmofile", type=str)
     parser.add_argument("num", type=int)
     parser.add_argument("system", type=str)
-
+    parser.add_argument("--nowrite", dest='nowrite', action='store_true')
+    parser.set_defaults(nowrite=False)
+    
     args = parser.parse_args()
 
-    main(args.num, args.system, args.cosmofile)
+    main(args.cosmofile, args.num, args.system, only_all_sub=args.nowrite)

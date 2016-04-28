@@ -74,7 +74,7 @@ class Rockstar(BaseTemplate):
 
         fp = open(os.path.join(opath,"snaps2.txt"),'w')
         for i in xrange(ns):
-            fp.write("00%s\n" % i+1)
+            fp.write("00%s\n" % str(int(i)+1))
             
         fp.close()
 
@@ -85,7 +85,7 @@ class Rockstar(BaseTemplate):
         pars['SimName'] = self.cosmoparams['Simulation']['SimName']
         pars['BoxL'] = boxl
         pars['OPath'] = opath
-        pars['NCores'] = self.cosmoparams['Simulation']['NCores']
+        pars['NCores'] = self.cosmoparams['Rockstar']['NCores']
         pars['NNodes'] = (pars['NCores'] + self.sysparams['CoresPerNode'] - 1 )/self.sysparams['CoresPerNode']
         pars['TimeLimitHours'] = self.sysparams['TimeLimitHours']
         pars['SimNum'] = self.simnum

@@ -103,7 +103,7 @@ class BaseTemplate(object):
         """
         pass
         
-    def setup(self):
+    def setup(self, nowrite=False):
         
         self.readSysConfig()
         self.readCosmoFile()
@@ -129,9 +129,10 @@ class BaseTemplate(object):
                     os.makedirs(obase)
                 except:
                     pass
-                
-                self.write_jobscript(obase, bsize)
-                self.write_config(obase, bsize)
+
+                if not nowrite:
+                    self.write_jobscript(obase, bsize)
+                    self.write_config(obase, bsize)
 
         else:
             
@@ -149,6 +150,7 @@ class BaseTemplate(object):
             except:
                 pass
 
-            self.write_config(obase, None)
-            self.write_jobscript(obase, None)
+            if not nowrite:
+                self.write_config(obase, None)
+                self.write_jobscript(obase, None)
 
