@@ -9,4 +9,9 @@
 #SBATCH -N {NNodes}
 #SBATCH --exclusive
 
+
 srun -n {NCores} python {ExecDir}/scripts/concat.py calclensconcat.yaml
+
+echo "*****Done combining lensing files*****"
+
+srun -n {NCores} python {AExecDir}/scripts/add_lensing.py calclensconcat.yaml {OPath}

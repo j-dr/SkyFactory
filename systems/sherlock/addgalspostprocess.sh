@@ -10,3 +10,4 @@
 #SBATCH --exclusive
 
 srun -n {NCores} python {ExecDir}/scripts/finalize_catalog.py addgalspostprocess.cfg
+python {PExecDir}/bin/pixlc/bin/pixLC-uniformpts {OBase} 

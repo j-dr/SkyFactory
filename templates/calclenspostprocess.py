@@ -34,7 +34,8 @@ class CalclensPostProcess(BaseTemplate):
         pars['InputName'] = 'gal_images'
         
         # galaxies
-        pars['GalsFileList'] = os.path.join(self.getJobBaseDir(),'calclens','galcatlist.txt')
+        pars['GalsFileList'] = os.path.join(self.getJobBaseDir(),'calclens',
+                                            'galcatlist.txt')
                 
         # write to correct spot on disk
         jobbase = os.path.join(self.getJobBaseDir(),self.__class__.__name__.lower())
@@ -52,6 +53,11 @@ class CalclensPostProcess(BaseTemplate):
         pars['NNodes'] = (pars['NCores'] + self.sysparams['CoresPerNode'] - 1 )/self.sysparams['CoresPerNode']
         pars['ExecDir'] = os.path.join(self.sysparams['ExecDir'],
                                        'calclens')
+        pars['AExecDir'] = os.path.join(self.sysparams['ExecDir'],
+                                        'addgals')
+        pars['GalsFileList'] = os.path.join(self.getJobBaseDir(),'calclens',
+                                            'galcatlist.txt')
+
         pars['OPath'] = opath
         pars['Email'] = self.sysparams['Email']
         

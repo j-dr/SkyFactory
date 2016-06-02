@@ -106,9 +106,18 @@ class Calclens(BaseTemplate):
                                        self.__class__.__name__.lower())
         pars['OPath'] = opath
         pars['Email'] = self.sysparams['Email']
-        
+        pars['LDir']  = '%s/addgalspostprocess/lens/' % self.getOutputBaseDir()
         pars['GalCatListCMD'] = 'ls -1 -d %s/addgalspostprocess/lens/* > galcatlist.txt' % self.getOutputBaseDir()
         pars['Restart'] = ''
+        pars['OmegaM']  = self.cosmoparams['Cosmology']['OmegaM']
+        pars['w0']      = self.cosmoparams['Cosmology']['w0']
+        pars['wa']      = self.cosmoparams['Cosmology']['wa']
+        pars['h']      = self.cosmoparams['Cosmology']['h']
+        pars['octs']   = " ".join([str(o) for o in
+                                   range(self.cosmoparams['NumOctants'])])
+        pars['KappaZ'] = " ".join([str(z) for z in
+                                   self.cosmoparams['Calclens']['KappaZ']])
+        pars['KappaNside'] = self.cosmoparams['Calclens']['KappaNside']
         
         jobbase = os.path.join(self.getJobBaseDir(),self.__class__.__name__.lower())
 
