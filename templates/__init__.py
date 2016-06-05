@@ -1,6 +1,9 @@
 from .addgals import Addgals
 del addgals
 
+from .surveymags import SurveyMags
+del surveymags
+
 from .densmap import DensMap
 del densmap
 

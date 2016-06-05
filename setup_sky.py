@@ -5,7 +5,7 @@ import argparse
 import templates
 import os
 
-default_tasks = ['CalclensPostProcess']
+default_tasks = ['SurveyMags']
 
 #['UnarchiveLightcone', 'Rockstar', 'PixLC', 'CalcRnn', 'Addgals', 'AddgalsPostProcess', 'DensMap', 'Calclens', 
 

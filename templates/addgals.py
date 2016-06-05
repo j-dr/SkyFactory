@@ -81,5 +81,9 @@ class Addgals(BaseTemplate):
 
         jobscript = self.jobtemp.format(**pars)
 
-        with open('{0}/job.{1}.sh'.format(jobbase, (self.__class__.__name__).lower()), 'w') as fp:
+        spath = '{0}/job.{1}.sh'.format(jobbase, (self.__class__.__name__).lower())
+
+        with open(spath, 'w') as fp:
             fp.write(jobscript)
+
+        return spath
