@@ -14,4 +14,8 @@ srun -n {NCores} python {ExecDir}/scripts/concat.py calclensconcat.yaml
 
 echo "*****Done combining lensing files*****"
 
-srun -n {NCores} python {AExecDir}/scripts/add_lensing.py calclensconcat.yaml {OPath}
+ls {OPath}/* > lensgalslist.txt
+ls {TGDir}/* > truthgalslist.txt
+ls {THDir}/* >> truthgalslist.txt
+
+srun -n {NCores} python {AExecDir}/scripts/add_lensing.py calclensconcat.yaml

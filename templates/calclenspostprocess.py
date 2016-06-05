@@ -36,6 +36,10 @@ class CalclensPostProcess(BaseTemplate):
         # galaxies
         pars['GalsFileList'] = os.path.join(self.getJobBaseDir(),'calclens',
                                             'galcatlist.txt')
+        pars['LensGalsList'] = os.path.join(self.getJobBaseDir(),'calclenspostprocess',
+                                            'lensgalslist.txt')
+        pars['TruthGalsList'] = os.path.join(self.getJobBaseDir(),'calclenspostprocess',
+                                            'truthgalslist.txt')
                 
         # write to correct spot on disk
         jobbase = os.path.join(self.getJobBaseDir(),self.__class__.__name__.lower())
@@ -59,6 +63,10 @@ class CalclensPostProcess(BaseTemplate):
                                             'galcatlist.txt')
 
         pars['OPath'] = opath
+        pars['TGDir'] = os.path.join(self.getOutputBaseDir(), 'addgalspostprocess',
+                                     'truth')
+        pars['THDir'] = os.path.join(self.getOutputBaseDir(), 'addgalspostprocess')
+
         pars['Email'] = self.sysparams['Email']
         
         jobbase = os.path.join(self.getJobBaseDir(),self.__class__.__name__.lower())
