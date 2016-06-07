@@ -5,7 +5,7 @@ import argparse
 import templates
 import os
 
-default_tasks = ['SurveyMags']
+default_tasks = ['ErrorModel']
 
 #['UnarchiveLightcone', 'Rockstar', 'PixLC', 'CalcRnn', 'Addgals', 'AddgalsPostProcess', 'DensMap', 'Calclens', 
 

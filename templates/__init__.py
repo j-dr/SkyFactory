@@ -1,6 +1,9 @@
 from .addgals import Addgals
 del addgals
 
+from .errormodel import ErrorModel
+del errormodel
+
 from .surveymags import SurveyMags
 del surveymags
 
