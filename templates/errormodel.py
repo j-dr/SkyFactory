@@ -37,8 +37,8 @@ class ErrorModel(BaseTemplate):
             pars['DepthFile'] = self.cosmoparams['ErrorModel']['DepthFile'][i].format(**self.sysparams)
             pars['Nest'] = self.cosmoparams['ErrorModel']['Nest'][i]
 
-            if ('MagType' in self.cosmoparams['ErrorModel']) &
-                self.cosmoparams['ErrorModel']['MagType'] is not None:
+            if ('MagType' in self.cosmoparams['ErrorModel'].keys()) &
+              (self.cosmoparams['ErrorModel']['MagType'] is not None):
                 pars['MagPath']  = os.path.join(self.getOutputBaseDir(),
                                             'addgalspostprocess', 'mags',
                                             "*"+self.cosmoparams['ErrorModel']['MagType'][i]+"*")
