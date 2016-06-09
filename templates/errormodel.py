@@ -35,9 +35,10 @@ class ErrorModel(BaseTemplate):
                 pars['Model'],
                 self.cosmoparams['Simulation']['ModelVersion'])
             pars['DepthFile'] = self.cosmoparams['ErrorModel']['DepthFile'][i].format(**self.sysparams)
-            pars['Nest'] = self.cosmoparams['ErrorModel']['Nest']
+            pars['Nest'] = self.cosmoparams['ErrorModel']['Nest'][i]
 
-            if 'MagType' in self.cosmoparams['ErrorModel']:
+            if ('MagType' in self.cosmoparams['ErrorModel']) &
+                self.cosmoparams['ErrorModel']['MagType'] is not None:
                 pars['MagPath']  = os.path.join(self.getOutputBaseDir(),
                                             'addgalspostprocess', 'mags',
                                             "*"+self.cosmoparams['ErrorModel']['MagType'][i]+"*")
@@ -56,22 +57,20 @@ class ErrorModel(BaseTemplate):
 
             pars['UseLMAG'] = True
 
-        with open("{0}/errormodel.{1}.cfg".format(jbase, i), 'w') as fp:
-            fp.write("Model    : {Model}\n".format(**pars))
-            fp.write("OutputDir  : {OutputDir}\n".format(**pars))
-            fp.write("OutputBase : {OutputBase}\n".format(**pars))
-            fp.write("DepthFile: {DepthFile}\n".format(**pars))
-            fp.write("Nest: {Nest}\n".format(**pars))
-            fp.write("DataBaseStyle: {DataBaseStyle}".format(**pars))
-            fp.write("Bands: {Bands}".format(**pars))
-            fp.write("UseLMAG: {UseLMAG}".format(**pars))
-            fp.write("MagPath  : {MagPath}\n".format(**pars))
-            fp.write("UseMags  : {UseMags}\n".format(**pars))
-            fp.write("RotOutDir: {RotOutDir}\n".format(**pars))
-            fp.write("RotBase: {RotBase}\n".format(**pars))
-            fp.write("MatPath: {MatPath}\n".format(**pars))
-            if 'Rotation' in pars.keys():
-                fp.write("Rotation : {Rotation}\n".format(**pars))
+            with open("{0}/errormodel.{1}.cfg".format(jbase, i), 'w') as fp:
+                fp.write("Model    : {Model}\n".format(**pars))
+                fp.write("OutputDir  : {OutputDir}\n".format(**pars))
+                fp.write("OutputBase : {OutputBase}\n".format(**pars))
+                fp.write("DepthFile: {DepthFile}\n".format(**pars))
+                fp.write("Nest: {Nest}\n".format(**pars))
+                fp.write("DataBaseStyle: {DataBaseStyle}\n".format(**pars))
+                fp.write("Bands: {Bands}\n".format(**pars))
+                fp.write("UseLMAG: {UseLMAG}\n".format(**pars))
+                fp.write("MagPath  : {MagPath}\n".format(**pars))
+                fp.write("UseMags  : {UseMags}\n".format(**pars))
+                fp.write("RotOutDir: {RotOutDir}\n".format(**pars))
+                fp.write("RotBase: {RotBase}\n".format(**pars))
+                fp.write("MatPath: {MatPath}\n".format(**pars))
 
 
     def write_jobscript(self, opath, boxl):
