@@ -57,6 +57,7 @@ class ErrorModel(BaseTemplate):
             pars['UseLMAG'] = True
 
             with open("{0}/errormodel.{1}.cfg".format(jbase, i), 'w') as fp:
+                fp.write("GalPath  : {GalPath}\n".format(**pars))
                 fp.write("Model    : {Model}\n".format(**pars))
                 fp.write("OutputDir  : {OutputDir}\n".format(**pars))
                 fp.write("OutputBase : {OutputBase}\n".format(**pars))
