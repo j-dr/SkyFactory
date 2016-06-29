@@ -114,11 +114,8 @@ class Calclens(BaseTemplate):
         pars['wa']      = self.cosmoparams['Cosmology']['wa']
         pars['h']      = self.cosmoparams['Cosmology']['h']
         pars['octs']   = " ".join([str(o) for o in
-                                   range(self.cosmoparams['NumOctants'])])
-        pars['KappaZ'] = " ".join([str(z) for z in
-                                   self.cosmoparams['Calclens']['KappaZ']])
-        pars['KappaNside'] = self.cosmoparams['Calclens']['KappaNside']
-        
+                                   range(self.cosmoparams['Simulation']['NumOctants'])])
+
         jobbase = os.path.join(self.getJobBaseDir(),self.__class__.__name__.lower())
 
         jobscript = self.jobtemp.format(**pars)        

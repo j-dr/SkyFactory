@@ -9,7 +9,10 @@
 #SBATCH -N {NNodes}
 #SBATCH --exclusive
 
+module load py-numpy
+
 COUNTER=0
 while [ $COUNTER -lt {NModels} ]; do
     srun -n {NTasks} -c {NCoresPerTask} python {ExecDir}/mock_error_apply.py errormodel.$COUNTER.cfg
+    let "COUNTER = $COUNTER + 1"
 done

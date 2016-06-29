@@ -11,8 +11,6 @@
 
 module load hdf5/1.8.16 intelmpi/4.1.3.048 intel/13sp1.2.144
 
-python {ExecDir}/scripts/kappapts.py {LDir} {KappaNside} {OmegaM} {h} --octants {
-
 {GalCatListCMD}
 
 srun -n {NCores} {ExecDir}/raytrace raytrace.cfg {Restart}
