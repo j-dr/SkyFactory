@@ -15,8 +15,7 @@ class Rockstar(BaseTemplate):
 
     def write_config(self,opath,bsize,mfdef='vir', w0=-1.0,wa=0.0,snap=False):
         ns = 1
-        nb = self.cosmoparams['Simulation']['NumBlocks'][bsize]
-          * self.cosmoparams['Simulation']['NumOctants']
+        nb = self.cosmoparams['Simulation']['NumBlocks'][bsize] * self.cosmoparams['Simulation']['NumOctants']
         soft = self.cosmoparams['Simulation']['Soft'][bsize]
         nr = self.cosmoparams['Rockstar']['NCores']
 
