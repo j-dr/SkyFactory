@@ -16,8 +16,14 @@ class Rockstar(BaseTemplate):
     def write_config(self,opath,bsize,mfdef='vir', w0=-1.0,wa=0.0,snap=False):
         ns = 1
         nb = self.cosmoparams['Simulation']['NumBlocks'][bsize]
+          * self.cosmoparams['Simulation']['NumOctants']
         soft = self.cosmoparams['Simulation']['Soft'][bsize]
         nr = self.cosmoparams['Rockstar']['NCores']
+
+        om = self.cosmoparams['Cosmology']['OmegaM']
+        ol = self.cosmoparams['Cosmology']['OmegaL']
+        h0 = self.cosmoparams['Cosmology']['h']
+        
         spath = os.path.join(self.sysparams['OutputBase'],
                              '{0}-{1}'.format(self.cosmoparams['Simulation']['SimName'],
                                               self.simnum),
@@ -35,7 +41,11 @@ class Rockstar(BaseTemplate):
             fp.write('FILENAME="lightcone<snap>/snapshot_Lightcone_<snap>.<block>"\n')
         fp.write('NUM_BLOCKS = %d\n' % nb)
         fp.write('FORCE_RES = %f\n' % soft)
+        fp.write('Om = %f\n' % om)
+        fp.write('Ol = %f\n' % ol)
+        fp.write('h0 = %f\n' % h0)        
         fp.write('NUM_SNAPS = %d\n' % ns)
+        fp.write('STARTING_SNAP = %d\n' % 0)        
         fp.write('\n')
         fp.write('#code configuration\n')
         fp.write('PARALLEL_IO = 1\n')
@@ -54,8 +64,8 @@ class Rockstar(BaseTemplate):
             fp.write("LIGHTCONE = 1\n")
             fp.write("LIGHTCONE_ORIGIN = (0, 0, 0)\n")
             fp.write("LIGHTCONE_ALT_ORIGIN = (0, 0, 0)\n")
-            fp.write('SNAPSHOT_NAMES = "snaps.txt"')
-            fp.write('LIGHTCONE_ALT_SNAPS = "snaps2.txt"')
+            fp.write('SNAPSHOT_NAMES = "snaps.txt"\n')
+            fp.write('LIGHTCONE_ALT_SNAPS = "snaps2.txt"\n')
             
         fp.write('W0 = %0.20g\n' % w0)
         fp.write('WA = %0.20g\n' % wa)
