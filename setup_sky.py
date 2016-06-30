@@ -77,6 +77,8 @@ def main(cosmofile, num, system, tasks=default_tasks, only_all_sub=False):
             fp.write("cd ..\n")
             fp.write("\n")
 
+        fp.write("echo 'Sky completed at '$( date +%T ) \n")
+
 
 if __name__=="__main__":
 
