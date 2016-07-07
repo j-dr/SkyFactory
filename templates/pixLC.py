@@ -25,6 +25,7 @@ class PixLC(BaseTemplate):
         pars['RMax'] = self.cosmoparams['PixLC']['RMax'][boxl]
         pars['LFileNside'] = 1
         pars['RR0'] = self.cosmoparams['PixLC']['RR0'][boxl]
+        pars['BufferSize'] = self.cosmoparams['PixLC']['BufferSize'][boxl]
         pars['Prefix'] = '{0}'.format('snapshot_Lightcone')
         pars['OPath'] = opath
         with open('{0}/pixLC.cfg'.format(jobbase), 'w') as fp:
@@ -35,6 +36,7 @@ class PixLC(BaseTemplate):
             fp.write("lfilenside : {LFileNside}\n".format(**pars))
             fp.write("rr0        : {RR0}\n".format(**pars))
             fp.write("prefix     : {Prefix}\n".format(**pars))
+            fp.write("buffersize : {BufferSize}\n".format(**pars))
 
     def write_jobscript(self, opath, boxl):
         osp = opath.split('/')
