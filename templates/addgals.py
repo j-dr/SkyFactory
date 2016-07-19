@@ -39,7 +39,7 @@ class Addgals(BaseTemplate):
             fp.write("srcdir = '{0}'\n".format(os.path.join(self.sysparams['ExecDir'],(self.__class__.__name__).lower())))
             fp.write("paramfile = '{0}'\n".format(adgcfg['ParamFile']))
             fp.write("pardir = '{0}'\n".format(self.sysparams['SFConfigBase']+'/Addgals'))
-            fp.write("cfgstr = '{0}'\n".format(self.cosmoparams['Addgals']['ConfigString'])
+            fp.write("cfgstr = '{0}'\n".format(self.cosmoparams['Addgals']['ConfigString']))
             fp.write("""make_buzzard_flock, dir=dir, $
                         sim_zmin=sim_zmin, sim_zmax=sim_zmax, $
                         nproc=nproc, $
