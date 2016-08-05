@@ -29,7 +29,7 @@ class CalcRnn(BaseTemplate):
     def write_config(self, opath, boxl):
 
         osp = opath.split('/')
-        osp[-1] = 'halos/cut_out_0.parents.reformated'
+        osp[-1] = 'halos/cut_reform_out_0.parents'
         halopath = '/'.join(osp)
         pars = {}
         pars['SimType'] = self.cosmoparams['Simulation']['SimType']

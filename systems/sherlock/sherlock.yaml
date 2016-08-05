@@ -1,5 +1,5 @@
-JobBase       : '/home/jderose/projects/SkyFactory/chinchilla-herd'
-OutputBase    : '/home/jderose/uscratch/BCC/Chinchilla/Herd/'
+JobBase       : '/home/jderose/projects/SkyFactory/aardvark'
+OutputBase    : '/home/jderose/uscratch/BCC/Aardvark/'
 ExecDir       : '/home/jderose/projects/SkyFactory/exec'
 SFConfigBase  : '/home/jderose/projects/SkyFactory-config'
 Repo          : 'None'

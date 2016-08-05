@@ -7,6 +7,8 @@ import os
 
 default_tasks = ['UnarchiveLightcone', 'Rockstar', 'PixLC', 'CalcRnn', 'Addgals', 'AddgalsPostProcess', 'DensMap', 'Calclens', 'CalclensPostProcess', 'SurveyMags', 'ErrorModel']
 
+#'UnarchiveLightcone', 'Rockstar', 'PixLC', 'CalcRnn',
+
 def main(cosmofile, num, system, tasks=default_tasks, only_all_sub=False):
 
     sscripts = []
