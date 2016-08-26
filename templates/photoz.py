@@ -15,16 +15,21 @@ class PhotoZ(BaseTemplate):
 
         pars = self.cosmoparams['PhotoZ']
         pars['FilePath'] = os.path.join(self.getOutputBaseDir(), 'addgalspostprocess', 'truth', '*lensed*')
+        pars['ExecPath'] = self.sysparams['ExecDir']
 
-        jbase = os.path.join(self.getJobBaseDir(), "errormodel")
+        jbase = os.path.join(self.getJobBaseDir(), "photoz")
 
-        with open("{0}/photoz.cfg", 'w') as fp:
-            yaml.dump(fp, pars)
+        for i in range(len(pars['Catalogs'])):
+            pars['OPath'] = os.path.join(self.getOutputBaseDir(), 'photoz', pars['Catalogs'][i]
+
+            with open("{0}/photoz.{1}.cfg".format(jbase, i), 'w') as fp:
+                yaml.dump(fp, pars)
 
 
     def write_jobscript(self, opath, boxl):
 
         pars = {}
+        pars['NCatalogs'] = self.cosmoparams['Photoz']['NCatalogs']
         pars['NTasks'] = self.cosmoparams['PhotoZ']['NTasks']
         pars['NCoresPerTask'] = self.cosmoparams['PhotoZ']['NCoresPerTask']
         pars['NNodes'] = (int(pars['NTasks'])*int(pars['NCoresPerTask']) + self.sysparams['CoresPerNode'] - 1 )/self.sysparams['CoresPerNode']

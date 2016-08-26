@@ -11,4 +11,8 @@
 
 module load py-numpy
 
-srun -n {NTasks} -c {NCoresPerTask} python {ExecDir}/run_photoz.py photoz.cfg
+COUNTER=0
+while [ $COUNTER -lt {NCatalogs} ]; do
+    srun -n {NTasks} -c {NCoresPerTask} python {ExecDir}/run_photoz.py photoz.$COUNTER.cfg
+    let "COUNTER = $COUNTER + 1"
+done

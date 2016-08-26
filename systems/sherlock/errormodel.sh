@@ -2,8 +2,8 @@
 #SBATCH -p iric
 #SBATCH --qos iric
 #SBATCH -t {TimeLimitHours}:00:00
-#SBATCH -J {SimName}{SimNum}-sm
-#SBATCH -o {SimName}{SimNum}-sm.%j.oe
+#SBATCH -J {SimName}{SimNum}-erm
+#SBATCH -o {SimName}{SimNum}-erm.%j.oe
 #SBATCH --mail-type=All
 #SBATCH --mail-user  {Email}
 #SBATCH -N {NNodes}
