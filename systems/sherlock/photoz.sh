@@ -2,8 +2,8 @@
 #SBATCH -p iric
 #SBATCH --qos iric
 #SBATCH -t {TimeLimitHours}:00:00
-#SBATCH -J {SimName}{SimNum}-erm
-#SBATCH -o {SimName}{SimNum}-erm.%j.oe
+#SBATCH -J {SimName}{SimNum}-pz
+#SBATCH -o {SimName}{SimNum}-pz.%j.oe
 #SBATCH --mail-type=All
 #SBATCH --mail-user  {Email}
 #SBATCH -N {NNodes}
@@ -12,7 +12,7 @@
 module load py-numpy
 
 COUNTER=0
-while [ $COUNTER -lt {NModels} ]; do
-    srun -n {NTasks} -c {NCoresPerTask} python {ExecDir}/mock_error_apply.py errormodel.$COUNTER.cfg
+while [ $COUNTER -lt {NCatalogs} ]; do
+    srun -n {NTasks} -c {NCoresPerTask} python {ExecDir}/run_photoz.py photoz.$COUNTER.cfg
     let "COUNTER = $COUNTER + 1"
 done
