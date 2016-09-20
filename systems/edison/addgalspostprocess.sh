@@ -9,5 +9,6 @@
 #SBATCH -N {NNodes}
 #SBATCH --exclusive
 
+module load mpi4py
 
 srun -n {NCores} python {ExecDir}/scripts/finalize_catalog.py addgalspostprocess.cfg
