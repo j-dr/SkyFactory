@@ -9,6 +9,8 @@
 #SBATCH -N {NNodes}
 #SBATCH --exclusive
 
+module load PrgEnv-gnu cfitsio hdf5 fftw gsl
+
 {GalCatListCMD}
 
 srun -n {NCores} {ExecDir}/raytrace raytrace.cfg {Restart}
