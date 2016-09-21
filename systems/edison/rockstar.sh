@@ -1,9 +1,9 @@
-#!/bin/bash -l
+#!/bin/bash
 #SBATCH -p regular
-#SBATCH -t 96:00
+#SBATCH -A {Repo}
+#SBATCH -t {TimeLimitHours}:00:00
 #SBATCH -J {SimName}{SimNum}-rs-Lb{BoxL}
 #SBATCH -o {SimName}{SimNum}-rs-Lb{BoxL}.%j.oe
-#SBATCH -A {Repo}
 #SBATCH --mail-type=All
 #SBATCH --mail-user  {Email}
 #SBATCH -N {NNodes}
