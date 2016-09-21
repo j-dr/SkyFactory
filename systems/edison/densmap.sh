@@ -9,6 +9,8 @@
 #SBATCH -N {NNodes}
 #SBATCH --exclusive
 
+module load mpi4py python/2.7-anaconda 
+
 while read cmd; do
     srun -n 1 $cmd &
 done < densmap.cmds

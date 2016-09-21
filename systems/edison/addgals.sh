@@ -9,4 +9,8 @@
 #SBATCH -N {NNodes}
 #SBATCH --exclusive
 
+module load idl
+
+idl -queue setup_addgals.idl
+
 sh submit_jobs.sh | srun -n {NTasks} -c {NCoresPerTask} minions
