@@ -24,6 +24,7 @@ class UnarchiveLightcone(BaseTemplate):
         pars['OPath'] = opath
         pars['SimNum'] = self.simnum
         pars['Email'] = self.sysparams['Email']
+        pars['Repo'] = self.sysparams['Repo']
         pars['OBase'] = self.sysparams['OutputBase']
         pars['TimeLimitHours'] = self.sysparams['TimeLimitHours']
         if self.sysname=='edison':
