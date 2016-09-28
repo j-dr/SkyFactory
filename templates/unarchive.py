@@ -36,6 +36,9 @@ class UnarchiveLightcone(BaseTemplate):
         if pars["SimName"] == "Chinchilla":
             pars['Group'] = "Herd"
 
+        if pars["SimName"] == "Aardvark":
+            pars['Group'] = ""
+
         jobscript = self.jobtemp.format(**pars)
         jobbase = os.path.join(self.sysparams['JobBase'],
                                '{0}-{1}'.format(pars['SimName'], pars['SimNum']),
