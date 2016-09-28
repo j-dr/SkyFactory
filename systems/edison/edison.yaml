@@ -1,10 +1,9 @@
-JobBase       : '/global/homes/j/jderose/project/SkyFactory/chinchilla-herd'
-OutputBase    : '/scratch2/scratchdirs/jderose/BCC/Chinchilla/Herd'
+JobBase       : '/global/homes/j/jderose/project/SkyFactory/aardvark'
+OutputBase    : '/scratch2/scratchdirs/jderose/BCC/Aardvark/'
 ExecDir       : '/global/homes/j/jderose/project/SkyFactory/exec'
-SFConfigBase  : '/global/homes/j/jderose/project/SkyFactory_config/'
+SFConfigBase  : '/global/homes/j/jderose/project/SkyFactory-config/'
 Email         : 'joe.derose13@gmail.com'
 Repo          : 'des'
-Sched         : 'sbatch'
 TimeLimitHours:  48
 CoresPerNode  : 24
 TasksPerNode  : 16

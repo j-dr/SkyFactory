@@ -24,6 +24,7 @@ class UnarchiveLightcone(BaseTemplate):
         pars['OPath'] = opath
         pars['SimNum'] = self.simnum
         pars['Email'] = self.sysparams['Email']
+        pars['Repo'] = self.sysparams['Repo']
         pars['OBase'] = self.sysparams['OutputBase']
         pars['TimeLimitHours'] = self.sysparams['TimeLimitHours']
         if self.sysname=='edison':
@@ -34,6 +35,9 @@ class UnarchiveLightcone(BaseTemplate):
 
         if pars["SimName"] == "Chinchilla":
             pars['Group'] = "Herd"
+
+        if pars["SimName"] == "Aardvark":
+            pars['Group'] = ""
 
         jobscript = self.jobtemp.format(**pars)
         jobbase = os.path.join(self.sysparams['JobBase'],

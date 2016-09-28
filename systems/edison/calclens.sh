@@ -9,7 +9,9 @@
 #SBATCH -N {NNodes}
 #SBATCH --exclusive
 
-module load hdf5/1.8.16 intelmpi/4.1.3.048 intel/13sp1.2.144
+module swap PrgEnv-intel PrgEnv-gnu
+module swap fftw/2.1.5.9 fftw/3.3.4.9
+module load cfitsio hdf5 gsl
 
 {GalCatListCMD}
 
