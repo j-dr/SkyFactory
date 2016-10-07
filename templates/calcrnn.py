@@ -82,6 +82,7 @@ class CalcRnn(BaseTemplate):
 
 
     def write_jobscript(self, opath, boxl):
+
         osp = opath.split('/')
         osp[-1] = 'pixlc/'
         lcpath = '/'.join(osp)
@@ -89,6 +90,7 @@ class CalcRnn(BaseTemplate):
         osp[-1] = 'lightcone/'
         octpath = '/'.join(osp)
         pars = {}
+        pars['Queue'] = self.sysparams['Queue']
         pars['BoxL'] = boxl
         pars['TimeLimitHours'] = self.sysparams['TimeLimitHours']
         pars['SimName'] = self.cosmoparams['Simulation']['SimName']

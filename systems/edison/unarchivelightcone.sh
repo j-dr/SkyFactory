@@ -1,5 +1,5 @@
 #!/bin/bash -l
-#SBATCH -p regular
+#SBATCH -p {Queue}
 #SBATCH --A {Repo}
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user={Email}

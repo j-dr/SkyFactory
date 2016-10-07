@@ -38,6 +38,7 @@ class SurveyMags(BaseTemplate):
     def write_jobscript(self, opath, boxl):
 
         pars = {}
+        pars['Queue'] = self.sysparams['Queue']
         pars['NTasks'] = self.cosmoparams['SurveyMags']['NTasks']
         pars['NCoresPerTask'] = self.cosmoparams['SurveyMags']['NCoresPerTask']
         pars['NNodes'] = (int(pars['NTasks'])*int(pars['NCoresPerTask']) + self.sysparams['CoresPerNode'] - 1 )/self.sysparams['CoresPerNode']

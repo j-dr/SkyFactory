@@ -29,6 +29,7 @@ class PhotoZ(BaseTemplate):
     def write_jobscript(self, opath, boxl):
 
         pars = {}
+        pars['Queue'] = self.sysparams['Queue']
         pars['NCatalogs'] = self.cosmoparams['Photoz']['NCatalogs']
         pars['NTasks'] = self.cosmoparams['PhotoZ']['NTasks']
         pars['NCoresPerTask'] = self.cosmoparams['PhotoZ']['NCoresPerTask']

@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -p regular
+#SBATCH -p {Queue}
 #SBATCH -A {Repo}
 #SBATCH -t {TimeLimitHours}:00:00
 #SBATCH -J {SimName}{SimNum}-rt
