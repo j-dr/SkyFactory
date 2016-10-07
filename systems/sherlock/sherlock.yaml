@@ -4,6 +4,7 @@ ExecDir       : '/home/jderose/projects/SkyFactory/exec'
 SFConfigBase  : '/home/jderose/projects/SkyFactory-config'
 Repo          : 'None'
 Email         : 'joe.derose13@gmail.com'
+Queue         : 'iric'
 TimeLimitHours:  48
 CoresPerNode  : 16
 TasksPerNode  : 16

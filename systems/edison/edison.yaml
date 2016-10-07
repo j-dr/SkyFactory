@@ -3,7 +3,7 @@ OutputBase    : '/scratch2/scratchdirs/jderose/BCC/Chinchilla/Herd/'
 ExecDir       : '/global/homes/j/jderose/project/SkyFactory/exec'
 SFConfigBase  : '/global/homes/j/jderose/project/SkyFactory-config/'
 Email         : 'joe.derose13@gmail.com'
-Queue         : premium
+Queue         : 'premium'
 Repo          : 'des'
 TimeLimitHours:  48
 CoresPerNode  : 24
