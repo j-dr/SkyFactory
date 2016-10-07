@@ -36,6 +36,7 @@ def main(cosmofile, num, system, tasks=default_tasks, only_all_sub=False):
     #write the general submission script
 
     pars = {}
+    pars['Queue'] = sysparams['Queue']
     pars['NCores'] = cosmoparams['Simulation']['NCores']
     pars['Repo'] = sysparams['Repo']
     pars['NNodes'] = (pars['NCores'] + sysparams['CoresPerNode'] - 1)/sysparams['CoresPerNode']

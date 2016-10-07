@@ -1,6 +1,6 @@
 #!/bin/bash -l
-#SBATCH -p {Queue}
-#SBATCH --A {Repo}
+#SBATCH -p xfer
+#SBATCH -A {Repo}
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user={Email}
 #SBATCH -t 2:00:00
