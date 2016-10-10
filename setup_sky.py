@@ -37,6 +37,7 @@ def main(cosmofile, num, system, tasks=default_tasks, only_all_sub=False):
 
     pars = {}
     pars['Queue'] = sysparams['Queue']
+    pars['QOS']   = sysparams['QOS']
     pars['NCores'] = cosmoparams['Simulation']['NCores']
     pars['Repo'] = sysparams['Repo']
     pars['NNodes'] = (pars['NCores'] + sysparams['CoresPerNode'] - 1)/sysparams['CoresPerNode']

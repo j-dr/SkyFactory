@@ -1,6 +1,7 @@
 #!/bin/bash
 #SBATCH -p {Queue}
 #SBATCH -A {Repo}
+#SBATCH --qos {QOS}
 #SBATCH -t {TimeLimitHours}:00:00
 #SBATCH -J {SimName}{SimNum}-plc-Lb{BoxL}
 #SBATCH -o {SimName}{SimNum}-plc-Lb{BoxL}.%j.oe

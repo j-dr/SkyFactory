@@ -30,6 +30,7 @@ class PhotoZ(BaseTemplate):
 
         pars = {}
         pars['Queue'] = self.sysparams['Queue']
+        pars['QOS'] = self.sysparams['QOS']
         pars['NCatalogs'] = self.cosmoparams['Photoz']['NCatalogs']
         pars['NTasks'] = self.cosmoparams['PhotoZ']['NTasks']
         pars['NCoresPerTask'] = self.cosmoparams['PhotoZ']['NCoresPerTask']

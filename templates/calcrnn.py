@@ -91,6 +91,7 @@ class CalcRnn(BaseTemplate):
         octpath = '/'.join(osp)
         pars = {}
         pars['Queue'] = self.sysparams['Queue']
+        pars['QOS'] = self.sysparams['QOS']
         pars['BoxL'] = boxl
         pars['TimeLimitHours'] = self.sysparams['TimeLimitHours']
         pars['SimName'] = self.cosmoparams['Simulation']['SimName']
