@@ -11,6 +11,8 @@
 #SBATCH --exclusive
 
 module load idl
+module unload PrgEnv-intel
+module load PrgEnv-gnu
 
 idl -queue setup_addgals.idl
 
