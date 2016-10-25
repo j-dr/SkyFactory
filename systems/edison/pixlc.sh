@@ -10,7 +10,7 @@
 #SBATCH -N {NNodes}
 #SBATCH --exclusive
 
-module load python/2.7-anaconda mpi4py 
+module load python/2.7-anaconda 
 
 srun -n {NCores} {ExecDir}/pixLC.py pixLC.cfg
 

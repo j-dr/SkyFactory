@@ -10,7 +10,7 @@
 #SBATCH -N {NNodes}
 #SBATCH --exclusive
 
-module load mpi4py python/2.7-anaconda 
+module load python/2.7-anaconda 
 
 COUNTER=0
 while [ $COUNTER -lt {NCatalogs} ]; do
