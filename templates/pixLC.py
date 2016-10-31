@@ -67,15 +67,9 @@ class PixLC(BaseTemplate):
                                                           pars['SimNum'], boxl)
         pars['OPath'] = opath
         pars['Email'] = self.sysparams['Email']
+        pars['LCPath'] = '{0}*/snapshot_Lightcone*'.format(lcpath)
         
         jobscript = self.jobtemp.format(**pars)
-
-        #write the lightcone files to be read by pixlc
-        lcfiles = glob('{0}*/snapshot_Lightcone*'.format(lcpath))
-        
-        with open(pars['NameFile'], 'w') as fp:
-            fbuff = '\n'.join(lcfiles)
-            fp.write(fbuff)
 
         with open('{0}/job.pixlc.sh'.format(jobbase), 'w') as fp:
             fp.write(jobscript)
