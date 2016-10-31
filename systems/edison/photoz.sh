@@ -1,6 +1,7 @@
 #!/bin/bash
-#SBATCH -p regular
+#SBATCH -p {Queue}
 #SBATCH -A {Repo}
+#SBATCH --qos {QOS}
 #SBATCH -t {TimeLimitHours}:00:00
 #SBATCH -J {SimName}{SimNum}-pz
 #SBATCH -o {SimName}{SimNum}-pz.%j.oe
@@ -9,7 +10,7 @@
 #SBATCH -N {NNodes}
 #SBATCH --exclusive
 
-module load mpi4py python/2.7-anaconda 
+module load python/2.7-anaconda 
 
 COUNTER=0
 while [ $COUNTER -lt {NCatalogs} ]; do

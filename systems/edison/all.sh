@@ -1,6 +1,7 @@
 #!/bin/bash
-#SBATCH -p regular
+#SBATCH -p {Queue}
 #SBATCH -A {Repo}
+#SBATCH --qos {QOS}
 #SBATCH -t {TimeLimitHours}:00:00
 #SBATCH -J {SimName}{SimNum}-all
 #SBATCH -o {SimName}{SimNum}-all.%j.oe

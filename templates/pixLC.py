@@ -43,6 +43,8 @@ class PixLC(BaseTemplate):
         osp[-1] = 'lightcone/lightcone'
         lcpath = '/'.join(osp)
         pars = {}
+        pars['Queue'] = self.sysparams['Queue']
+        pars['QOS'] = self.sysparams['QOS']
         pars['BoxL'] = boxl
         pars['HaloDir'] = "{0}/Lb{1}/output/halos/".format(self.getOutputBaseDir(), boxl)
         pars['SimName'] = self.cosmoparams['Simulation']['SimName']

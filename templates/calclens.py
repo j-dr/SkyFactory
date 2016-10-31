@@ -96,6 +96,8 @@ class Calclens(BaseTemplate):
         
     def write_jobscript(self, opath, boxl):
         pars = {}
+        pars['Queue'] = self.sysparams['Queue']
+        pars['QOS'] = self.sysparams['QOS']
         pars['SimName'] = self.cosmoparams['Simulation']['SimName']
         pars['SimNum'] = self.simnum
         pars['Repo'] = self.sysparams['Repo']

@@ -29,7 +29,9 @@ class PhotoZ(BaseTemplate):
     def write_jobscript(self, opath, boxl):
 
         pars = {}
-        pars['NCatalogs'] = len(self.cosmoparams['PhotoZ']['Catalogs'])
+        pars['Queue'] = self.sysparams['Queue']
+        pars['QOS'] = self.sysparams['QOS']
+        pars['NCatalogs'] = self.cosmoparams['Photoz']['NCatalogs']
         pars['NTasks'] = self.cosmoparams['PhotoZ']['NTasks']
         pars['NCoresPerTask'] = self.cosmoparams['PhotoZ']['NCoresPerTask']
         pars['NNodes'] = (int(pars['NTasks'])*int(pars['NCoresPerTask']) + self.sysparams['CoresPerNode'] - 1 )/self.sysparams['CoresPerNode']
