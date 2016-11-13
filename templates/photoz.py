@@ -1,5 +1,6 @@
 from __future__ import print_function
 from glob import glob
+from copy import copy
 import shutil
 import yaml
 import os
@@ -14,16 +15,19 @@ class PhotoZ(BaseTemplate):
     def write_config(self, opath, boxl):
 
         pars = self.cosmoparams['PhotoZ']
-        cats = pars.pop('Catalogs')
-
         pars['ExecPath'] = self.sysparams['ExecDir']
+
+        cpars = copy(pars)
+        cats = cpars.pop('Catalogs')
+
         jbase = os.path.join(self.getJobBaseDir(), "photoz")
 
         for i in range(len(cats)):
-            pars['OPath'] = os.path.join(self.getOutputBaseDir(), 'photoz', pars['Catalogs'][i])
-            pars['FilePath'] = os.path.join(self.getOutputBaseDir(), 'addgalspostprocess', cat, '*fits')
+            cpars['Catalogs'] = cats[i]
+            cpars['OPath'] = os.path.join(self.getOutputBaseDir(), 'photoz', cats[i])
+            cpars['FilePath'] = os.path.join(self.getOutputBaseDir(), 'addgalspostprocess', cats[i], '*fits')
             with open("{0}/photoz.{1}.cfg".format(jbase, i), 'w') as fp:
-                yaml.dump(pars, fp)
+                yaml.dump(cpars, fp)
 
     def write_jobscript(self, opath, boxl):
 
