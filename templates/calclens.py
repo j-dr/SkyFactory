@@ -50,6 +50,11 @@ GalsFileList                {GalCatList}
 GalOutputName               gal_images
 NumGalOutputFiles           128 # will split image gals into this many files per plane
 
+#map parameters
+MapRedshiftList             {SFConfigDir}/Calclens/mapzlist.txt
+MaxResMap                   1
+RayOutputName               Rays_8192
+
 """
 
 class Calclens(BaseTemplate):
@@ -87,6 +92,7 @@ class Calclens(BaseTemplate):
                                                'healpix_weights')
         # galaxies
         pars['GalCatList'] = os.path.join(self.getJobBaseDir(),'calclens','galcatlist.txt')
+        pars['SFConfigDir'] = self.sysparams['SFConfigBase']
                 
         # write to correct spot on disk
         jobbase = os.path.join(self.getJobBaseDir(),self.__class__.__name__.lower())
