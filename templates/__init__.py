@@ -19,6 +19,9 @@ del calcrnn
 from .pixLC import PixLC
 del pixLC
 
+from .photoz import PhotoZ
+del photoz
+
 from .rockstar import Rockstar
 del rockstar
 

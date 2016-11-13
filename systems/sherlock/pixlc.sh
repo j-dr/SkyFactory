@@ -11,6 +11,8 @@
 
 module load py-numpy
 
+ls {LCPath} > {NameFile}
+
 srun -n {NCores} {ExecDir}/pixLC.py pixLC.cfg
 
 {ExecDir}/bin/pixLC-symlink pixLC.cfg {ZLow} {ZHigh} {OBase}
