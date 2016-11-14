@@ -64,8 +64,6 @@ class Addgals(BaseTemplate):
                         "{0}/run_cell.sh".format(jobbase))
         shutil.copyfile("{0}/scripts/submit_jobs.sh".format(sdir[1:-1]),
                         "{0}/submit_jobs.sh".format(jobbase))
-        shutil.copyfile("{0}/scripts/submit_jobs.sh".format(sdir[1:-1]),
-                        "{0}/submit_jobs.sh".format(jobbase))
         os.chmod("{0}/make_params_files_buzzard.sh".format(jobbase), 0o777)
         os.chmod("{0}/make_l-addgals_submission_files.sh".format(jobbase), 0o777)
 
