@@ -52,7 +52,7 @@ class PixLC(BaseTemplate):
         pars['ExecDir'] = self.getExecDir()
         pars['Repo'] = self.sysparams['Repo']
         pars['NCores'] = self.cosmoparams['PixLC']['NCores']
-        pars['NCoresPerTask'] = self.cosmoparams['PixLC']['NCoresPerTask']
+        pars['NCoresPerTask'] = self.cosmoparams['PixLC']['NCoresPerTask'][boxl]
         pars['CoresPerNode'] = self.sysparams['CoresPerNode']
         pars['NTasks'] = pars['NCores'] / pars['NCoresPerTask']
         pars['NNodes'] = (pars['NCores'] + self.sysparams['CoresPerNode'] - 1 )/self.sysparams['CoresPerNode']
