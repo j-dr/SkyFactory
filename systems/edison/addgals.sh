@@ -13,6 +13,7 @@
 module load idl
 module unload PrgEnv-intel
 module load PrgEnv-gnu
+module load gsl 
 
 idl -queue setup_addgals.idl
 
