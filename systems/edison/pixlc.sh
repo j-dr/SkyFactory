@@ -17,7 +17,7 @@ ls {LCPath} > {NameFile}
 srun -n {NCores} {ExecDir}/pixLC.py pixLC.cfg
 
 {ExecDir}/bin/pixLC-symlink pixLC.cfg {ZLow} {ZHigh} {OBase}
-srun -n 1 -c {CoresPerNode} {ExecDir}/bin/pixLC-halocut pixLC.cfg {HaloDir}/out_0.list {HaloDir}/reform_out_0.parents
+srun -n {NNodes} -c {CoresPerNode} {ExecDir}/bin/pixLC-halocut pixLC.cfg {HaloDir}/out_0.list {HaloDir}/reform_out_0.parents
 
 {ExecDir}/bin/pixLC-socts pixLC.cfg 0 1 > haloassoc_pix.txt
 srun -n {NTasks} -c {NCoresPerTask} {ExecDir}/bin/pixLC-haloassoc haloassoc_pix.txt {HaloDir}/cut_reform_out_0.parents {MMin}
