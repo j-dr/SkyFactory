@@ -10,7 +10,6 @@
 #SBATCH -N {NNodes}
 #SBATCH --exclusive
 
-module swap PrgEnv-intel PrgEnv-gnu
 module swap fftw/2.1.5.9 fftw/3.3.4.9
 module load cfitsio cray-hdf5 gsl
 
