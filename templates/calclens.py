@@ -84,6 +84,11 @@ class Calclens(BaseTemplate):
         # lens plane paths
         pars['LensPlanePath'] = os.path.join(self.getOutputBaseDir(),'pixlc')
         pars['LensPlaneName'] = 'snapshot_Lightcone'
+
+        try:
+            os.makedirs(pars['LensPlanePath'])
+        except:
+            pass
         
         # outputs
         pars['OutputPath'] = opath
