@@ -21,9 +21,10 @@ class AddgalsPostProcess(BaseTemplate):
         for boxl in self.cosmoparams['Simulation']['BoxL']:
             halopaths.append("{0}/Lb{1}/output/halos/cut_reform_out_0.parents".format(pars['BasePath'], boxl))
 
-        pars['Prefix'] = self.cosmoparams['Simulation']['SimName']
-        pars['Suffix'] = "-{0}".format(self.simnum)
+        pars['Prefix'] = '{}-{}'.format(self.cosmoparams['Simulation']['SimName'], self.simnum)
         pars['ZBinFile'] = self.cosmoparams['Addgals']['ZBinFile']
+        pars['OmegaM']  = self.cosmoparams['Cosmology']['OmegaM']
+        pars['OmegaL']  = self.cosmoparams['Cosmology']['OmegaL']
 
         jobbase = os.path.join(self.getJobBaseDir(), self.__class__.__name__.lower())
 
@@ -35,9 +36,12 @@ class AddgalsPostProcess(BaseTemplate):
                 fp.write("  - {0}\n".format(halopaths[i]))
             
             fp.write("prefix     : {Prefix}\n".format(**pars))
-            fp.write("suffix     : {Suffix}\n".format(**pars))
+            fp.write("suffix     : None\n")
             fp.write("zbinfile   : {ZBinFile}\n".format(**pars))
+            fp.write("lensing_output: True\n")
             fp.write("skyfactory : True\n")
+            fp.write("omega_m    : {OmegaM}\n".format(**pars))
+            fp.write("omega_l    : {OmegaL}\n".format(**pars))
 
     def write_jobscript(self, opath, boxl):
         pars = {}
