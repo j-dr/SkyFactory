@@ -11,6 +11,7 @@
 #SBATCH --exclusive
 
 module load idl
+source ~/.bashrc.ext
 module unload PrgEnv-intel
 module load PrgEnv-gnu
 module load gsl 
