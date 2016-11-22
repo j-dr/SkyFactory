@@ -24,7 +24,7 @@ class ErrorModel(BaseTemplate):
             pars['RotOutDir'] = os.path.join(self.getOutputBaseDir(),
                                             'addgalspostprocess',
                                             'truth_rotated_{0}'.format(pars['Model']))
-            pars['RotBase']   = "{0}-{1}{2}_{3}_truth.fits".format(
+            pars['RotBase']   = "{0}-{1}{2}_{3}_truth".format(
                 self.cosmoparams['Simulation']['SimName'], self.simnum,
                 pars['Model'],
                 self.cosmoparams['Simulation']['ModelVersion'])
