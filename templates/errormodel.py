@@ -38,9 +38,10 @@ class ErrorModel(BaseTemplate):
             pars['Nest'] = self.cosmoparams['ErrorModel']['Nest'][i]
 
             if ('MagType' in self.cosmoparams['ErrorModel'].keys()) & (self.cosmoparams['ErrorModel']['MagType'] is not None):
-                pars['MagPath']  = os.path.join(self.getOutputBaseDir(),
-                                            'addgalspostprocess', 'mags',
-                                            "*"+self.cosmoparams['ErrorModel']['MagType'][i]+"*")
+                if self.cosmoparams['ErrorModel']['MagType'][i] is not None:
+                    pars['MagPath']  = os.path.join(self.getOutputBaseDir(),
+                                                    'addgalspostprocess', 'mags',
+                                                    "*"+self.cosmoparams['ErrorModel']['MagType'][i]+"*")
                 pars['UseMags']  = '[0,1,2,3,4]'
             else:
                 pars['MagPath']  = None
