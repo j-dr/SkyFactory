@@ -25,7 +25,7 @@ class PhotoZ(BaseTemplate):
         for i in range(len(cats)):
             cpars['Catalogs'] = cats[i]
             cpars['OPath'] = os.path.join(self.getOutputBaseDir(), 'photoz', cats[i])
-            cpars['FilePath'] = os.path.join(self.getOutputBaseDir(), 'addgalspostprocess', cats[i], '*fits')
+            cpars['FilePath'] = os.path.join(self.getOutputBaseDir(), 'addgalspostprocess', cats[i], '*obs.*fits')
             with open("{0}/photoz.{1}.cfg".format(jbase, i), 'w') as fp:
                 yaml.dump(cpars, fp)
 
