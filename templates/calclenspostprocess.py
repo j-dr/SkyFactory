@@ -15,6 +15,8 @@ InputPath: {InputPath}   # usually a path to outputs of calclens
 InputName: {InputName}   # basename of galaxy outputs from calclens (the GalOutputName parameter)
 ConcatOutputName: {ConcatOutputName}  # basename of intermediate outputs from this script
 GalsFileList: {GalsFileList} # same as parameter to calclens
+LensCalsList: {LensGalsList}
+TruthGalsList: {TruthGalsList}
 
 """
 

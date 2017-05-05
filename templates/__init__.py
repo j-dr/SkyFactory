@@ -33,3 +33,6 @@ del calclens
 
 from .calclenspostprocess import CalclensPostProcess
 del calclenspostprocess
+
+from .sampleselection import SampleSelection
+del sampleselection

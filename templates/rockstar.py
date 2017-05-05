@@ -56,7 +56,7 @@ class Rockstar(BaseTemplate):
         fp.write('#halo finding\n')
         fp.write('MASS_DEFINITION = "%s"\n' % mfdef)
         fp.write('GADGET_SKIP_NON_HALO_PARTICLES = 1\n')
-        fp.write('BOUND_PROPS = 0\n')
+        fp.write('BOUND_PROPS = 1\n')
         if not snap:
             fp.write("LIGHTCONE = 1\n")
             fp.write("LIGHTCONE_ALT_ORIGIN = (0, 0, 0)\n")

@@ -24,7 +24,7 @@ class ErrorModel(BaseTemplate):
             pars['RotOutDir'] = os.path.join(self.getOutputBaseDir(),
                                             'addgalspostprocess',
                                             'truth_rotated_{0}'.format(pars['Model']))
-            pars['RotBase']   = "{0}-{1}{2}_{3}_truth.fits".format(
+            pars['RotBase']   = "{0}-{1}{2}_{3}_truth".format(
                 self.cosmoparams['Simulation']['SimName'], self.simnum,
                 pars['Model'],
                 self.cosmoparams['Simulation']['ModelVersion'])
@@ -36,15 +36,16 @@ class ErrorModel(BaseTemplate):
                 self.cosmoparams['Simulation']['ModelVersion'])
             pars['DepthFile'] = self.cosmoparams['ErrorModel']['DepthFile'][i].format(**self.sysparams)
             pars['Nest'] = self.cosmoparams['ErrorModel']['Nest'][i]
+            pars['RefBands'] = self.cosmoparams['ErrorModel']['RefBands'][i]
 
-            if ('MagType' in self.cosmoparams['ErrorModel'].keys()) & (self.cosmoparams['ErrorModel']['MagType'] is not None):
+            if ('MagType' in self.cosmoparams['ErrorModel'].keys()) & (self.cosmoparams['ErrorModel']['MagType'][i] != 'None'):
                 pars['MagPath']  = os.path.join(self.getOutputBaseDir(),
-                                            'addgalspostprocess', 'mags',
-                                            "*"+self.cosmoparams['ErrorModel']['MagType'][i]+"*")
-                pars['UseMags']  = '[0,1,2,3,4]'
+                                                'addgalspostprocess', 'mags',
+                                                "*"+self.cosmoparams['ErrorModel']['MagType'][i]+"*")
             else:
                 pars['MagPath']  = None
-                pars['UseMags']  = None
+
+            pars['UseMags'] = self.cosmoparams['ErrorModel']['UseMags'][i]
 
             pars['DataBaseStyle'] = True
             if 'Y1' in pars['Model']:
@@ -69,11 +70,13 @@ class ErrorModel(BaseTemplate):
                 fp.write("DataBaseStyle: {DataBaseStyle}\n".format(**pars))
                 fp.write("Bands: {Bands}\n".format(**pars))
                 fp.write("UseLMAG: {UseLMAG}\n".format(**pars))
-                fp.write("MagPath  : {MagPath}\n".format(**pars))
+                if pars['MagPath'] is not None:
+                    fp.write("MagPath  : {MagPath}\n".format(**pars))
                 fp.write("UseMags  : {UseMags}\n".format(**pars))
                 fp.write("RotOutDir: {RotOutDir}\n".format(**pars))
                 fp.write("RotBase: {RotBase}\n".format(**pars))
                 fp.write("MatPath: {MatPath}\n".format(**pars))
+                fp.write("RefBands: {RefBands}\n".format(**pars))
 
 
     def write_jobscript(self, opath, boxl):
