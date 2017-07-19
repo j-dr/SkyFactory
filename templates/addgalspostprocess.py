@@ -50,7 +50,7 @@ class AddgalsPostProcess(BaseTemplate):
         pars['SimName'] = self.cosmoparams['Simulation']['SimName']
         pars['SimNum'] = self.simnum
         pars['Repo'] = self.sysparams['Repo']
-        pars['NCores'] = self.cosmoparams['Addgals']['NTasks'][1050]
+        pars['NCores'] = self.cosmoparams['Addgals']['NTasks'] * self.cosmoparams['Addgals']['NCoresPerTask']
         pars['NNodes'] = (pars['NCores'] + self.sysparams['CoresPerNode'] - 1 )/self.sysparams['CoresPerNode']
         pars['TimeLimitHours'] = self.sysparams['TimeLimitHours']
         jobbase = os.path.join(self.getJobBaseDir(), self.__class__.__name__.lower())

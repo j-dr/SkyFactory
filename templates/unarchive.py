@@ -31,7 +31,7 @@ class UnarchiveLightcone(BaseTemplate):
         if self.sysname=='edison':
             pars['Cluster'] = "esedison"
 
-        elif self.sysname=="cori":
+        elif self.sysname=="cori-haswell":
             pars['Cluster'] = "escori"
 
         if pars["SimName"] == "Chinchilla":
