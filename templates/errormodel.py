@@ -49,7 +49,7 @@ class ErrorModel(BaseTemplate):
 
             pars['DataBaseStyle'] = True
             if 'Y1' in pars['Model']:
-                pars['Bands'] = '[g, r, i, z, y]'
+                pars['Bands'] = '[g, r, i, z]'
             elif 'DR8' in pars['Model']:
                 pars['Bands'] = '[u, g, r, i, z]'
             else:

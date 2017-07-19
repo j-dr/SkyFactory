@@ -8,5 +8,5 @@ QOS           : 'premium'
 Repo          : 'des'
 Cluster       : 'escori'
 TimeLimitHours:  36
-CoresPerNode  : 24
+CoresPerNode  : 32
 TasksPerNode  : 16
