@@ -23,23 +23,29 @@ class SampleSelection(BaseTemplate):
         _ = cpars.pop('NNodes')
         _ = cpars.pop('NTasks')
         _ = cpars.pop('ExecPath')
+        bmasks = cpars.pop('buzzard_mask')
         
         jbase = os.path.join(self.getJobBaseDir(), "sampleselection")
 
         for i in range(len(cats)):
-            cpars['sim']  = {'obspath':os.path.join(self.getOutputBaseDir(), 'addgalspostprocess', cats[i], '*obs.*fits'),
+            cpars['sim']  = {'obspath':'"{}"'.format(os.path.join(self.getOutputBaseDir(), 'addgalspostprocess', cats[i], '*obs.*[0-9].fits')),
                              'truthpath':os.path.join(self.getOutputBaseDir(), 'addgalspostprocess', 'truth_rotated_'+cats[i], '*truth.*fits'),
-                             'pzpath':os.path.join(self.getOutputBaseDir(), 'photoz', cats[i], 'bpz', '*bpz*fits')}
-
+                             'pzpath':os.path.join(self.getOutputBaseDir(), 'addgalspostprocess', cats[i], '*BPZ*')}
+            for sample in cpars['samples']:
+                if 'sys_maps' in cpars['samples'][sample]:
+                    cpars['samples'][sample]['sys_maps']['buzzard_mask'] = bmasks[i]
+                else:
+                    cpars['samples'][sample]['sys_maps'] = {'buzzard_mask': bmasks[i]}
+                    
             fpars = {'rootdir' : os.path.join(self.getOutputBaseDir(), 'addgalspostprocess'),
                      'obsdir'  : '{}/'.format(cats[i]),
                      'truthdir': 'truth_rotated_{}/'.format(cats[i]),
-                     'pzdir'   : 'bpz_{}/'.format(cats[i]),
-                     'simname' : 'Buzzard_v1.2',
+                     'pzdir'   : '{}/'.format(cats[i]),
+                     'simname' : 'Buzzard_v1.6',
                      'simnum'  : '{}'.format(i),
                      'obsname' : 'obs.',
                      'truthname' : 'truth.',
-                     'pzname' : 'obs_bpz.',
+                     'pzname' : 'obs.',
                      'debug'   : False,
                      'nzcut'   : True}
             
