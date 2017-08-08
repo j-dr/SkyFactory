@@ -36,23 +36,14 @@ class SampleSelection(BaseTemplate):
                     cpars['samples'][sample]['sys_maps']['buzzard_mask'] = bmasks[i]
                 else:
                     cpars['samples'][sample]['sys_maps'] = {'buzzard_mask': bmasks[i]}
-                    
-            fpars = {'rootdir' : os.path.join(self.getOutputBaseDir(), 'addgalspostprocess'),
-                     'obsdir'  : '{}/'.format(cats[i]),
-                     'truthdir': 'truth_rotated_{}/'.format(cats[i]),
-                     'pzdir'   : '{}/'.format(cats[i]),
-                     'simname' : 'Buzzard_v1.6',
-                     'simnum'  : '{}'.format(i),
-                     'obsname' : 'obs.',
-                     'truthname' : 'truth.',
-                     'pzname' : 'obs.',
-                     'debug'   : False,
-                     'nzcut'   : True}
+
+            cpars['merge'] = { 'obsdir'  : '{}/'.format(cats[i]),
+                               'simname' : 'Buzzard_v1.6',
+                               'debug'   : False,
+                               'nzcut'   : True}
             
             with open("{0}/selectsamples.{1}.yaml".format(jbase, i), 'w') as fp:
                 yaml.dump(cpars, fp)
-            with open("{0}/flatcat.{1}.yaml".format(jbase, i), 'w') as fp:
-                yaml.dump(fpars, fp)                     
 
     def write_jobscript(self, opath, boxl):
 
