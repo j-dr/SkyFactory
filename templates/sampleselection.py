@@ -29,8 +29,8 @@ class SampleSelection(BaseTemplate):
 
         for i in range(len(cats)):
             cpars['sim']  = {'obspath':'"{}"'.format(os.path.join(self.getOutputBaseDir(), 'addgalspostprocess', cats[i], '*obs.*[0-9].fits')),
-                             'truthpath':os.path.join(self.getOutputBaseDir(), 'addgalspostprocess', 'truth_rotated_'+cats[i], '*truth.*fits'),
-                             'pzpath':os.path.join(self.getOutputBaseDir(), 'addgalspostprocess', cats[i], '*BPZ*')}
+                             'truthpath':os.path.join(self.getOutputBaseDir(), 'addgalspostprocess', 'truth_rotated_'+cats[i], '*truth.*fits')}
+
             for sample in cpars['samples']:
                 if 'sys_maps' in cpars['samples'][sample]:
                     cpars['samples'][sample]['sys_maps']['buzzard_mask'] = bmasks[i]
@@ -40,7 +40,8 @@ class SampleSelection(BaseTemplate):
             cpars['merge'] = { 'obsdir'  : '{}/'.format(cats[i]),
                                'simname' : 'Buzzard_v1.6',
                                'debug'   : False,
-                               'nzcut'   : True}
+                               'nzcut'   : True,
+                               'merge'   : True}
             
             with open("{0}/selectsamples.{1}.yaml".format(jbase, i), 'w') as fp:
                 yaml.dump(cpars, fp)
@@ -53,6 +54,9 @@ class SampleSelection(BaseTemplate):
         pars['NCatalogs'] = len(self.cosmoparams['SampleSelection']['Catalogs'])
         pars['NTasks'] = self.cosmoparams['SampleSelection']['NTasks']
         pars['NCoresPerTask'] = self.cosmoparams['SampleSelection']['NCoresPerTask']
+        pars['NCores']        = pars['NTasks'] * pars['NCoresPerTask']
+        pars['CoresPerNode']  = self.sysparams['CoresPerNode']
+        pars['NTasksPerNode'] = int(self.sysparams['CoresPerNode'] / pars['NCoresPerTask'])
         pars['NNodes'] = self.cosmoparams['SampleSelection']['NNodes']
         pars['Email'] = self.sysparams['Email']
         pars['ExecDir'] = self.getExecDir()

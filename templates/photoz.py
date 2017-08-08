@@ -25,7 +25,7 @@ class PhotoZ(BaseTemplate):
         for i in range(len(cats)):
             cpars['Catalogs'] = cats[i]
             cpars['OPath'] = os.path.join(self.getOutputBaseDir(), 'photoz', cats[i])
-            cpars['FilePath'] = os.path.join(self.getOutputBaseDir(), 'addgalspostprocess', cats[i], '*obs.*fits')
+            cpars['FilePath'] = os.path.join(self.getOutputBaseDir(), 'sampleselection', cats[i], '*gold.[0-9].fits')
             with open("{0}/photoz.{1}.cfg".format(jbase, i), 'w') as fp:
                 yaml.dump(cpars, fp)
 
@@ -37,6 +37,9 @@ class PhotoZ(BaseTemplate):
         pars['NCatalogs'] = len(self.cosmoparams['PhotoZ']['Catalogs'])
         pars['NTasks'] = self.cosmoparams['PhotoZ']['NTasks']
         pars['NCoresPerTask'] = self.cosmoparams['PhotoZ']['NCoresPerTask']
+        pars['NCores']        = pars['NTasks'] * pars['NCoresPerTask']
+        pars['CoresPerNode']  = self.sysparams['CoresPerNode']
+        pars['NTasksPerNode'] = int(self.sysparams['CoresPerNode'] / pars['NCoresPerTask'])
         pars['NNodes'] = (int(pars['NTasks'])*int(pars['NCoresPerTask']) + self.sysparams['CoresPerNode'] - 1 )/self.sysparams['CoresPerNode']
         pars['Email'] = self.sysparams['Email']
         pars['ExecDir'] = self.getExecDir()

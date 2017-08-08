@@ -11,8 +11,21 @@
 
 module load py-numpy
 
+
 COUNTER=0
 while [ $COUNTER -lt {NCatalogs} ]; do
     srun -n {NTasks} -c {NCoresPerTask} python {ExecDir}/run_photoz.py photoz.$COUNTER.cfg
     let "COUNTER = $COUNTER + 1"
 done
+
+cd ../sampleselection
+
+COUNTER=0
+while [ $COUNTER -lt {NCatalogs} ]; do
+    srun -n 1 -c {NCoresPerTask} python {ExecDir}/../sampleselection/merge_buzzard.py selectsamples.$COUNTER.yaml &
+    let "COUNTER = $COUNTER + 1"
+done
+
+wait
+
+cd -
