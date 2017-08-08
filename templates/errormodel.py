@@ -90,6 +90,7 @@ class ErrorModel(BaseTemplate):
         pars['NTasks'] = self.cosmoparams['ErrorModel']['NTasks']
         pars['NCoresPerTask'] = self.cosmoparams['ErrorModel']['NCoresPerTask']
         pars['NNodes'] = (pars['NTasks']*pars['NCoresPerTask'] + self.sysparams['CoresPerNode'] - 1 )/self.sysparams['CoresPerNode']
+        pars['NCores'] = (pars['NTasks']*pars['NCoresPerTask'])
         pars['TimeLimitHours'] = self.sysparams['TimeLimitHours']
         jobbase = os.path.join(self.getJobBaseDir(), self.__class__.__name__.lower())
         pars['ExecDir'] = os.path.join(self.sysparams['ExecDir'], 'addgals', 'scripts')
