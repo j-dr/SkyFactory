@@ -19,7 +19,7 @@ perl -e 'sleep 1 while (!(-e "auto-rockstar.cfg"))'
 
 srun -n {NCores} $exe -c auto-rockstar.cfg
 
-$parentexe out_0.list {BoxL} > out_0.parents
+$parentexe out_0.list 10000 > out_0.parents
 
 sh {ExecDir}/scripts/reformat_rockstar.sh out_0.list
 sh {ExecDir}/scripts/reformat_rockstar.sh out_0.parents

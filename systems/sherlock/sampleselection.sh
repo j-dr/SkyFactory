@@ -13,19 +13,7 @@ module load py-numpy
 
 COUNTER=0
 while [ $COUNTER -lt {NCatalogs} ]; do
-    srun -n {NTasks} -c {NCoresPerTask} python {ExecDir}/select_samples.py selectsamples.$COUNTER.yaml &
+    srun -n {NTasks} -c {NCoresPerTask} python {ExecDir}/select_and_merge_samples.py selectsamples.$COUNTER.yaml &
     let "COUNTER = $COUNTER + 1"
 done
-
-wait
-
-cd {OPath}
-COUNTER=0
-while [ $COUNTER -lt {NCatalogs} ]; do
-    srun -n 1 -c {NCoresPerTask} python {ExecDir}/merge_buzzard.py flatcat.$COUNTER.yaml
-    let "COUNTER = $COUNTER + 1"
-done
-cd -
-
-
 

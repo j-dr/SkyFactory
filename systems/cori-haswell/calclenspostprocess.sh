@@ -20,6 +20,6 @@ echo "*****Done combining lensing files*****"
 
 ls {OPath}/* > lensgalslist.txt
 ls {TGDir}/* > truthgalslist.txt
-ls {THDir}/* >> truthgalslist.txt
+ls {THDir}/*halo* >> truthgalslist.txt
 
 srun -n {NCores} python {AExecDir}/scripts/add_lensing.py calclensconcat.yaml
