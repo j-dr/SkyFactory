@@ -28,7 +28,7 @@ class SampleSelection(BaseTemplate):
         jbase = os.path.join(self.getJobBaseDir(), "sampleselection")
 
         for i in range(len(cats)):
-            cpars['sim']  = {'obspath':'"{}"'.format(os.path.join(self.getOutputBaseDir(), 'addgalspostprocess', cats[i], '*obs.*[0-9].fits')),
+            cpars['sim']  = {'obspath':"{}".format(os.path.join(self.getOutputBaseDir(), 'addgalspostprocess', cats[i], '*obs.*[0-9].fits')),
                              'truthpath':os.path.join(self.getOutputBaseDir(), 'addgalspostprocess', 'truth_rotated_'+cats[i], '*truth.*fits')}
 
             for sample in cpars['samples']:
@@ -58,6 +58,7 @@ class SampleSelection(BaseTemplate):
         pars['CoresPerNode']  = self.sysparams['CoresPerNode']
         pars['NTasksPerNode'] = int(self.sysparams['CoresPerNode'] / pars['NCoresPerTask'])
         pars['NNodes'] = self.cosmoparams['SampleSelection']['NNodes']
+        pars['JPath']  = '/'.join(self.getJobScriptName().split('/')[:-1])
         pars['Email'] = self.sysparams['Email']
         pars['ExecDir'] = self.getExecDir()
         pars['TimeLimitHours'] = self.sysparams['TimeLimitHours']
