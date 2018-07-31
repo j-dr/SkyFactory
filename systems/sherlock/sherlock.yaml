@@ -1,7 +1,7 @@
 JobBase       : '/home/jderose/projects/SkyFactory/chinchilla-herd/'
 OutputBase    : '/home/jderose/uscratch/BCC/Chinchilla/Herd'
 ExecDir       : '/home/jderose/projects/SkyFactory/exec'
-SFConfigBase  : '/home/jderose/projects/SkyFactory-config/'
+SFConfigBase  : '/home/jderose/uscratch/SkyFactory-config/'
 Email         : 'joe.derose13@gmail.com'
 Repo          : 'des'
 QOS           : 'iric'

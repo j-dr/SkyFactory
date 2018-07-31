@@ -5,7 +5,8 @@ import argparse
 import templates
 import os
 
-default_tasks = ['UnarchiveLightcone', 'Rockstar', 'PixLC', 'CalcRnn', 'Addgals', 'AddgalsPostProcess', 'DensMap', 'Calclens', 'CalclensPostProcess', 'SurveyMags', 'ErrorModel', 'PhotoZ', 'SampleSelection']
+default_tasks = ['UnarchiveLightcone', 'Rockstar', 'PixLC', 'CalcRnn', 'Addgals', 'AddgalsPostProcess', 'DensMap', 'Calclens', 'CalclensPostProcess', 'SurveyMags', 'ErrorModel', 'SampleSelection', 'PhotoZ']
+#default_tasks = ['PhotoZ']
 
 
 def main(cosmofile, num, system, tasks=default_tasks, only_all_sub=False):
