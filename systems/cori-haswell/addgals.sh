@@ -12,14 +12,4 @@
 #SBATCH -L SCRATCH
 #SBATCH --exclusive
 
-module load idl
-source ~/.bashrc.ext
-module unload PrgEnv-intel
-module load PrgEnv-gnu
-module load gsl 
-
-idl -queue ../Lb1050/addgals/setup_addgals.idl
-idl -queue ../Lb2600/addgals/setup_addgals.idl
-idl -queue ../Lb4000/addgals/setup_addgals.idl
-
-sh submit_jobs_all.sh | srun -n {NTasks} -c {NCoresPerTask} minions
+srun -n {NTasks} -c {NCoresPerTask} {ExecDir}/pyaddgals/bin/addgals addgals.yaml

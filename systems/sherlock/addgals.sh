@@ -1,6 +1,5 @@
 #!/bin/bash
-#SBATCH -p iric
-#SBATCH --qos iric
+#SBATCH -p {Queue}
 #SBATCH -t {TimeLimitHours}:00:00
 #SBATCH -J {SimName}{SimNum}-adg
 #SBATCH -o {SimName}{SimNum}-adg.%j.oe
@@ -9,4 +8,4 @@
 #SBATCH -N {NNodes}
 #SBATCH --exclusive
 
-sh submit_jobs_all.sh | srun -n {NTasks} -c {NCoresPerTask} minions
+srun -n {NTasks} -c {NCoresPerTask} {ExecDir}/pyaddgals/bin/addgals addgals.yaml

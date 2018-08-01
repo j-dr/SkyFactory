@@ -1,6 +1,5 @@
 #!/bin/bash
-#SBATCH -p iric
-#SBATCH --qos iric
+#SBATCH -p iric,hns,normal
 #SBATCH -t {TimeLimitHours}:00:00
 #SBATCH -J {SimName}{SimNum}-rt
 #SBATCH -o {SimName}{SimNum}-rt.%j.oe

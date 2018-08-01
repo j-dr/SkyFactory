@@ -1,6 +1,5 @@
 #!/bin/bash
-#SBATCH -p iric
-#SBATCH --qos iric
+#SBATCH -p iric,hns,normal
 #SBATCH -t {TimeLimitHours}:00:00
 #SBATCH -J {SimName}{SimNum}-pz
 #SBATCH -o {SimName}{SimNum}-pz.%j.oe
@@ -9,12 +8,9 @@
 #SBATCH -N {NNodes}
 #SBATCH --exclusive
 
-module load py-numpy
-
-
 COUNTER=0
 while [ $COUNTER -lt {NCatalogs} ]; do
-    srun -n {NTasks} -c {NCoresPerTask} python {ExecDir}/run_photoz.py photoz.$COUNTER.cfg
+    srun -n {NTasks} -c {NCoresPerTask} python3 {ExecDir}/run_photoz.py photoz.$COUNTER.cfg
     let "COUNTER = $COUNTER + 1"
 done
 
@@ -22,7 +18,7 @@ cd ../sampleselection
 
 COUNTER=0
 while [ $COUNTER -lt {NCatalogs} ]; do
-    srun -n 1 -c {NCoresPerTask} python {ExecDir}/../sampleselection/merge_buzzard.py selectsamples.$COUNTER.yaml &
+    srun -n 1 -c {NCoresPerTask} python3 {ExecDir}/../sampleselection/merge_buzzard.py selectsamples.$COUNTER.yaml &
     let "COUNTER = $COUNTER + 1"
 done
 

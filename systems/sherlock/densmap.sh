@@ -1,6 +1,5 @@
 #!/bin/bash
-#SBATCH -p iric
-#SBATCH --qos iric
+#SBATCH -p iric,hns,normal
 #SBATCH -t {TimeLimitHours}:00:00
 #SBATCH -J {SimName}{SimNum}-dmap
 #SBATCH -o {SimName}{SimNum}-dmap.%j.oe
@@ -12,5 +11,3 @@
 while read cmd; do
     srun -n 1 $cmd &
 done < densmap.cmds
-
-

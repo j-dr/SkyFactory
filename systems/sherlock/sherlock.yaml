@@ -1,11 +1,11 @@
-JobBase       : '/home/jderose/projects/SkyFactory/chinchilla-herd/'
-OutputBase    : '/home/jderose/uscratch/BCC/Chinchilla/Herd'
-ExecDir       : '/home/jderose/projects/SkyFactory/exec'
-SFConfigBase  : '/home/jderose/uscratch/SkyFactory-config/'
+JobBase       : '/home/users/jderose/projects/SkyFactory/chinchilla-herd/'
+OutputBase    : '/home/users/jderose/uscratch/BCC/Chinchilla/Herd'
+ExecDir       : '/home/users/jderose/projects/SkyFactory/exec'
+SFConfigBase  : '/home/users/jderose/uscratch/SkyFactory-config/'
 Email         : 'joe.derose13@gmail.com'
 Repo          : 'des'
 QOS           : 'iric'
-Queue         : 'iric'
+Queue         : 'iric,hns,normal'
 TimeLimitHours:  48
 CoresPerNode  : 16
 TasksPerNode  : 16

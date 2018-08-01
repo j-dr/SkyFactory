@@ -1,6 +1,5 @@
 #!/bin/bash
-#SBATCH -p iric
-#SBATCH --qos iric
+#SBATCH -p iric,hns,normal
 #SBATCH -t {TimeLimitHours}:00:00
 #SBATCH -J {SimName}{SimNum}-erm
 #SBATCH -o {SimName}{SimNum}-erm.%j.oe
@@ -13,6 +12,6 @@ module load py-numpy
 
 COUNTER=0
 while [ $COUNTER -lt {NModels} ]; do
-    srun -n {NTasks} -c {NCoresPerTask} python {ExecDir}/mock_error_apply.py errormodel.$COUNTER.cfg
+    srun -n {NTasks} -c {NCoresPerTask} python3 {ExecDir}/mock_error_apply.py errormodel.$COUNTER.cfg
     let "COUNTER = $COUNTER + 1"
 done
