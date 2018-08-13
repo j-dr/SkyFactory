@@ -6,7 +6,7 @@ import templates
 import os
 
 default_tasks = ['UnarchiveLightcone', 'Rockstar', 'PixLC', 'CalcRnn', 'Addgals',
-                 'DensMap', 'Calclens', 'CalclensPostProcess', 'SurveyMags', 'ErrorModel', 'SampleSelection', 'PhotoZ']
+                 'DensMap', 'Calclens', 'CalclensPostProcess', 'SurveyMags', 'ErrorModel']
 
 def main(cosmofile, num, system, tasks=default_tasks, only_all_sub=False):
 
@@ -31,6 +31,7 @@ def main(cosmofile, num, system, tasks=default_tasks, only_all_sub=False):
             sysparams = t.sysparams
             cosmoparams = t.cosmoparams
             jobbase = t.jobbase
+            outputbase = t.getOutputBaseDir()
 
     # write the general submission script
 
@@ -45,15 +46,15 @@ def main(cosmofile, num, system, tasks=default_tasks, only_all_sub=False):
     pars['SimNum'] = num
     pars['Email'] = sysparams['Email']
     pars['TimeLimitHours'] = sysparams['TimeLimitHours']
+    pars['OutputBase'] = outputbase
 
     with open(os.path.join('systems', system, 'all.sh'), 'r') as fp:
         gsubtemp = fp.readlines()
-
     gsubtemp = ''.join(gsubtemp)
 
     jobheader = gsubtemp.format(**pars)
-    if 'AddgalsPostProcess' in tasks:
-        aidx = tasks.index('AddgalsPostProcess')
+    if 'Addgals' in tasks:
+        aidx = tasks.index('Addgals')
         print(aidx)
     else:
         aidx = len(tasks)

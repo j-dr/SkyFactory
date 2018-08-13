@@ -11,5 +11,7 @@
 #SBATCH -C haswell
 #SBATCH -L SCRATCH
 #SBATCH --exclusive
+#SBATCH --image=docker:jderose/addgals-stack:latest
+#SBATCH --volume="/global/project/projectdirs/des/jderose/SkyFactory-config:/SkyFactory-config;{OutputBase}:/output"
 
-srun -n {NTasks} -c {NCoresPerTask} {ExecDir}/pyaddgals/bin/addgals addgals.yaml
+srun -n {NTasks} -c {NCoresPerTask} shifter {ExecDir}/bin/addgals addgals.cfg

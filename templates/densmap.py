@@ -37,7 +37,7 @@ class DensMap(BaseTemplate):
         jobbase = os.path.join(self.getJobBaseDir(),
                                (self.__class__.__name__).lower())  
         with open('{0}/densmap.cmds'.format(jobbase), 'w') as fp:
-            for i in xrange(num_to_do//2):
+            for i in range(num_to_do//2):
                 pstr1 = '_%d' % (i*2)
                 pstr2 = '_%d' % (i*2+1)                
                 cmd = "%s/bin/pixLC-viz --verbose %d %s %s %s\n" % \
@@ -57,7 +57,7 @@ class DensMap(BaseTemplate):
         pars['ExecDir'] = self.getExecDir()
         pars['Repo'] = self.sysparams['Repo']
         pars['NCores'] = self.num_cores
-        pars['NNodes'] = (pars['NCores'] + self.sysparams['CoresPerNode'] - 1 )/self.sysparams['CoresPerNode']
+        pars['NNodes'] = (pars['NCores'] + self.sysparams['CoresPerNode'] - 1 )//self.sysparams['CoresPerNode']
         pars['TimeLimitHours'] = self.sysparams['TimeLimitHours']
         pars['Email'] = self.sysparams['Email']
 

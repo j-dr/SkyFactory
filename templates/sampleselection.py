@@ -56,7 +56,7 @@ class SampleSelection(BaseTemplate):
         pars['NCoresPerTask'] = self.cosmoparams['SampleSelection']['NCoresPerTask']
         pars['NCores']        = pars['NTasks'] * pars['NCoresPerTask']
         pars['CoresPerNode']  = self.sysparams['CoresPerNode']
-        pars['NTasksPerNode'] = int(self.sysparams['CoresPerNode'] / pars['NCoresPerTask'])
+        pars['NTasksPerNode'] = int(self.sysparams['CoresPerNode'] // pars['NCoresPerTask'])
         pars['NNodes'] = self.cosmoparams['SampleSelection']['NNodes']
         pars['JPath']  = '/'.join(self.getJobScriptName().split('/')[:-1])
         pars['Email'] = self.sysparams['Email']

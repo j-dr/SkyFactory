@@ -114,13 +114,13 @@ class Calclens(BaseTemplate):
         pars['Repo'] = self.sysparams['Repo']
         pars['TimeLimitHours'] = self.sysparams['TimeLimitHours']
         pars['NCores'] = self.cosmoparams['Calclens']['NCores']
-        pars['NNodes'] = (pars['NCores'] + self.sysparams['CoresPerNode'] - 1 )/self.sysparams['CoresPerNode']
+        pars['NNodes'] = (pars['NCores'] + self.sysparams['CoresPerNode'] - 1 )//self.sysparams['CoresPerNode']
         pars['ExecDir'] = os.path.join(self.sysparams['ExecDir'],
                                        self.__class__.__name__.lower())
         pars['OPath'] = opath
         pars['Email'] = self.sysparams['Email']
         pars['LDir']  = '%s/addgalspostprocess/lens/' % self.getOutputBaseDir()
-        pars['GalCatListCMD'] = 'ls -1 -d %s/addgalspostprocess/lens/* > galcatlist.txt' % self.getOutputBaseDir()
+        pars['GalCatListCMD'] = 'ls -1 -d %s/addgalspostprocess/truth/*lens* > galcatlist.txt' % self.getOutputBaseDir()
         pars['Restart'] = ''
         pars['OmegaM']  = self.cosmoparams['Cosmology']['OmegaM']
         pars['w0']      = self.cosmoparams['Cosmology']['w0']

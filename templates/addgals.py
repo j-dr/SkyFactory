@@ -5,9 +5,11 @@ from .basetemplate import BaseTemplate
 
 _base_config = \
     """
-# calclens config
+# addgals config
 Runtime :
-  outpath : {OutputPath}
+  outpath : /output/addgalspostprocess/truth/
+  nside_output : {nside_output}
+  write_pos : True
 NBody :
   Domain :
     fmt : BCCLightcone
@@ -18,25 +20,25 @@ NBody :
     nside : {nside}
     nest : {nest}
   partpath :
-    - {OutputBaseDir}/Lb1050/output/pixlc/
-    - {OutputBaseDir}/Lb2600/output/pixlc/
-    - {OutputBaseDir}/Lb4000/output/pixlc/
+    - /output/Lb1050/output/pixlc/
+    - /output/Lb2600/output/pixlc/
+    - /output/Lb4000/output/pixlc/
   denspath :
-    - {OutputBaseDir}/Lb1050/output/calcrnn/
-    - {OutputBaseDir}/Lb2600/output/calcrnn/
-    - {OutputBaseDir}/Lb4000/output/calcrnn/
+    - /output/Lb1050/output/calcrnn/
+    - /output/Lb2600/output/calcrnn/
+    - /output/Lb4000/output/calcrnn/
   hinfopath :
-    - {OutputBaseDir}/Lb1050/output/pixlc/
-    - {OutputBaseDir}/Lb2600/output/pixlc/
-    - {OutputBaseDir}/Lb4000/output/pixlc/
+    - /output/Lb1050/output/pixlc/
+    - /output/Lb2600/output/pixlc/
+    - /output/Lb4000/output/pixlc/
   halofile :
-    - {OutputBaseDir}/Lb1050/output/halos/cut_reform_out_0.parents
-    - {OutputBaseDir}/Lb2600/output/halos/cut_reform_out_0.parents
-    - {OutputBaseDir}/Lb4000/output/halos/cut_reform_out_0.parents
+    - /output/Lb1050/output/halos/cut_reform_out_0.parents
+    - /output/Lb2600/output/halos/cut_reform_out_0.parents
+    - /output/Lb4000/output/halos/cut_reform_out_0.parents
   halodensfile :
-    - {OutputBaseDir}/Lb1050/output/halos/rnn_cut_reform_out_0.parents
-    - {OutputBaseDir}/Lb2600/output/halos/rnn_cut_reform_out_0.parents
-    - {OutputBaseDir}/Lb4000/output/halos/rnn_cut_reform_out_0.parents
+    - /output/Lb1050/output/halos/rnn_cut_reform_out_0.parents
+    - /output/Lb2600/output/halos/rnn_cut_reform_out_0.parents
+    - /output/Lb4000/output/halos/rnn_cut_reform_out_0.parents
 
 Cosmology:
   omega_m : {OmegaM}
@@ -77,9 +79,9 @@ class Addgals(BaseTemplate):
         # cosmology
         pars['OmegaM'] = self.cosmoparams['Cosmology']['OmegaM']
         pars['OmegaB'] = self.cosmoparams['Cosmology']['OmegaB']
-        pars['n_s'] = self.cosmoparams['Cosmology']['ns']
+        pars['ns'] = self.cosmoparams['Cosmology']['ns']
         pars['sigma8'] = self.cosmoparams['Cosmology']['sigma8']
-        pars['w'] = self.cosmoparams['Cosmology']['w']
+        pars['w'] = self.cosmoparams['Cosmology']['w0']
 
         pars['lbox'] = self.cosmoparams['Simulation']['BoxL']
 
@@ -87,7 +89,8 @@ class Addgals(BaseTemplate):
             pars[p] = self.cosmoparams['Addgals']['ModelParams'][p]
 
         # outputs
-        pars['OutputPath'] = opath
+        pars['OutputPath'] = '{}/{}-{}'.format(opath, self.cosmoparams['Simulation']['SimName'],
+                                               self.simnum)
         pars['OutputBaseDir'] = self.getOutputBaseDir()
 
         config = _base_config.format(**pars)
@@ -105,13 +108,16 @@ class Addgals(BaseTemplate):
         pars['SimNum'] = self.simnum
         pars['Repo'] = self.sysparams['Repo']
         pars['TimeLimitHours'] = self.sysparams['TimeLimitHours']
-        pars['NCores'] = self.cosmoparams['Calclens']['NCores']
-        pars['NNodes'] = (
-            pars['NCores'] + self.sysparams['CoresPerNode'] - 1) / self.sysparams['CoresPerNode']
+        pars['NTasks'] = self.cosmoparams['Addgals']['NTasks']
+        pars['NCoresPerTask'] = self.cosmoparams['Addgals']['NCoresPerTask']
+        pars['NNodes'] = int((
+            pars['NTasks'] * pars['NCoresPerTask'] + self.sysparams['CoresPerNode'] - 1) // self.sysparams['CoresPerNode'])
         pars['ExecDir'] = os.path.join(self.sysparams['ExecDir'],
                                        self.__class__.__name__.lower())
         pars['OPath'] = opath
         pars['Email'] = self.sysparams['Email']
+        pars['OutputBase'] = self.getOutputBaseDir()
+
         jobbase = os.path.join(self.getJobBaseDir(),
                                self.__class__.__name__.lower())
 

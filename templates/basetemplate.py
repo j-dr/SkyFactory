@@ -51,7 +51,7 @@ class BaseTemplate(object):
                cosmoparams[k] = self.formatCosmoFile(cosmoparams[k])
         else:
             try:
-                return cosmoparams.format(SFConfigBase=self.sysparams['SFConfigBase'])
+                return cosmoparams.format(SFConfigBase=self.sysparams['SFConfigBaseFormat'])
             except:
                 return cosmoparams
 

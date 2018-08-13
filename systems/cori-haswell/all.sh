@@ -11,3 +11,5 @@
 #SBATCH -C haswell
 #SBATCH -L SCRATCH
 #SBATCH --exclusive
+#SBATCH --image=docker:jderose/addgals-stack:latest
+#SBATCH --volume="/global/project/projectdirs/des/jderose/SkyFactory-config:/input;{OutputBase}:/output"

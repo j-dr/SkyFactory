@@ -58,7 +58,7 @@ class CalclensPostProcess(BaseTemplate):
         pars['Repo'] = self.sysparams['Repo']
         pars['TimeLimitHours'] = self.sysparams['TimeLimitHours']
         pars['NCores'] = self.cosmoparams['Calclens']['NCores']
-        pars['NNodes'] = (pars['NCores'] + self.sysparams['CoresPerNode'] - 1 )/self.sysparams['CoresPerNode']
+        pars['NNodes'] = (pars['NCores'] + self.sysparams['CoresPerNode'] - 1 )//self.sysparams['CoresPerNode']
         pars['ExecDir'] = os.path.join(self.sysparams['ExecDir'],
                                        'calclens')
         pars['AExecDir'] = os.path.join(self.sysparams['ExecDir'],

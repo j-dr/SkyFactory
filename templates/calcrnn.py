@@ -98,7 +98,7 @@ class CalcRnn(BaseTemplate):
         pars['SimNum'] = self.simnum
         pars['Repo'] = self.sysparams['Repo']
         pars['NCores'] = self.cosmoparams['CalcRnn']['NCores']
-        pars['NNodes'] = (pars['NCores'] + self.sysparams['CoresPerNode'] - 1 )/self.sysparams['CoresPerNode']
+        pars['NNodes'] = (pars['NCores'] + self.sysparams['CoresPerNode'] - 1 )//self.sysparams['CoresPerNode']
         jobbase = os.path.join(self.sysparams['JobBase'], 
                                '{0}-{1}'.format(pars['SimName'], pars['SimNum']),
                                'Lb{0}'.format(boxl), (self.__class__.__name__).lower())

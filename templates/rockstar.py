@@ -73,11 +73,11 @@ class Rockstar(BaseTemplate):
         fp.close()
         
         fp = open(os.path.join(opath,"snaps.txt"),'w')
-        for i in xrange(ns):
+        for i in range(ns):
             fp.write("00%s\n" % i)
 
         fp = open(os.path.join(opath,"snaps2.txt"),'w')
-        for i in xrange(ns):
+        for i in range(ns):
             fp.write("00%s\n" % str(int(i)+1))
             
         fp.close()
@@ -92,7 +92,7 @@ class Rockstar(BaseTemplate):
         pars['BoxL'] = boxl
         pars['OPath'] = opath
         pars['NCores'] = self.cosmoparams['Rockstar']['NCores']
-        pars['NNodes'] = (pars['NCores'] + self.sysparams['CoresPerNode'] - 1 )/self.sysparams['CoresPerNode']
+        pars['NNodes'] = (pars['NCores'] + self.sysparams['CoresPerNode'] - 1 )//self.sysparams['CoresPerNode']
         pars['TimeLimitHours'] = self.sysparams['TimeLimitHours']
         pars['SimNum'] = self.simnum
         pars['Repo'] = self.sysparams['Repo']

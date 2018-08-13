@@ -40,7 +40,7 @@ class PhotoZ(BaseTemplate):
         pars['NCores']        = pars['NTasks'] * pars['NCoresPerTask']
         pars['CoresPerNode']  = self.sysparams['CoresPerNode']
         pars['NTasksPerNode'] = int(self.sysparams['CoresPerNode'] / pars['NCoresPerTask'])
-        pars['NNodes'] = (int(pars['NTasks'])*int(pars['NCoresPerTask']) + self.sysparams['CoresPerNode'] - 1 )/self.sysparams['CoresPerNode']
+        pars['NNodes'] = (int(pars['NTasks'])*int(pars['NCoresPerTask']) + self.sysparams['CoresPerNode'] - 1 )//self.sysparams['CoresPerNode']
         pars['Email'] = self.sysparams['Email']
         pars['ExecDir'] = self.getExecDir()
         pars['TimeLimitHours'] = self.sysparams['TimeLimitHours']

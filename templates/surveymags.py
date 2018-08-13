@@ -42,7 +42,7 @@ class SurveyMags(BaseTemplate):
         pars['QOS'] = self.sysparams['QOS']
         pars['NTasks'] = self.cosmoparams['SurveyMags']['NTasks']
         pars['NCoresPerTask'] = self.cosmoparams['SurveyMags']['NCoresPerTask']
-        pars['NNodes'] = (int(pars['NTasks'])*int(pars['NCoresPerTask']) + self.sysparams['CoresPerNode'] - 1 )/self.sysparams['CoresPerNode']
+        pars['NNodes'] = (int(pars['NTasks'])*int(pars['NCoresPerTask']) + self.sysparams['CoresPerNode'] - 1 )//self.sysparams['CoresPerNode']
         pars['Email'] = self.sysparams['Email'] 
         pars['TimeLimitHours'] = self.sysparams['TimeLimitHours']
         pars['SimName'] = self.cosmoparams['Simulation']['SimName']
