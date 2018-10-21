@@ -37,6 +37,7 @@ class ErrorModel(BaseTemplate):
             pars['DepthFile'] = self.cosmoparams['ErrorModel']['DepthFile'][i].format(**self.sysparams)
             pars['Nest'] = self.cosmoparams['ErrorModel']['Nest'][i]
             pars['RefBands'] = self.cosmoparams['ErrorModel']['RefBands'][i]
+            pars['zp'] = self.cosmoparams['ErrorModel']['zp'][i]
 
             if ('MagType' in self.cosmoparams['ErrorModel'].keys()) & (self.cosmoparams['ErrorModel']['MagType'][i] != 'None'):
                 pars['MagPath']  = os.path.join(self.getOutputBaseDir(),
@@ -48,7 +49,7 @@ class ErrorModel(BaseTemplate):
             pars['UseMags'] = self.cosmoparams['ErrorModel']['UseMags'][i]
 
             pars['DataBaseStyle'] = True
-            if 'Y1' in pars['Model']:
+            if ('Y1' in pars['Model']) | ('Y3' in pars['Model']):
                 pars['Bands'] = '[g, r, i, z]'
             elif 'DR8' in pars['Model']:
                 pars['Bands'] = '[u, g, r, i, z]'
@@ -59,6 +60,7 @@ class ErrorModel(BaseTemplate):
                 pars['UseLMAG'] = False
             else:
                 pars['UseLMAG'] = True
+
                 
             with open("{0}/errormodel.{1}.cfg".format(jbase, i), 'w') as fp:
                 fp.write("GalPath  : {GalPath}\n".format(**pars))
@@ -77,6 +79,7 @@ class ErrorModel(BaseTemplate):
                 fp.write("RotBase: {RotBase}\n".format(**pars))
                 fp.write("MatPath: {MatPath}\n".format(**pars))
                 fp.write("RefBands: {RefBands}\n".format(**pars))
+                fp.write("zp: {zp}\n".format(**pars))
 
 
     def write_jobscript(self, opath, boxl):

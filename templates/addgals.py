@@ -7,7 +7,7 @@ _base_config = \
     """
 # addgals config
 Runtime :
-  outpath : /output/addgalspostprocess/truth/
+  outpath : {OutputPath}
   nside_output : {nside_output}
   write_pos : True
 NBody :
@@ -64,6 +64,20 @@ GalaxyModel :
       trainingSetFile : {trainingSetFile}
       filters : {filters}
       band_shift : {band_shift}
+    shapeModelConfig :
+      modeltype : GMMShapes
+      n_components : {shapeNComponents}
+      cov_file : {shapeCovFile}
+      means_file : {shapeMeansFile}
+      weights_file : {shapeWeightsFile}
+      conditional_fields :
+      - {shapeConditionalFields}
+      conditional_field_mean : [{shapeConditionalMeans}]
+      conditional_field_std : [{shapeConditionalStd}]
+      size_mean : {sizeMean}
+      size_std : {sizeStd}
+      epsilon_mean : {epsilonMean}
+      epsilon_std: {epsilonStd}
 
 """
 
@@ -89,9 +103,7 @@ class Addgals(BaseTemplate):
             pars[p] = self.cosmoparams['Addgals']['ModelParams'][p]
 
         # outputs
-        pars['OutputPath'] = '{}/{}-{}'.format(opath, self.cosmoparams['Simulation']['SimName'],
-                                               self.simnum)
-        pars['OutputBaseDir'] = self.getOutputBaseDir()
+        pars['OutputPath'] = '{}/addgalspostprocess/truth/{}-{}'.format(self.getOutputBaseDir(), self.cosmoparams['Simulation']['SimName'], self.simnum)
 
         config = _base_config.format(**pars)
 

@@ -14,7 +14,7 @@
 
 module unload PrgEnv-gnu
 module load PrgEnv-intel
-module load fftw/3.3.4.9
+module load cray-fftw
 module load cfitsio cray-hdf5 gsl
 
 {GalCatListCMD}

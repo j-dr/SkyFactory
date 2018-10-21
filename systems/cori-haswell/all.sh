@@ -12,4 +12,4 @@
 #SBATCH -L SCRATCH
 #SBATCH --exclusive
 #SBATCH --image=docker:jderose/addgals-stack:latest
-#SBATCH --volume="/global/project/projectdirs/des/jderose/SkyFactory-config:/input;{OutputBase}:/output"
+#SBATCH --volume="/global/project/projectdirs/des/jderose/SkyFactory-config:/SkyFactory-config;{OutputBase}:/output"

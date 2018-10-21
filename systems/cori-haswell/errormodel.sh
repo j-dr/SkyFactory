@@ -12,7 +12,7 @@
 #SBATCH -L SCRATCH
 #SBATCH --exclusive
 
-module load python/2.7-anaconda
+module load python/3.6-anaconda-4.4
 
 COUNTER=0
 while [ $COUNTER -lt {NModels} ]; do

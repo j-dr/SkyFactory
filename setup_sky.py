@@ -41,7 +41,7 @@ def main(cosmofile, num, system, tasks=default_tasks, only_all_sub=False):
     pars['NCores'] = cosmoparams['Simulation']['NCores']
     pars['Repo'] = sysparams['Repo']
     pars['NNodes'] = (
-        pars['NCores'] + sysparams['CoresPerNode'] - 1) / sysparams['CoresPerNode']
+        pars['NCores'] + sysparams['CoresPerNode'] - 1) // sysparams['CoresPerNode']
     pars['SimName'] = cosmoparams['Simulation']['SimName']
     pars['SimNum'] = num
     pars['Email'] = sysparams['Email']

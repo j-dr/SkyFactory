@@ -38,7 +38,7 @@ class SampleSelection(BaseTemplate):
                     cpars['samples'][sample]['sys_maps'] = {'buzzard_mask': bmasks[i]}
 
             cpars['merge'] = { 'obsdir'  : '{}/'.format(cats[i]),
-                               'simname' : 'Buzzard_v1.6',
+                               'simname' : 'Buzzard_v1.7',
                                'debug'   : False,
                                'nzcut'   : True,
                                'merge'   : True}
@@ -52,12 +52,12 @@ class SampleSelection(BaseTemplate):
         pars['Queue'] = self.sysparams['Queue']
         pars['QOS'] = self.sysparams['QOS']
         pars['NCatalogs'] = len(self.cosmoparams['SampleSelection']['Catalogs'])
-        pars['NTasks'] = self.cosmoparams['SampleSelection']['NTasks']
         pars['NCoresPerTask'] = self.cosmoparams['SampleSelection']['NCoresPerTask']
-        pars['NCores']        = pars['NTasks'] * pars['NCoresPerTask']
         pars['CoresPerNode']  = self.sysparams['CoresPerNode']
         pars['NTasksPerNode'] = int(self.sysparams['CoresPerNode'] // pars['NCoresPerTask'])
-        pars['NNodes'] = self.cosmoparams['SampleSelection']['NNodes']
+        pars['NNodes'] = self.sysparams['SampleSelection']['NNodes']
+        pars['NTasks'] = pars['NNodes'] * pars['NTasksPerNode']
+
         pars['JPath']  = '/'.join(self.getJobScriptName().split('/')[:-1])
         pars['Email'] = self.sysparams['Email']
         pars['ExecDir'] = self.getExecDir()
