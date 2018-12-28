@@ -7,6 +7,35 @@ import os
 
 from .basetemplate import BaseTemplate
 
+_config=\
+"""
+gold: 
+  gold_badreg_fn: {gold_badreg_fn}
+  gold_footprint_fn: {gold_footprint_fn}
+merge: 
+  debug: {debug}
+  merge: {merge}
+  nzcut: {nzcut}
+  obsdir: {obsdir}
+  simname: {simname}
+samples:
+  LSS:
+    sys_maps: 
+      buzzard_mask: {mask}
+    z_col: {zfield}
+  WL:
+    maglim_cut_factor: {maglim_cut_factor}
+    rgrp_cut: {rgrp_cut}
+    sys_maps: 
+      buzzard_mask: {mask}
+      maglim_r: {maglim_r}
+      psf_fwhm_r: {psf_fwhm_r}
+    z_col: {zfield}
+sim: 
+  obspath: {obspath}
+  truthpath: {truthpath}
+"""
+
 class SampleSelection(BaseTemplate):
 
     def __init__(self, simnum, system, cosmo):
@@ -28,23 +57,30 @@ class SampleSelection(BaseTemplate):
         jbase = os.path.join(self.getJobBaseDir(), "sampleselection")
 
         for i in range(len(cats)):
-            cpars['sim']  = {'obspath':"{}".format(os.path.join(self.getOutputBaseDir(), 'addgalspostprocess', cats[i], '*obs.*[0-9].fits')),
-                             'truthpath':os.path.join(self.getOutputBaseDir(), 'addgalspostprocess', 'truth_rotated_'+cats[i], '*truth.*fits')}
 
-            for sample in cpars['samples']:
-                if 'sys_maps' in cpars['samples'][sample]:
-                    cpars['samples'][sample]['sys_maps']['buzzard_mask'] = bmasks[i]
-                else:
-                    cpars['samples'][sample]['sys_maps'] = {'buzzard_mask': bmasks[i]}
+            cpars = copy(_config)
+            fpars = {}
 
-            cpars['merge'] = { 'obsdir'  : '{}/'.format(cats[i]),
-                               'simname' : 'Buzzard_v1.7',
-                               'debug'   : False,
-                               'nzcut'   : True,
-                               'merge'   : True}
+            fpars['obspath'] = "{}".format(os.path.join(self.getOutputBaseDir(), 'addgalspostprocess', cats[i], '*obs.*[0-9].fits'))
+            fpars['truthpath'] = os.path.join(self.getOutputBaseDir(), 'addgalspostprocess', 'truth_rotated_'+cats[i], '*truth.*fits')
+            fpars['zfield'] = self.cosmoparams['SampleSelection']['z_col']
+            fpars['psf_fwhm_r'] = pars['psf_fwhm_r'][i]
+            fpars['maglim_r'] = pars['maglim_r'][i]
+            fpars['mask'] = pars['buzzard_mask'][i]
+            fpars['maglim_cut_factor'] = pars['maglim_cut_factor']
+            fpars['rgrp_cut'] = pars['rgrp_cut']
+            fpars['gold_footprint_fn'] = pars['gold_footprint_fn'][i]
+            fpars['gold_badreg_fn'] = pars['gold_badreg_fn'][i]
+            fpars['debug'] = False
+            fpars['nzcut'] = True
+            fpars['merge'] = True
+            fpars['obsdir'] = '{}/'.format(cats[i])
+            fpars['simname'] = 'Buzzard_v1.7'
+
+            cpars = cpars.format(**fpars)
             
             with open("{0}/selectsamples.{1}.yaml".format(jbase, i), 'w') as fp:
-                yaml.dump(cpars, fp)
+                fp.write(cpars)
 
     def write_jobscript(self, opath, boxl):
 
@@ -55,7 +91,7 @@ class SampleSelection(BaseTemplate):
         pars['NCoresPerTask'] = self.cosmoparams['SampleSelection']['NCoresPerTask']
         pars['CoresPerNode']  = self.sysparams['CoresPerNode']
         pars['NTasksPerNode'] = int(self.sysparams['CoresPerNode'] // pars['NCoresPerTask'])
-        pars['NNodes'] = self.sysparams['SampleSelection']['NNodes']
+        pars['NNodes'] = self.cosmoparams['SampleSelection']['NNodes']
         pars['NTasks'] = pars['NNodes'] * pars['NTasksPerNode']
 
         pars['JPath']  = '/'.join(self.getJobScriptName().split('/')[:-1])

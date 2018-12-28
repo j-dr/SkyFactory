@@ -49,6 +49,10 @@ class BaseTemplate(object):
         if hasattr(cosmoparams, 'keys'):
             for k in cosmoparams.keys():
                cosmoparams[k] = self.formatCosmoFile(cosmoparams[k])
+        elif (hasattr(cosmoparams, '__iter__') & (not isinstance(cosmoparams, str)) &
+              (not isinstance(cosmoparams, float)) & (not isinstance(cosmoparams, int))):
+            for i in range(len(cosmoparams)):
+               cosmoparams[i] = self.formatCosmoFile(cosmoparams[i])            
         else:
             try:
                 return cosmoparams.format(SFConfigBase=self.sysparams['SFConfigBaseFormat'])

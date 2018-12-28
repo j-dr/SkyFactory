@@ -11,11 +11,11 @@
 #SBATCH -C haswell
 #SBATCH -L SCRATCH
 #SBATCH --exclusive
-
-module load python/2.7-anaconda 
+#SBATCH --image=docker:jderose/addgals-stack:latest
+#SBATCH --volume="/global/project/projectdirs/des/jderose/SkyFactory-config:/SkyFactory-config"
 
 COUNTER=0
 while [ $COUNTER -lt {NCatalogs} ]; do
-    srun -n {NTasks} -c {NCoresPerTask} python {ExecDir}/run_photoz.py photoz.$COUNTER.cfg
+    srun -n {NTasks} -c {NCoresPerTask} shifter python /pyaddgals/bin/skyfactory/run_photoz.py photoz.$COUNTER.cfg
     let "COUNTER = $COUNTER + 1"
 done

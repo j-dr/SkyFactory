@@ -54,6 +54,7 @@ GalaxyModel :
       modeltype : {LuminosityFunctionModel}
       magmin : {magmin}
     rdelModelConfig :
+      gaussian_process : True
       rdelModelFile : {rdelModelFile}
       lcenModelFile : {lcenModelFile}
       lcenMassMin : {lcenMassMin}
@@ -64,6 +65,7 @@ GalaxyModel :
       trainingSetFile : {trainingSetFile}
       filters : {filters}
       band_shift : {band_shift}
+      Q : {Q}
     shapeModelConfig :
       modeltype : GMMShapes
       n_components : {shapeNComponents}

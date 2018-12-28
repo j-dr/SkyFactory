@@ -12,12 +12,12 @@
 #SBATCH -L SCRATCH
 #SBATCH --exclusive
 
-module load python/2.7-anaconda 
+module load gsl
 
 {SysExecDir}/pixlc/bin/pixLC-socts {JDir}/pixlc/pixLC.cfg 0 1 > {NameFile}
 ls {OctPath}/lightcone00[0-1]/snap* > {HaloNameFile}
 
-srun -n {NCores} {ExecDir}/calcrnn calcrnn_parts.cfg
-srun -n {NCores} {ExecDir}/calcrnn calcrnn_halos.cfg
+srun -n {NCores} {ExecDir}/calcrnn calcrnn_parts.cfg 4
+srun -n {NCores} {ExecDir}/calcrnn calcrnn_halos.cfg 4
 
 ln -s {OPath}/* {LCPath}/

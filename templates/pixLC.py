@@ -54,7 +54,7 @@ class PixLC(BaseTemplate):
         pars['NCores'] = self.cosmoparams['PixLC']['NCores']
         pars['NCoresPerTask'] = self.cosmoparams['PixLC']['NCoresPerTask'][boxl]
         pars['CoresPerNode'] = self.sysparams['CoresPerNode']
-        pars['NTasks'] = pars['NCores'] / pars['NCoresPerTask']
+        pars['NTasks'] = int(pars['NCores'] // pars['NCoresPerTask'])
         pars['NNodes'] = (pars['NCores'] + self.sysparams['CoresPerNode'] - 1 )//self.sysparams['CoresPerNode']
         pars['TimeLimitHours'] = self.sysparams['TimeLimitHours']
         pars['ZLow'] = self.cosmoparams['PixLC']['SimZmin'][boxl]

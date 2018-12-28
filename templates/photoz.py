@@ -15,7 +15,7 @@ class PhotoZ(BaseTemplate):
     def write_config(self, opath, boxl):
 
         pars = self.cosmoparams['PhotoZ']
-        pars['ExecPath'] = self.sysparams['ExecDir']
+        pars['ExecPath'] = '/'
 
         cpars = copy(pars)
         cats = cpars.pop('Catalogs')
@@ -25,7 +25,7 @@ class PhotoZ(BaseTemplate):
         for i in range(len(cats)):
             cpars['Catalogs'] = cats[i]
             cpars['OPath'] = os.path.join(self.getOutputBaseDir(), 'photoz', cats[i])
-            cpars['FilePath'] = os.path.join(self.getOutputBaseDir(), 'sampleselection', cats[i], '*gold.[0-9].fits')
+            cpars['FilePath'] = os.path.join(self.getOutputBaseDir(), 'addgalspostprocess', cats[i], '*obs.*[0-9].fits')
             with open("{0}/photoz.{1}.cfg".format(jbase, i), 'w') as fp:
                 yaml.dump(cpars, fp)
 

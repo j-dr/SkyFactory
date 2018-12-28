@@ -57,8 +57,11 @@ class CalclensPostProcess(BaseTemplate):
         pars['SimNum'] = self.simnum
         pars['Repo'] = self.sysparams['Repo']
         pars['TimeLimitHours'] = self.sysparams['TimeLimitHours']
-        pars['NCores'] = self.cosmoparams['Calclens']['NCores']
-        pars['NNodes'] = (pars['NCores'] + self.sysparams['CoresPerNode'] - 1 )//self.sysparams['CoresPerNode']
+
+
+        pars['NCoresPerTask'] = self.cosmoparams['Calclens']['NCoresPerTaskPostprocess']
+        pars['NCores'] = self.cosmoparams['Calclens']['NCores'] // pars['NCoresPerTask']
+        pars['NNodes'] = (self.cosmoparams['Calclens']['NCores'] + self.sysparams['CoresPerNode'] - 1 )//self.sysparams['CoresPerNode']
         pars['ExecDir'] = os.path.join(self.sysparams['ExecDir'],
                                        'calclens')
         pars['AExecDir'] = os.path.join(self.sysparams['ExecDir'],
