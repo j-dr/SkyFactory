@@ -18,6 +18,7 @@ merge:
   nzcut: {nzcut}
   obsdir: {obsdir}
   simname: {simname}
+  merge_with_bpz : False
 samples:
   LSS:
     sys_maps: 
@@ -34,6 +35,7 @@ samples:
 sim: 
   obspath: {obspath}
   truthpath: {truthpath}
+  pzpath : {pzpath}
 """
 
 class SampleSelection(BaseTemplate):
@@ -62,6 +64,7 @@ class SampleSelection(BaseTemplate):
             fpars = {}
 
             fpars['obspath'] = "{}".format(os.path.join(self.getOutputBaseDir(), 'addgalspostprocess', cats[i], '*obs.*[0-9].fits'))
+            fpars['pzpath'] = "{}".format(os.path.join(self.getOutputBaseDir(), 'addgalspostprocess', cats[i], '*BPZ*fits'))
             fpars['truthpath'] = os.path.join(self.getOutputBaseDir(), 'addgalspostprocess', 'truth_rotated_'+cats[i], '*truth.*fits')
             fpars['zfield'] = self.cosmoparams['SampleSelection']['z_col']
             fpars['psf_fwhm_r'] = pars['psf_fwhm_r'][i]
@@ -71,11 +74,11 @@ class SampleSelection(BaseTemplate):
             fpars['rgrp_cut'] = pars['rgrp_cut']
             fpars['gold_footprint_fn'] = pars['gold_footprint_fn'][i]
             fpars['gold_badreg_fn'] = pars['gold_badreg_fn'][i]
-            fpars['debug'] = False
+            fpars['debug'] = True
             fpars['nzcut'] = True
             fpars['merge'] = True
             fpars['obsdir'] = '{}/'.format(cats[i])
-            fpars['simname'] = 'Buzzard_v1.7'
+            fpars['simname'] = 'Buzzard_v1.9.2'
 
             cpars = cpars.format(**fpars)
             

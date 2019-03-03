@@ -7,6 +7,6 @@ Email         : 'joe.derose13@gmail.com'
 Repo          : 'des'
 QOS           : 'iric'
 Queue         : 'iric,hns,normal'
-TimeLimitHours:  48
+TimeLimitHours:  72
 CoresPerNode  : 16
 TasksPerNode  : 16

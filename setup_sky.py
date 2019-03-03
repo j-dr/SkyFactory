@@ -6,7 +6,7 @@ import templates
 import os
 
 default_tasks = ['PixLC', 'Addgals', 'Calclens', 'CalclensPostProcess', 'ErrorModel', 'PhotoZ']
-#default_tasks = ['CalcRnn']
+#default_tasks = ['SampleSelection']
 
 def main(cosmofile, num, system, tasks=default_tasks, only_all_sub=False):
 
