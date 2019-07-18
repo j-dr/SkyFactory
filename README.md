@@ -1,6 +1,11 @@
 # SkyFactory
 Set up and run large suites of mock sky simulations.
 
+## Installation
+Clone this repository: 
+`git clone https://github.com/j-dr/SkyFactory.git`
+
+
 ## Finding Outputs
 1. Outputs for a given simulation go to the global output dir in the system config file, followed by the 
   simulation name, followed by the simulation number like this `{global output dir}/{sim name}-{sim number}`.
