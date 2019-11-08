@@ -15,3 +15,7 @@
 #SBATCH --volume="/global/project/projectdirs/des/jderose/SkyFactory-config:/SkyFactory-config;{OutputBase}:/output"
 
 srun -n {NTasks} -c {NCoresPerTask} shifter {ExecDir}/bin/addgals addgals.cfg
+
+srun -n 1 -c 32 shifter {ExecDir}/bin/make_halo_files.py addgals.cfg {HaloPath}
+
+srun -n {NTasksShuffle} -c {NCoresPerTaskShuffle} shifter {ExecDir}/bin/shuffle_colors.py {GalPath} {HaloPath} addgals.cfg

@@ -14,7 +14,7 @@ class ErrorModel(BaseTemplate):
 
     def write_config(self, opath, boxl):
         pars = {}
-        pars['GalPath']  = os.path.join(self.getOutputBaseDir(), 'addgalspostprocess', 'truth', '*lensed*')
+        pars['GalPath']  = os.path.join(self.getOutputBaseDir(), 'addgalspostprocess', 'truth', '*lensed*cam*')
 
         jbase = os.path.join(self.getJobBaseDir(), "errormodel")
 

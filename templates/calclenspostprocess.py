@@ -72,6 +72,8 @@ class CalclensPostProcess(BaseTemplate):
         pars['OPath'] = opath
         pars['TGDir'] = os.path.join(self.getOutputBaseDir(), 'addgalspostprocess',
                                      'truth')
+        pars['HDir'] = os.path.join(self.getOutputBaseDir(), 'addgalspostprocess',
+                                     'halos')
         pars['THDir'] = os.path.join(self.getOutputBaseDir(), 'addgalspostprocess')
 
         pars['Email'] = self.sysparams['Email']

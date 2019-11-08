@@ -18,5 +18,6 @@ module load cray-fftw
 module load cfitsio cray-hdf5 gsl
 
 {GalCatListCMD}
+{HaloCatListCMD}
 
 srun -n {NCores} {ExecDir}/raytrace raytrace.cfg {Restart}

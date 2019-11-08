@@ -1,4 +1,5 @@
 JobBase       : '/global/homes/j/jderose/project/SkyFactory/chinchilla-herd/'
+#OutputBase    : '/global/cscratch1/sd/jderose//BCC/Chinchilla/Herd/'
 OutputBase    : '/global/cscratch1/sd/jderose/BCC/Chinchilla/Herd/'
 ExecDir       : '/global/homes/j/jderose/project/SkyFactory/exec'
 SFConfigBase  : '/global/homes/j/jderose/des/jderose/SkyFactory-config/'

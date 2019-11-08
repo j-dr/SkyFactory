@@ -8,7 +8,7 @@ import os
 
 def read_yaml(fname):
     with open(fname,'r') as fp:
-        config = yaml.load(fp)
+        config = yaml.unsafe_load(fp)
     return config
 
 

@@ -5,8 +5,8 @@ import argparse
 import templates
 import os
 
-default_tasks = ['PixLC', 'Addgals', 'Calclens', 'CalclensPostProcess', 'ErrorModel', 'PhotoZ']
-#default_tasks = ['SampleSelection']
+default_tasks = ['Rockstar', 'PixLC', 'Addgals', 'Calclens', 'CalclensPostProcess', 'ErrorModel', 'PhotoZ', 'SampleSelection']
+#default_tasks = ['ErrorModel']
 
 def main(cosmofile, num, system, tasks=default_tasks, only_all_sub=False):
 
@@ -55,7 +55,6 @@ def main(cosmofile, num, system, tasks=default_tasks, only_all_sub=False):
     jobheader = gsubtemp.format(**pars)
     if 'Addgals' in tasks:
         aidx = tasks.index('Addgals')
-        print(aidx)
     else:
         aidx = len(tasks)
 

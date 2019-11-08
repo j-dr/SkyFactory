@@ -65,6 +65,9 @@ GalaxyModel :
       trainingSetFile : {trainingSetFile}
       filters : {filters}
       band_shift : {band_shift}
+      third_order_mag_evolution : {third_order_mag_evolution}
+      piecewise_mag_evolution: {piecewise_mag_evolution}
+      match_magonly: {match_magonly}
       Q : {Q}
     shapeModelConfig :
       modeltype : GMMShapes
@@ -123,11 +126,17 @@ class Addgals(BaseTemplate):
         pars['Repo'] = self.sysparams['Repo']
         pars['TimeLimitHours'] = self.sysparams['TimeLimitHours']
         pars['NTasks'] = self.cosmoparams['Addgals']['NTasks']
+
         pars['NCoresPerTask'] = self.cosmoparams['Addgals']['NCoresPerTask']
+
         pars['NNodes'] = int((
             pars['NTasks'] * pars['NCoresPerTask'] + self.sysparams['CoresPerNode'] - 1) // self.sysparams['CoresPerNode'])
+        pars['NTasksShuffle'] = int(pars['NNodes'] * self.sysparams['CoresPerNode'] // (pars['NCoresPerTask'] * 4))
+        pars['NCoresPerTaskShuffle'] = int(pars['NCoresPerTask'] * 4)
         pars['ExecDir'] = os.path.join(self.sysparams['ExecDir'],
                                        self.__class__.__name__.lower())
+        pars['HaloPath'] = '{}/addgalspostprocess/halos/{}-{}_halos'.format(self.getOutputBaseDir(), self.cosmoparams['Simulation']['SimName'], self.simnum) + '.{}.fits'
+        pars['GalPath'] = '{}/addgalspostprocess/truth/{}-{}'.format(self.getOutputBaseDir(), self.cosmoparams['Simulation']['SimName'], self.simnum) + '.*.fits'
         pars['OPath'] = opath
         pars['Email'] = self.sysparams['Email']
         pars['OutputBase'] = self.getOutputBaseDir()
