@@ -9,10 +9,10 @@ from .basetemplate import BaseTemplate
 
 _config=\
 """
-gold: 
+gold:
   gold_badreg_fn: {gold_badreg_fn}
   gold_footprint_fn: {gold_footprint_fn}
-merge: 
+merge:
   debug: {debug}
   merge: {merge}
   nzcut: {nzcut}
@@ -21,18 +21,18 @@ merge:
   merge_with_bpz : False
 samples:
   LSS:
-    sys_maps: 
+    sys_maps:
       buzzard_mask: {mask}
     z_col: {zfield}
   WL:
     maglim_cut_factor: {maglim_cut_factor}
     rgrp_cut: {rgrp_cut}
-    sys_maps: 
+    sys_maps:
       buzzard_mask: {mask}
       maglim_r: {maglim_r}
       psf_fwhm_r: {psf_fwhm_r}
     z_col: {zfield}
-sim: 
+sim:
   obspath: {obspath}
   truthpath: {truthpath}
   pzpath : {pzpath}
@@ -47,7 +47,7 @@ class SampleSelection(BaseTemplate):
 
         pars = self.cosmoparams['SampleSelection']
         pars['ExecPath'] = self.sysparams['ExecDir']
-        
+
         cpars = copy(pars)
         cats = cpars.pop('Catalogs')
         _ = cpars.pop('NCoresPerTask')
@@ -55,7 +55,7 @@ class SampleSelection(BaseTemplate):
         _ = cpars.pop('NTasks')
         _ = cpars.pop('ExecPath')
         bmasks = cpars.pop('buzzard_mask')
-        
+
         jbase = os.path.join(self.getJobBaseDir(), "sampleselection")
 
         for i in range(len(cats)):
@@ -78,10 +78,10 @@ class SampleSelection(BaseTemplate):
             fpars['nzcut'] = True
             fpars['merge'] = True
             fpars['obsdir'] = '{}/'.format(cats[i])
-            fpars['simname'] = 'Buzzard_v1.9.2'
+            fpars['simname'] = 'Buzzard_v2.0'
 
             cpars = cpars.format(**fpars)
-            
+
             with open("{0}/selectsamples.{1}.yaml".format(jbase, i), 'w') as fp:
                 fp.write(cpars)
 
@@ -98,6 +98,7 @@ class SampleSelection(BaseTemplate):
         pars['NTasks'] = pars['NNodes'] * pars['NTasksPerNode']
 
         pars['JPath']  = '/'.join(self.getJobScriptName().split('/')[:-1])
+        pars['JDir'] = self.getJobBaseDir() + '/sampleselection'
         pars['Email'] = self.sysparams['Email']
         pars['ExecDir'] = self.getExecDir()
         pars['TimeLimitHours'] = self.sysparams['TimeLimitHours']
