@@ -18,7 +18,8 @@ cd {OPath}
 
 COUNTER=0
 while [ $COUNTER -lt {NCatalogs} ]; do
-    srun -n {NTasks} -c {NCoresPerTask} python /pyaddgals/bin/skyfactory/select_and_merge_samples.py selectsamples.$COUNTER.yaml
+    srun -n {NTasks} -c {NCoresPerTask} shifter python /pyaddgals/bin/skyfactory/merge_truth_obs_pz.py {JDir}/selectsamples.$COUNTER.yaml
+#    srun -n 1 -c {CoresPerNode} shifter python /pyaddgals/bin/skyfactory/merge_buzzard.py {JDir}/selectsamples.$COUNTER.yaml
     let "COUNTER = $COUNTER + 1"
 done
 
