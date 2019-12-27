@@ -49,12 +49,13 @@ class ErrorModel(BaseTemplate):
             pars['UseMags'] = self.cosmoparams['ErrorModel']['UseMags'][i]
 
             pars['DataBaseStyle'] = True
+            
             if ('Y1' in pars['Model']) | ('Y3' in pars['Model']):
                 pars['Bands'] = '[g, r, i, z]'
                 pars['mode'] = 'DES'
                 pars['depthmap_hs'] = self.cosmoparams['ErrorModel']['DepthFile_HS'][i]
                 pars['mask_hs'] = self.cosmoparams['ErrorModel']['Mask_HS'][i]
-                
+
             elif 'DR8' in pars['Model']:
                 pars['Bands'] = '[u, g, r, i, z]'
             else:
@@ -85,7 +86,7 @@ class ErrorModel(BaseTemplate):
                 fp.write("MatPath: {MatPath}\n".format(**pars))
                 fp.write("RefBands: {RefBands}\n".format(**pars))
                 fp.write("zp: {zp}\n".format(**pars))
-                fp.write("redmapper : {'mode': {mode}, 'depthmap_hs': {depthmap_hs}, 'mask_hs':{mask_hs}}".format(**pars))
+                fp.write("redmapper : {{mode: {mode}, depthmap_hs: {depthmap_hs}, mask_hs:{mask_hs}}}".format(**pars))
 
 
     def write_jobscript(self, opath, boxl):

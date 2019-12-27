@@ -137,6 +137,12 @@ class Addgals(BaseTemplate):
                                        self.__class__.__name__.lower())
         pars['HaloPath'] = '{}/addgalspostprocess/halos/{}-{}_halos'.format(self.getOutputBaseDir(), self.cosmoparams['Simulation']['SimName'], self.simnum) + '.{}.fits'
         pars['GalPath'] = '{}/addgalspostprocess/truth/{}-{}'.format(self.getOutputBaseDir(), self.cosmoparams['Simulation']['SimName'], self.simnum) + '.*.fits'
+        pars['MHalo'] = self.cosmoparams['Addgals']['MHaloCAM']
+        pars['Scatter'] = self.cosmoparams['Addgals']['ScatterCAM']
+        pars['BuzzardRedSequenceModel'] = self.cosmoparams['Addgals']['BuzzardRSModel']
+        pars['DataRedSequenceModel'] = self.cosmoparams['Addgals']['DataRSModel']
+        pars['NBands'] = 4
+        pars['MStarPath'] = self.cosmoparams['Addgals']['MStarPath']
         pars['OPath'] = opath
         pars['Email'] = self.sysparams['Email']
         pars['OutputBase'] = self.getOutputBaseDir()

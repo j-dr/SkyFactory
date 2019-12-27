@@ -113,6 +113,12 @@ class CalcRnn(BaseTemplate):
         pars['OPath'] = opath
         pars['Email'] = self.sysparams['Email']
         pars['LCPath'] = '{0}/'.format(lcpath)
+
+        osp = opath.split('/')
+        osp[-1] = 'halos/'
+        halopath = '/'.join(osp)
+        
+        pars['HaloPath'] = halopath
         
         jobscript = self.jobtemp.format(**pars)
         

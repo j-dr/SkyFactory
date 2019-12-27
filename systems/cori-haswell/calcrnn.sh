@@ -12,12 +12,13 @@
 #SBATCH -L SCRATCH
 #SBATCH --exclusive
 
-module load gsl
+#module load gsl
 
-{SysExecDir}/pixlc/bin/pixLC-socts {JDir}/pixlc/pixLC.cfg 0 1 > {NameFile}
-ls {OctPath}/lightcone00[0-1]/snap* > {HaloNameFile}
+#{SysExecDir}/pixlc/bin/pixLC-socts {JDir}/pixlc/pixLC.cfg 0 1 > {NameFile}
+#ls {OctPath}/lightcone00[0-1]/snap* > {HaloNameFile}
 
-srun -n {NCores} {ExecDir}/calcrnn calcrnn_parts.cfg 4
-srun -n {NCores} {ExecDir}/calcrnn calcrnn_halos.cfg 4
+#srun -n {NCores} {ExecDir}/calcrnn calcrnn_parts.cfg 4
+#srun -n {NCores} {ExecDir}/calcrnn calcrnn_halos.cfg 4
 
 ln -s {OPath}/* {LCPath}/
+ln -s {OPath}/rnn*out* {HaloPath}
