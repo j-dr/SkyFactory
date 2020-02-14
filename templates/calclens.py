@@ -121,7 +121,7 @@ class Calclens(BaseTemplate):
         pars['Email'] = self.sysparams['Email']
         pars['LDir']  = '%s/addgalspostprocess/lens/' % self.getOutputBaseDir()
         pars['GalCatListCMD'] = 'ls -1 -d %s/addgalspostprocess/truth/*lens* > galcatlist.txt' % self.getOutputBaseDir()
-        pars['HaloCatListCMD'] = 'ls -1 -d %s/addgalspostprocess/halos/*lens* &> galcatlist.txt' % self.getOutputBaseDir()
+        pars['HaloCatListCMD'] = 'ls -1 -d %s/addgalspostprocess/halos/*lens* >> galcatlist.txt' % self.getOutputBaseDir()
         pars['Restart'] = ''
         pars['OmegaM']  = self.cosmoparams['Cosmology']['OmegaM']
         pars['w0']      = self.cosmoparams['Cosmology']['w0']

@@ -12,10 +12,10 @@
 #SBATCH -L SCRATCH
 #SBATCH --exclusive
 
-module load python/3.6-anaconda-4.4
+export HDF5_USE_FILE_LOCKING=FALSE
 
 COUNTER=0
 while [ $COUNTER -lt {NModels} ]; do
-    srun -n {NTasks} -c {NCoresPerTask} shifter python /pyaddgals/bin/skyfactory/mock_error_apply.py errormodel.$COUNTER.cfg
+    srun -n {NTasks} -c {NCoresPerTask} shifter python3 /pyaddgals/bin/skyfactory/mock_error_apply.py errormodel.$COUNTER.cfg
     let "COUNTER = $COUNTER + 1"
 done

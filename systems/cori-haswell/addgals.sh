@@ -18,4 +18,4 @@ srun -n {NTasks} -c {NCoresPerTask} shifter python3 /pyaddgals/bin/addgals addga
 
 srun -n 1 -c 32 shifter python3 /pyaddgals/bin/make_halo_files.py addgals.cfg {HaloPath}
 
-srun -n {NTasksShuffle} -c {NCoresPerTaskShuffle} shifter python3 /pyaddgals/bin/shuffle_colors.py {GalPath} {HaloPath} addgals.cfg {MHalo} {Scatter} {BuzzardRedSequenceModel} {DataRedSequenceModel} {NBands} {MStarPath}
+srun -n {NTasksShuffle} -c {NCoresPerTaskShuffle} shifter python3 /pyaddgals/bin/shuffle_colors.py "{GalPath}" {HaloPath} addgals.cfg {MHalo} {Scatter} {BuzzardRedSequenceModel} {DataRedSequenceModel} {NBands} {MStarPath}

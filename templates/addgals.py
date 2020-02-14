@@ -136,7 +136,7 @@ class Addgals(BaseTemplate):
         pars['ExecDir'] = os.path.join(self.sysparams['ExecDir'],
                                        self.__class__.__name__.lower())
         pars['HaloPath'] = '{}/addgalspostprocess/halos/{}-{}_halos'.format(self.getOutputBaseDir(), self.cosmoparams['Simulation']['SimName'], self.simnum) + '.{}.fits'
-        pars['GalPath'] = '{}/addgalspostprocess/truth/{}-{}'.format(self.getOutputBaseDir(), self.cosmoparams['Simulation']['SimName'], self.simnum) + '.*.fits'
+        pars['GalPath'] = '{}/addgalspostprocess/truth/{}-{}'.format(self.getOutputBaseDir(), self.cosmoparams['Simulation']['SimName'], self.simnum) + '*[0-9].fits'
         pars['MHalo'] = self.cosmoparams['Addgals']['MHaloCAM']
         pars['Scatter'] = self.cosmoparams['Addgals']['ScatterCAM']
         pars['BuzzardRedSequenceModel'] = self.cosmoparams['Addgals']['BuzzardRSModel']
