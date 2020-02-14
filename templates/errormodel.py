@@ -56,6 +56,12 @@ class ErrorModel(BaseTemplate):
                 pars['depthmap_hs'] = self.cosmoparams['ErrorModel']['DepthFile_HS'][i]
                 pars['mask_hs'] = self.cosmoparams['ErrorModel']['Mask_HS'][i]
 
+                pars['DetectionFile'] = self.cosmoparams['ErrorModel']['DetectionFile'][i]
+                pars['MatchedCatFile'] = self.cosmoparams['ErrorModel']['MatchedCatFile'][i]
+                pars['UseBalMags'] = '[1, 2, 3]'
+                pars['BalrogBands'] = '[r, i, z]'
+            
+
             elif 'DR8' in pars['Model']:
                 pars['Bands'] = '[u, g, r, i, z]'
             else:
@@ -86,7 +92,11 @@ class ErrorModel(BaseTemplate):
                 fp.write("MatPath: {MatPath}\n".format(**pars))
                 fp.write("RefBands: {RefBands}\n".format(**pars))
                 fp.write("zp: {zp}\n".format(**pars))
-                fp.write("redmapper : {{mode: {mode}, depthmap_hs: {depthmap_hs}, mask_hs:{mask_hs}}}".format(**pars))
+                fp.write("redmapper : {{mode: {mode}, depthmap_hs: {depthmap_hs}, mask_hs: {mask_hs}}}\n".format(**pars))
+                fp.write("UseBalMags: {UseBalMags}\n".format(**pars))
+                fp.write("BalrogBands: {BalrogBands}\n".format(**pars))
+                fp.write("DetectionFile: {DetectionFile}\n".format(**pars))
+                fp.write("MatchedCatFile: {MatchedCatFile}\n".format(**pars))                
 
 
     def write_jobscript(self, opath, boxl):
