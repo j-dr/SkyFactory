@@ -106,7 +106,7 @@ firstpass_centerclass: CenteringBCG
 firstpass_minlambda: 3.0
 firstpass_niter: 2
 firstpass_r0: 0.5
-galfile: {OutputBase}/{OutputBase}_rmp_table.fit
+galfile: {OutputDir}/{OutputBase}_obs_rmp_master_table.fit
 galfile_nside: 32
 galfile_pixelized: true
 halofile: null
@@ -193,7 +193,7 @@ redmagic_zmaxes:
 redmagic_zrange:
 - 0.1
 - 0.95
-redmagicfile: {SFConfigDir}/redmapper/buzzard_1.9.9/calfiles/buzzard_1.9.9_3y3a_rsshift_run_redmagic_calib.fit
+redmagicfile: {SFConfigDir}/redmapper/buzzard_2.0/calfiles/buzzard_1.9.9_3y3a_rsshift_intersection_run_redmagic_calib.fit
 ref_ind: 3
 refmag: z
 rsig: 0.05

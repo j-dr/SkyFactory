@@ -10,13 +10,13 @@ from .basetemplate import BaseTemplate
 _config=\
 """
 gold:
-  gold_badreg_fn: {gold_badreg_fn}
   gold_footprint_fn: {gold_footprint_fn}
 merge:
   debug: {debug}
   merge: {merge}
   nzcut: {nzcut}
-  obsdir: {obsdir}
+  obsdir: {obsname}/
+  obsname: {obsname}
   simname: {simname}
   merge_with_bpz : False
 samples:
@@ -77,7 +77,7 @@ class SampleSelection(BaseTemplate):
             fpars['debug'] = True
             fpars['nzcut'] = True
             fpars['merge'] = True
-            fpars['obsdir'] = '{}/'.format(cats[i])
+            fpars['obsname'] = '{}'.format(cats[i])
             fpars['simname'] = 'Buzzard_v2.0'
 
             cpars = cpars.format(**fpars)

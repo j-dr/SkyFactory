@@ -34,5 +34,8 @@ del calclens
 from .calclenspostprocess import CalclensPostProcess
 del calclenspostprocess
 
+from .redmapper import Redmapper
+del redmapper
+
 from .sampleselection import SampleSelection
 del sampleselection

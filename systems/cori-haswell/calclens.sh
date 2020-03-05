@@ -17,6 +17,8 @@ module load PrgEnv-intel
 module load cray-fftw
 module load cfitsio cray-hdf5 gsl
 
+export LD_LIBRARY_PATH=/usr/common/software/cfitsio/3.47/lib/:${{LD_LIBRARY_PATH}}
+
 {GalCatListCMD}
 {HaloCatListCMD}
 
