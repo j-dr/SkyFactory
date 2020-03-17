@@ -139,7 +139,7 @@ mstar_survey: des
 nmag: 4
 npzbins: 21
 nside: 0
-outbase: buzzard_1.9.9_3y3a_rsshift_run
+outbase: {OutputBase}_run
 outpath: ./
 parfile: {SFConfigDir}/redmapper/buzzard_1.9.9/calfiles/buzzard_1.9.9_3y3a_rsshift_iter3_pars.fit
 percolation_beta: 0.2
