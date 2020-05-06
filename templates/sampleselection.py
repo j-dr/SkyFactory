@@ -35,7 +35,31 @@ samples:
 sim:
   obspath: {obspath}
   truthpath: {truthpath}
-  pzpath : {pzpath}
+
+"""
+
+_mastercat_config=\
+"""
+outfile: {outfile}_mastercat.h5
+mcalfile: {outfile}_shape.h5
+goldfile: {outfile}_gold.h5
+bpzfile: {outfile}_bpz.h5
+sompzfile : {somoutdir}/{outbase}_sompz_{somversion}.h5
+rmfile : {outputbase}_run
+redmagic_filebase: {redmagic_filebase}/
+zmask_filebase: {zmask_filebase}
+zmask_file: {zmask_file}
+sys_weight_template : {sys_weight_template}
+redmapper_filebase: None
+regionfile: {regionfile}
+footprint_maskfile: {footprint_maskfile}
+mapfile: {mapfile}
+x_opt : {xo_metacal}
+x_opt_altlens : {xo_altlens}
+zbins : {zbins_data}
+sigma_e_data : {se_data}
+do_id_sort : True
+do_hpix_sort : True
 """
 
 class SampleSelection(BaseTemplate):
@@ -64,7 +88,6 @@ class SampleSelection(BaseTemplate):
             fpars = {}
 
             fpars['obspath'] = "{}".format(os.path.join(self.getOutputBaseDir(), 'addgalspostprocess', cats[i], '*obs.*[0-9].fits'))
-            fpars['pzpath'] = "{}".format(os.path.join(self.getOutputBaseDir(), 'addgalspostprocess', cats[i], '*BPZ*fits'))
             fpars['truthpath'] = os.path.join(self.getOutputBaseDir(), 'addgalspostprocess', 'truth_rotated_'+cats[i], '*truth.*fits')
             fpars['zfield'] = self.cosmoparams['SampleSelection']['z_col']
             fpars['psf_fwhm_r'] = pars['psf_fwhm_r'][i]
@@ -84,6 +107,38 @@ class SampleSelection(BaseTemplate):
 
             with open("{0}/selectsamples.{1}.yaml".format(jbase, i), 'w') as fp:
                 fp.write(cpars)
+
+
+            cpars = copy(_mastercat_config)
+            sname = '{}-{}_{}_{}'.format(pars['simname'], self.simnum,
+                                                      self.cosmoparams['Simulation']['ModelVersion'],
+                                                      cats[i])
+            fpars['outfile'] = os.path.join(self.getOutputBaseDir(), 'sampleselection',
+                                                        cats[i], sname)
+            fpars['somoutdir'] = os.path.join(self.getOutputBaseDir(), 'sompz')
+            fpars['outbase'] = sname
+            fpars['outputbase'] = '{}-{}{}_{}'.format(pars['simname'], self.simnum,
+                                                      cats[i], self.cosmoparams['Simulation']['ModelVersion'])
+            fpars['somversion'] = self.cosmoparams['Sompz']['version']
+            fpars['sys_weight_template'] = pars['sys_weight_template'][i]
+            fpars['zmask_filebase'] = pars['zmask_filebase']
+            fpars['zmask_file'] = pars['zmask_file']            
+            fpars['simnum'] = self.simnum
+            fpars['catalog'] = cats[i]
+            fpars['redmagic_filebase'] = os.path.join(self.getOutputBaseDir(), 'redmapper')
+            fpars['footprint_maskfile'] = pars['gold_footprint_fn'][i]
+            fpars['mapfile'] = pars['mapfile'][i]
+            fpars['regionfile'] = pars['regionfile'][i]
+            fpars['xo_metacal'] = pars['xo_metacal']
+            fpars['xo_altlens'] = pars['xo_altlens']
+            fpars['zbins_data'] = pars['zbins_data']
+            fpars['se_data'] = pars['se_data']
+
+            cpars = cpars.format(**fpars)
+            
+            with open("{0}/mastercat.{1}.yaml".format(jbase, i), 'w') as fp:
+                fp.write(cpars)
+
 
     def write_jobscript(self, opath, boxl):
 

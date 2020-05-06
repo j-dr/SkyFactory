@@ -39,3 +39,6 @@ del redmapper
 
 from .sampleselection import SampleSelection
 del sampleselection
+
+from .sompz import Sompz
+del sompz
