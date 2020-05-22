@@ -10,7 +10,7 @@ with open('archive_template.sh', 'r') as fp:
 
 for i in range(nc):
 
-    temp = jobtemp.format(cnum=i, lcnum='{lcnum}')
+    temp = jobtemp.format(cnum=i, lcnum='{lcnum}', fp='{fp}')
 
     with open('jobs/job.tar{}.sh'.format(i), 'w') as fp:
 
