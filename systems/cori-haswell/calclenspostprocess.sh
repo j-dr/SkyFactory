@@ -18,6 +18,6 @@ echo "*****Done combining lensing files*****"
 
 ls {OPath}/* > lensgalslist.txt
 ls {TGDir}/*[0-9].fits > truthgalslist.txt
-ls {HDir}/*[0-9].fits &> truthgalslist.txt
+ls {HDir}/*[0-9].fits >> truthgalslist.txt
 
 srun -n {NCores} -c {NCoresPerTask} shifter python3 /pyaddgals/bin/skyfactory/add_lensing.py calclensconcat.yaml
