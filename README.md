@@ -30,7 +30,11 @@ and then `cd` into the `calcrnn` and `calclens` directories and type `make`. The
 You now need to edit `SkyFactory/systems/cori-haswell/cori-haswell.yaml`.  `JobBase` should be changed to `{SkyFactoryDir}/chinchilla-herd/` where `{SkyFactoryDir}` is the directory that you cloned `SkyFactory` into.  `OutputBase` should be somewhere on your scratch space. I recommend: `/global/cscratch1/sd/{username}/BCC/Chinchilla/Herd/`. `ExecDir` should be `{SkyFactoryDir}/exec`. Also, please change the email field to your own email.
 
 ## Running jobs
-If running on NERSC, you should run `module load python3`. To setup a job, run the command `python setup_sky.py chinchilla {num} {cori-haswell}`. Then `cd {SkyFactoryDir}/chinchilla-herd/Chinchilla-{num}` and `sbatch job.all.sh`. 
+If running on NERSC, you should run `module load python3`. To setup a job, run the command `python setup_sky.py chinchilla {num} {cori-haswell}`. Then `cd {SkyFactoryDir}/chinchilla-herd/Chinchilla-{num}`.
+
+First you will need to move the preprocessed input files off of HPSS. If you have never accessed HPSS before, you will first need to run the command `hsi`. This will open an interface to HPSS. You can exit from it immediately. Once you have done that, run `cd unarchivepreprocess && module load esslurm && sbatch job.unarchivepreprocess.sh`. This will begin a job transferring the nbody simulation from HPSS. You will receive an email when it starts and finishes.
+
+Once the transfer has completed, navigate to `cd {SkyFactoryDir}/chinchilla-herd/Chinchilla-{num}` and run `sbatch job.all.sh`. This will submit the full job. You will again receive an email when the job starts and finishes. Once it has completed, notify Joe and once you have the okay, then run `sbatch job.archive.sh` in the `{SkyFactoryDir}/chinchilla-herd/Chinchilla-{num}/archive` directory. This will move the simulation to HPSS.
 
 ## Finding Outputs
 1. Outputs for a given simulation go to the global output dir in the system config file, followed by the 
