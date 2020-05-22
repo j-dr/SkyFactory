@@ -22,7 +22,7 @@ class UnarchivePreprocess(BaseTemplate):
         pars['Queue'] = self.sysparams['Queue']
         pars['SimName'] = self.cosmoparams['Simulation']['SimName']
         pars['BoxL'] = boxl
-        pars['OPath'] = opath
+        pars['OPath'] = '/'.join(opath.split('/')[:-1])
         pars['SimNum'] = self.simnum
         pars['Email'] = self.sysparams['Email']
         pars['Repo'] = self.sysparams['Repo']
