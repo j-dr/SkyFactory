@@ -42,3 +42,9 @@ del sampleselection
 
 from .sompz import Sompz
 del sompz
+
+from .unarchivepreprocess import UnarchivePreprocess
+del unarchivepreprocess
+
+from .archive import Archive
+del archive
