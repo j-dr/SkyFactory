@@ -63,7 +63,7 @@ def main(cosmofile, num, system, tasks=default_tasks, only_all_sub=False):
         # all tasks up to addgals reformatting must be done once
         # per box.
         for i, task in enumerate(tasks[:aidx]):
-            if 'archive' in task: continue
+            if 'archive' in task.lower(): continue
             for i, boxl in enumerate(cosmoparams['Simulation']['BoxL']):
                 fp.write("cd Lb{0}/{1}\n".format(boxl, task.lower()))
                 fp.write(
@@ -75,7 +75,7 @@ def main(cosmofile, num, system, tasks=default_tasks, only_all_sub=False):
 
         # everything afterwards is done once per suite
         for task in tasks[aidx:]:
-            if 'archive' in task: continue
+            if 'archive' in task.lower(): continue
             fp.write("cd {0}\n".format(task.lower()))
             fp.write('echo "------------- {0} -------------"\n'.format(task))
             fp.write("echo 'Beginning at'$( date +%T ) \n")

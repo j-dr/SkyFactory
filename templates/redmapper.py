@@ -264,7 +264,7 @@ class Redmapper(BaseTemplate):
             pars['Model']    = self.cosmoparams['ErrorModel']['Models'][i]
             pars['OutputDir']  = os.path.join(self.getOutputBaseDir(), 'addgalspostprocess', pars['Model'])
             pars['OutputBase'] = "{0}-{1}{2}_{3}".format(
-                self.cosmoparams['Simulation']['SimName'], self.simnum,
+                self.cosmoparams['Redmapper']['SimName'], self.simnum,
                 pars['Model'],
                 self.cosmoparams['Simulation']['ModelVersion'])
             pars['SFConfigDir'] = self.sysparams['SFConfigBase']
