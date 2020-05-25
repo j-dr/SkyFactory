@@ -101,7 +101,7 @@ class SampleSelection(BaseTemplate):
             fpars['nzcut'] = True
             fpars['merge'] = True
             fpars['obsname'] = '{}'.format(cats[i])
-            fpars['simname'] = 'Buzzard_v2.0'
+            fpars['simname'] = 'Buzzard-{}_v2.0'.format(self.simnum)
 
             cpars = cpars.format(**fpars)
 
