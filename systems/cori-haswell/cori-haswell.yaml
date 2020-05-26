@@ -1,14 +1,13 @@
 JobBase       : '/global/homes/j/jderose/project/SkyFactory/chinchilla-herd/'
-#OutputBase    : '/global/cscratch1/sd/jderose//BCC/Chinchilla/Herd/'
 OutputBase    : '/global/cscratch1/sd/jderose/BCC/Chinchilla/Herd/'
 ExecDir       : '/global/homes/j/jderose/project/SkyFactory/exec'
 SFConfigBase  : '/global/project/projectdirs/des/jderose/SkyFactory-config/'
 SFConfigBaseFormat  : '/SkyFactory-config/'
 Email         : 'joe.derose13@gmail.com'
 Queue         : 'regular'
-QOS           : 'premium'
+QOS           : 'regular'
 Repo          : 'des'
 Cluster       : 'escori'
-TimeLimitHours:  36
+TimeLimitHours:  48
 CoresPerNode  : 32
 TasksPerNode  : 16
