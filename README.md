@@ -5,29 +5,9 @@ Set up and run large suites of mock sky simulations.
 Clone this repository: 
 `git clone https://github.com/j-dr/SkyFactory.git`
 
-In `SkyFactory/` create a directory called `exec`. 
+To set up all the other pieces of code required to run the simulations, just run
 
-For BCC style simulations, you will need these packages:
-
-* `pixlc`: https://github.com/j-dr/pixLC
-* `calcrnn`: https://github.com/j-dr/calcrnn
-* `pyaddgals`: https://github.com/j-dr/pyaddgals
-* `calclens`: https://github.com/j-dr/calclens
-
-These should all be cloned into the `exec` directory that you just created. `pyaddgals` needs to be cloned into a directory called `addgals`. 
-
-`calcrnn` and `calclens` need to be compiled before using them. If you are running at NERSC, you should run the following module commands:
-
-```
-module unload PrgEnv-gnu
-module load PrgEnv-intel
-module load cray-fftw
-module load cfitsio cray-hdf5 gsl
-```
-
-and then `cd` into the `calcrnn` and `calclens` directories and type `make`. The `system` variable in the Makefiles need to be set to `cori-haswell` if they are not already.
-
-You now need to edit `SkyFactory/systems/cori-haswell/cori-haswell.yaml`.  `JobBase` should be changed to `{SkyFactoryDir}/chinchilla-herd/` where `{SkyFactoryDir}` is the directory that you cloned `SkyFactory` into.  `OutputBase` should be somewhere on your scratch space. I recommend: `/global/cscratch1/sd/{username}/BCC/Chinchilla/Herd/`. `ExecDir` should be `{SkyFactoryDir}/exec`. Also, please change the email field to your own email.
+`sh setup.sh <email>`
 
 ## Running jobs
 If running on NERSC, you should run `module load python3`. To setup a job, run the command `python setup_sky.py chinchilla {num} cori-haswell`. Then `cd {SkyFactoryDir}/chinchilla-herd/Chinchilla-{num}`.
