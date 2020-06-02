@@ -106,7 +106,7 @@ firstpass_centerclass: CenteringBCG
 firstpass_minlambda: 3.0
 firstpass_niter: 2
 firstpass_r0: 0.5
-galfile: {OutputDir}/{OutputBase}_obs_rmp_master_table.fit
+galfile: {OutputDir}/{InputBase}_obs_rmp_master_table.fit
 galfile_nside: 32
 galfile_pixelized: true
 halofile: null
@@ -267,6 +267,10 @@ class Redmapper(BaseTemplate):
                 self.cosmoparams['Redmapper']['SimName'], self.simnum,
                 pars['Model'],
                 self.cosmoparams['Simulation']['ModelVersion'])
+            pars['InputBase'] = "{0}-{1}{2}_{3}".format(
+                self.cosmoparams['Simulation']['SimName'], self.simnum,
+                pars['Model'],
+                self.cosmoparams['Simulation']['ModelVersion'])            
             pars['SFConfigDir'] = self.sysparams['SFConfigBase']
 
             config = _base_config.format(**pars)

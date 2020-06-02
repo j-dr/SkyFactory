@@ -15,6 +15,7 @@
 #SBATCH --volume="/global/project/projectdirs/des/jderose/SkyFactory-config:/SkyFactory-config;"
 
 cd {OPath}
+export HDF5_USE_FILE_LOCKING=FALSE
 
 COUNTER=0
 while [ $COUNTER -lt {NCatalogs} ]; do

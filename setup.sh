@@ -4,7 +4,7 @@ email=$1
 
 mkdir exec
 cd exec
-git clone https://github.com/j-dr/pixLC.git
+git clone https://github.com/j-dr/pixLC.git pixlc
 git clone https://github.com/j-dr/calcrnn.git
 git clone https://github.com/j-dr/pyaddgals addgals
 git clone https://github.com/j-dr/calclens
