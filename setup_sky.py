@@ -5,7 +5,7 @@ import argparse
 import templates
 import os
 
-default_tasks = ['UnarchivePreprocess', 'PixLC', 'CalcRnn', 'Addgals', 'Calclens', 'CalclensPostProcess', 'ErrorModel', 'SampleSelection', 'Archive', 'Sompz']
+default_tasks = ['UnarchivePreprocess', 'PixLC', 'CalcRnn', 'Addgals', 'Calclens', 'CalclensPostProcess', 'ErrorModel', 'Archive']
 
 def main(cosmofile, num, system, tasks=default_tasks, only_all_sub=False):
 
@@ -84,7 +84,7 @@ def main(cosmofile, num, system, tasks=default_tasks, only_all_sub=False):
             fp.write("cd ..\n")
             fp.write("\n")
 
-        fp.write('chgrp des {}/{}-{} \n'.format(sysparams['OutputBase'], pars['SimName'], pars['SimNum']))
+        fp.write('chgrp -R des {}/{}-{} \n'.format(sysparams['OutputBase'], pars['SimName'], pars['SimNum']))
 
         fp.write("echo 'Sky completed at '$( date +%T ) \n")
 
