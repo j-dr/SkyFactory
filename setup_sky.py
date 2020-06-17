@@ -5,7 +5,7 @@ import argparse
 import templates
 import os
 
-default_tasks = ['UnarchivePreprocess', 'PixLC', 'CalcRnn', 'Addgals', 'Calclens', 'CalclensPostProcess', 'ErrorModel', 'SampleSelection', 'Archive']
+default_tasks = ['UnarchivePreprocess', 'PixLC', 'CalcRnn', 'Addgals', 'Calclens', 'CalclensPostProcess', 'ErrorModel', 'SampleSelection', 'Archive', 'Sompz']
 
 def main(cosmofile, num, system, tasks=default_tasks, only_all_sub=False):
 
@@ -60,6 +60,7 @@ def main(cosmofile, num, system, tasks=default_tasks, only_all_sub=False):
     with open("{0}/job.all.sh".format(jobbase), "w") as fp:
         fp.write(jobheader)
         fp.write("\n")
+        fp.write('umask 022 \n')
         # all tasks up to addgals reformatting must be done once
         # per box.
         for i, task in enumerate(tasks[:aidx]):
@@ -82,6 +83,8 @@ def main(cosmofile, num, system, tasks=default_tasks, only_all_sub=False):
             fp.write("sh job.{0}.sh\n".format(task.lower()))
             fp.write("cd ..\n")
             fp.write("\n")
+
+        fp.write('chgrp des {}/{}-{} \n'.format(sysparams['OutputBase'], pars['SimName'], pars['SimNum']))
 
         fp.write("echo 'Sky completed at '$( date +%T ) \n")
 

@@ -4,7 +4,7 @@
 ##SBATCH --qos {QOS}
 #SBATCH -t {TimeLimitHours}:00:00
 #SBATCH -J {SimName}{SimNum}-all
-#SBATCH -o {SimName}{SimNum}-all.%j.oe
+#SBATCH -o {OutputBase}/{SimName}{SimNum}-all.%j.oe
 #SBATCH --mail-type=All
 #SBATCH --mail-user  {Email}
 #SBATCH -N {NNodes}
