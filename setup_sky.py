@@ -81,6 +81,8 @@ def main(cosmofile, num, system, tasks=default_tasks, only_all_sub=False):
             fp.write('echo "------------- {0} -------------"\n'.format(task))
             fp.write("echo 'Beginning at'$( date +%T ) \n")
             fp.write("sh job.{0}.sh\n".format(task.lower()))
+            if task.lower() == 'calclens':
+                fp.write("sh job.{0}.restart.sh\n".format(task.lower()))
             fp.write("cd ..\n")
             fp.write("\n")
 
