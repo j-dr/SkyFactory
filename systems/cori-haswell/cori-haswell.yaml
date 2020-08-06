@@ -1,6 +1,6 @@
 JobBase       : '/global/homes/j/jderose/project/SkyFactory/chinchilla-herd/'
 OutputBase    : '/global/cscratch1/sd/jderose/BCC/Chinchilla/Herd/'
-ExecDir       : '/global/homes/j/jderose/project/SkyFactory/exec'
+ExecDir       : '/global/homes/j/jderose/project/SkyFactory-test/exec'
 SFConfigBase  : '/global/project/projectdirs/des/jderose/SkyFactory-config/'
 SFConfigBaseFormat  : '/SkyFactory-config/'
 Email         : 'joe.derose13@gmail.com'

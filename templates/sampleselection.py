@@ -44,7 +44,7 @@ outfile: {outfile}_mastercat.h5
 mcalfile: {outfile}_shape.h5
 goldfile: {outfile}_gold.h5
 bpzfile: {outfile}_bpz.h5
-sompzfile : {somoutdir}/{outbase}_sompz_{somversion}.h5
+sompzfile : {somoutdir}/{somversion}/{outbase}_sompz_v{somversion}.h5
 rmfile : {outputbase}_run
 redmagic_filebase: {redmagic_filebase}/
 zmask_filebase: {zmask_filebase}
@@ -115,7 +115,7 @@ class SampleSelection(BaseTemplate):
                                                       cats[i])
             fpars['outfile'] = os.path.join(self.getOutputBaseDir(), 'sampleselection',
                                                         cats[i], sname)
-            fpars['somoutdir'] = os.path.join(self.getOutputBaseDir(), 'sompz')
+            fpars['somoutdir'] = os.path.join(self.getOutputBaseDir(), 'sompz') + '/' + cats[i] + '/'
             fpars['outbase'] = sname
             fpars['outputbase'] = '{}-{}{}_{}'.format(pars['simname'], self.simnum,
                                                       cats[i], self.cosmoparams['Simulation']['ModelVersion'])
