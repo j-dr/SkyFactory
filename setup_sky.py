@@ -5,8 +5,9 @@ import argparse
 import templates
 import os
 
-default_tasks = ['UnarchivePreprocess', 'PixLC', 'CalcRnn', 'Addgals', 'Calclens', 'CalclensPostProcess', 'ErrorModel', 'Archive']
-#default_tasks = ['Redmapper', 'SampleSelection']
+#default_tasks = ['UnarchivePreprocess', 'PixLC', 'CalcRnn', 'Addgals', 'Calclens', 'CalclensPostProcess', 'ErrorModel', 'Archive']
+default_tasks = ['Redmapper', 'SampleSelection', 'Sompz']
+
 
 def main(cosmofile, num, system, tasks=default_tasks, only_all_sub=False):
 
@@ -83,7 +84,7 @@ def main(cosmofile, num, system, tasks=default_tasks, only_all_sub=False):
             fp.write("echo 'Beginning at'$( date +%T ) \n")
             fp.write("sh job.{0}.sh\n".format(task.lower()))
             if task.lower() == 'calclens':
-                fp.write("if [ $? -neq 0 ]\n")
+                fp.write("if [ $? -ne 0 ]\n")
                 fp.write("then\n")
                 fp.write("  sh job.calclens.restart.sh\n")
                 fp.write("fi\n")
