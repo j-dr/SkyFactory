@@ -5,8 +5,8 @@ import argparse
 import templates
 import os
 
-#default_tasks = ['UnarchivePreprocess', 'PixLC', 'CalcRnn', 'Addgals', 'Calclens', 'CalclensPostProcess', 'ErrorModel', 'Archive']
-default_tasks = ['Redmapper', 'SampleSelection', 'Sompz']
+default_tasks = ['UnarchivePreprocess', 'PixLC', 'CalcRnn', 'Addgals', 'Calclens', 'CalclensPostProcess', 'ErrorModel', 'Archive']
+#default_tasks = ['Redmapper', 'SampleSelection', 'Sompz']
 
 
 def main(cosmofile, num, system, tasks=default_tasks, only_all_sub=False):
